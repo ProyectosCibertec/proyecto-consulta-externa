@@ -7,3 +7,9 @@ Sistema de consulta externa para hospital
 - Villagaray Gormas, Dennis Alberto.
 - Linares Alvarado, Mario Sebastián.
 - Quispe Gómez, Wilmer Andrés (Coordinador)
+
+## Comandos:
+- git add .
+- git commit -m "EL COMENTARIO DE MIS CAMBIOS"
+- git push origin NOMBREDEMIRAMA
+- Si hay cambios en la rama develop: git pull origin develop
