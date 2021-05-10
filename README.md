@@ -9,7 +9,14 @@ Sistema de consulta externa para hospital
 - Quispe Gómez, Wilmer Andrés (Coordinador)
 
 ## Comandos:
-- git add .
-- git commit -m "EL COMENTARIO DE MIS CAMBIOS"
-- git push origin NOMBREDEMIRAMA
-- Si hay cambios en la rama develop: git pull origin develop
+
+### Enviar cambios 
+  - git status -> Muestra que archivos están agregados o faltan agregar a la preparación.
+  - git add . -> Agrega todo los cambios a la preparación (indice) y así ser enviados al repositorio git.
+  - git commit -m "EL COMENTARIO DE MIS CAMBIOS" -> Confirmas los cambios agregados con un mensaje.
+  - git push -> Envías/publicas los cambios al repositorio git
+
+### Actualizar tu repositorio local en base al repositorio Git
+  - git fetch -> Actualiza las referencias locales en todas las ramas
+  - git pull -> Traes todos los cambios nuevos del repositorio git al repositorio local.
+  
