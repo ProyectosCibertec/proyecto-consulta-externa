@@ -12,7 +12,7 @@ public class MySQLConection5 {
 			Class.forName("com.mysql.jdbc.Driver"); // 5.7
 			
 			// 2.establece conexi�n con la bd
-			String url = "jdbc:mysql://localhost:3307/ciberfarma";  // 5.7
+			String url = "jdbc:mysql://localhost:3307/hospital";  // 5.7
 			String usr = "root";
 			String psw = "mysql";
 			con = DriverManager.getConnection(url, usr, psw);
