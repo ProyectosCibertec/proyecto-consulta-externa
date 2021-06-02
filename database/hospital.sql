@@ -257,3 +257,58 @@ INSERT INTO estado_cita VALUES(2,'confirmada');
 INSERT INTO estado_cita VALUES(3,'atendida');
 INSERT INTO estado_cita VALUES(5,'cancelada');
 INSERT INTO estado_cita VALUES(4,'expirada');
+
+-- CREATING USER STORE PROCEDURES
+
+CREATE PROCEDURE usp_listByPersonalState(id CHAR(5)) 
+SELECT 	p.id_personal,
+		p.nombre_personal,
+        p.telefono_personal,
+        p.direccion_personal,
+        p.email_personal,
+        p.telefono_emergencia,
+        p.fecha_nacimiento,
+        p.clave_personal,
+        e.descripcion_especialidad,
+        ep.descripcion_estado_personal
+FROM personal p
+INNER JOIN estado_personal ep
+ON p.id_estado_personal = ep.id_estado_personal
+INNER JOIN especialidad e
+ON p.id_especialidad = e.id_especialidad
+WHERE ep.id_estado_personal = id;
+
+CREATE PROCEDURE usp_listBySpeciality(id CHAR(5)) 
+SELECT 	p.id_personal,
+		p.nombre_personal,
+        p.telefono_personal,
+        p.direccion_personal,
+        p.email_personal,
+        p.telefono_emergencia,
+        p.fecha_nacimiento,
+        p.clave_personal,
+        e.descripcion_especialidad,
+        ep.descripcion_estado_personal
+FROM personal p
+INNER JOIN estado_personal ep
+ON p.id_estado_personal = ep.id_estado_personal
+INNER JOIN especialidad e
+ON p.id_especialidad = e.id_especialidad
+WHERE ep.id_especialidad = id;
+
+CREATE PROCEDURE usp_listPersonal() 
+SELECT 	p.id_personal,
+		p.nombre_personal,
+        p.telefono_personal,
+        p.direccion_personal,
+        p.email_personal,
+        p.telefono_emergencia,
+        p.fecha_nacimiento,
+        p.clave_personal,
+        e.descripcion_especialidad,
+        ep.descripcion_estado_personal
+FROM personal p
+INNER JOIN estado_personal ep
+ON p.id_estado_personal = ep.id_estado_personal
+INNER JOIN especialidad e
+ON p.id_especialidad = e.id_especialidad;

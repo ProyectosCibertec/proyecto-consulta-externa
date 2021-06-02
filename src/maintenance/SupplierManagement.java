@@ -1,18 +1,18 @@
 package maintenance;
 
-import interfaces.PersonalInterface;
-import models.Personal;
+import interfaces.SupplierInterface;
+import models.Supplier;
 
-public class PersonalM implements PersonalInterface {
+public class SupplierManagement implements SupplierInterface {
 
 	@Override
-	public int add(Personal personal) {
+	public int add(Supplier supplier) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int update(Personal personal) {
+	public int update(Supplier supplier) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -24,7 +24,7 @@ public class PersonalM implements PersonalInterface {
 	}
 
 	@Override
-	public Personal get(String id) {
+	public Supplier get(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

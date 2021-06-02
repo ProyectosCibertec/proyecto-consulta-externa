@@ -7,11 +7,15 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
-			<item value="/home/wilmer/Documentos/Cibertec/3 Ciclo/LENGUAJE DE PROGRAMACIÓN/Proyecto"/>
 			<item value="/home/wilmer/Documentos/Cibertec/3 Ciclo/LENGUAJE DE PROGRAMACIÓN/Proyecto/proyecto-consulta-externa"/>
+			<item value="/home/wilmer/Documentos/Cibertec/3 Ciclo/LENGUAJE DE PROGRAMACIÓN/Proyecto"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
 		</list>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="332"/>
+		<item key="DIALOG_Y_ORIGIN" value="143"/>
 	</section>
 </section>

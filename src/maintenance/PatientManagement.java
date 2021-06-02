@@ -1,18 +1,18 @@
 package maintenance;
 
-import interfaces.AppointmentInterface;
-import models.Appointment;
+import interfaces.PatientInterface;
+import models.Patient;
 
-public class AppointmentM implements AppointmentInterface {
+public class PatientManagement implements PatientInterface {
 
 	@Override
-	public int add(Appointment appointment) {
+	public int add(Patient patient) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int update(Appointment appointment) {
+	public int update(Patient patient) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -24,7 +24,7 @@ public class AppointmentM implements AppointmentInterface {
 	}
 
 	@Override
-	public Appointment get(String id) {
+	public Patient get(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
