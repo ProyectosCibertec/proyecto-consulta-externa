@@ -33,10 +33,10 @@ import Yarns.YarnArrayList;
 import Yarns.YarnEncriptKey;
 import Yarns.YarnSetVisibleComponents;
 import maintenance.PersonalManagement;
-import maintenance.UserM;
+import maintenance.UserManagement;
 import models.Personal;
 import models.User;
-import models.newUser;
+import models.NewUser;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -184,7 +184,7 @@ public class Register extends JFrame {
 						message("Código inexistente \n _______________________________________ \n Debe ser trabajador del hospital");
 						hiddenInputs();
 					} else {
-						u = new UserM().getUser();
+						u = new UserManagement().getUser();
 						txtUser.setText(u.getCode());
 						showInputs();
 					}
@@ -224,14 +224,14 @@ public class Register extends JFrame {
 				YarnEncriptKey yarnEK = new YarnEncriptKey(rpass);
 				rpass = yarnEK.encript();
 
-				newUser nu = new newUser();
+				NewUser nu = new NewUser();
 
 				nu.setUserPersonal(pers);
 				nu.setNewUser(user);
 				nu.setNewPassword(rpass);
 				nu.setUserType(1);
 
-				int ok = new UserM().createUser(nu);
+				int ok = new UserManagement().createUser(nu);
 
 				if (ok == 0) {
 					message("Error al registrar");

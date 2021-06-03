@@ -1,14 +1,14 @@
 package models;
 
-public class newUser {
+public class NewUser {
 
 	String userPersonal, newUser, newPassword;
 	int userCode, userType;
 
-	public newUser() {
+	public NewUser() {
 	}
 
-	public newUser(String userPersonal, int userCode, String newUser, String newPassword, int userType) {
+	public NewUser(String userPersonal, int userCode, String newUser, String newPassword, int userType) {
 		this.userPersonal = userPersonal;
 		this.newUser = newUser;
 		this.newPassword = newPassword;

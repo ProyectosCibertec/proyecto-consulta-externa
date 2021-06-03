@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Yarns.YarnEncriptKey;
-import maintenance.UserM;
+import maintenance.UserManagement;
 import models.User;
 
 import javax.swing.JLabel;
@@ -143,7 +143,7 @@ public class Login extends JFrame {
 		if (user == null || pass == null) {
 			message("Debe llenar los campos");
 		} else {
-			u = new UserM().validateAccess(user, pass);
+			u = new UserManagement().validateAccess(user, pass);
 
 			if (u == null) {
 				message("Usuario y/o contraseña incorretos " + pass);

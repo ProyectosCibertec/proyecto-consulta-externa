@@ -1,15 +1,15 @@
 package models;
 
-public class Medicamento {
+public class Medication {
 
 	private int id_medicamento, id_estado_medicamento;
 	private String nombre_medicamento, marca_medicamento;
 
-	public Medicamento() {
+	public Medication() {
 
 	}
 
-	public Medicamento(int id_medicamento, int id_estado_medicamento, String nombre_medicamento,
+	public Medication(int id_medicamento, int id_estado_medicamento, String nombre_medicamento,
 			String marca_medicamento) {
 
 		this.id_medicamento = id_medicamento;

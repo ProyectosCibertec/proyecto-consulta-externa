@@ -41,12 +41,12 @@ public class Medicamento {
 	 */
 	private void initialize() {
 		frmMedicamento = new JFrame();
-		frmMedicamento.setTitle("Medicamento");
+		frmMedicamento.setTitle("Medication");
 		frmMedicamento.setBounds(100, 100, 450, 154);
 		frmMedicamento.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMedicamento.getContentPane().setLayout(null);
 
-		JLabel lblIdMedicamento = new JLabel("ID Medicamento");
+		JLabel lblIdMedicamento = new JLabel("ID Medication");
 		lblIdMedicamento.setBounds(10, 11, 129, 14);
 		frmMedicamento.getContentPane().add(lblIdMedicamento);
 
