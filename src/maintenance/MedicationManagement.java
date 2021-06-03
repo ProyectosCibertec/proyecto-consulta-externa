@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import interfaces.MedicationInterface;
-import models.Medicamento;
+import models.Medication;
 
 public class MedicationManagement implements MedicationInterface {
 
 	@Override
-	public Medicamento buscar(int codigo) {
-		Medicamento m = null;
+	public Medication buscar(int codigo) {
+		Medication m = null;
 		Connection con = null;
 		PreparedStatement pst = null;
 
@@ -26,7 +26,7 @@ public class MedicationManagement implements MedicationInterface {
 			pst.setInt(1, m.getId_medicamento());
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				m = new Medicamento(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+				m = new Medication(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
 			}
 		} catch (Exception e) {
 			System.out.println("Error al buscar:" + e.getMessage());

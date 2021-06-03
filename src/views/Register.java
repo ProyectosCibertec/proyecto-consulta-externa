@@ -36,7 +36,7 @@ import maintenance.PersonalManagement;
 import maintenance.UserManagement;
 import models.Personal;
 import models.User;
-import models.newUser;
+import models.NewUser;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -224,7 +224,7 @@ public class Register extends JFrame {
 				YarnEncriptKey yarnEK = new YarnEncriptKey(rpass);
 				rpass = yarnEK.encript();
 
-				newUser nu = new newUser();
+				NewUser nu = new NewUser();
 
 				nu.setUserPersonal(pers);
 				nu.setNewUser(user);

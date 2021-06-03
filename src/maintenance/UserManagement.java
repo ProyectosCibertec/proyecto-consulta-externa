@@ -46,7 +46,7 @@ public class UserManagement implements UserInterface {
 	}
 
 	@Override
-	public int createUser(newUser user) {
+	public int createUser(NewUser user) {
 		int result = 0;
 		int code = -1;
 		ResultSet result1 = null;

@@ -43,7 +43,7 @@ public class MedicamentoProveedor {
 	 */
 	private void initialize() {
 		frmMedicamentoProveedor = new JFrame();
-		frmMedicamentoProveedor.setTitle("Medicamento Proveedor");
+		frmMedicamentoProveedor.setTitle("Medication Proveedor");
 		frmMedicamentoProveedor.setBounds(100, 100, 450, 216);
 		frmMedicamentoProveedor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMedicamentoProveedor.getContentPane().setLayout(null);

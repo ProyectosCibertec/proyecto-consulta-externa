@@ -1,13 +1,13 @@
 package models;
 
-public class Historia {
+public class PatientAndPersonalHistory {
 
 	private int id_historia, id_cita;
 
-	public Historia() {
+	public PatientAndPersonalHistory() {
 	}
 
-	public Historia(int id_historia, int id_cita) {
+	public PatientAndPersonalHistory(int id_historia, int id_cita) {
 		this.id_historia = id_historia;
 		this.id_cita = id_cita;
 	}

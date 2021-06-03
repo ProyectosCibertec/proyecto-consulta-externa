@@ -1,15 +1,15 @@
 package models;
 
-public class ConsultingRoom {
+public class Room {
 	private String idConsultingRoom;
 	private String privateRoomDescription;
 	private String idPrivateRoomState;
 
-	public ConsultingRoom() {
+	public Room() {
 
 	}
 
-	public ConsultingRoom(String idConsultingRoom, String privateRoomDescription, String idPrivateRoomState) {
+	public Room(String idConsultingRoom, String privateRoomDescription, String idPrivateRoomState) {
 		this.idConsultingRoom = idConsultingRoom;
 		this.privateRoomDescription = privateRoomDescription;
 		this.idPrivateRoomState = idPrivateRoomState;
