@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Yarns.YarnEncriptKey;
-import maintenance.UserManagement;
+import maintenance.UserM;
 import models.User;
 
 import javax.swing.JLabel;
@@ -144,7 +143,7 @@ public class Login extends JFrame {
 		if (user == null || pass == null) {
 			message("Debe llenar los campos");
 		} else {
-			u = new UserManagement().validateAccess(user, pass);
+			u = new UserM().validateAccess(user, pass);
 
 			if (u == null) {
 				message("Usuario y/o contraseña incorretos " + pass);

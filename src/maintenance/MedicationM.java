@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import interfaces.MedicamentosInterface;
+import interfaces.MedicationInterface;
 import models.Medicamento;
 
-public class MedicationM implements MedicamentosInterface {
+public class MedicationM implements MedicationInterface {
 
 	@Override
 	public Medicamento buscar(int codigo) {

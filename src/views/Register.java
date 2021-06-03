@@ -33,7 +33,7 @@ import Yarns.YarnArrayList;
 import Yarns.YarnEncriptKey;
 import Yarns.YarnSetVisibleComponents;
 import maintenance.PersonalM;
-import maintenance.UserManagement;
+import maintenance.UserM;
 import models.Personal;
 import models.User;
 import models.newUser;
@@ -179,12 +179,12 @@ public class Register extends JFrame {
 				if (code == null) {
 					message("Debe ingresar el codigo de personal");
 				} else {
-					p = new PersonalM().verifyPersonal(code);
+					p = new PersonalM().verify(code);
 					if (p == null) {
 						message("Código inexistente \n _______________________________________ \n Debe ser trabajador del hospital");
 						hiddenInputs();
 					} else {
-						u = new UserManagement().getUser();
+						u = new UserM().getUser();
 						txtUser.setText(u.getCode());
 						showInputs();
 					}
@@ -231,7 +231,7 @@ public class Register extends JFrame {
 				nu.setNewPassword(rpass);
 				nu.setUserType(1);
 
-				int ok = new UserManagement().createUser(nu);
+				int ok = new UserM().createUser(nu);
 
 				if (ok == 0) {
 					message("Error al registrar");

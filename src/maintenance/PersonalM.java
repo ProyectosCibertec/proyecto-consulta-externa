@@ -10,7 +10,7 @@ import utils.MySQLConection;
 
 public class PersonalM implements PersonalInterface {
 
-	public Personal verifyPersonal(String user) {
+	public Personal verify(String user) {
 		Personal p = null;
 		ResultSet result = null;
 		Connection con = null;

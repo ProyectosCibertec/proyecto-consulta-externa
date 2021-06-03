@@ -4,7 +4,7 @@ import models.Personal;
 
 public interface PersonalInterface {
 
-	public Personal verifyPersonal(String user);
+	public Personal verify(String user);
 
 	public int add(Personal personal);
 

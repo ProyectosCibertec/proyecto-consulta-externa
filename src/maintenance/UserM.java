@@ -8,7 +8,7 @@ import models.*;
 import interfaces.UserInterface;
 import utils.MySQLConection;
 
-public class UserManagement implements UserInterface {
+public class UserM implements UserInterface {
 	
 	@Override
 	public User getUser() {
