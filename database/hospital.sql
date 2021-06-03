@@ -1,6 +1,21 @@
+USE hospital;
+
 DROP DATABASE IF EXISTS hospital;
 CREATE DATABASE hospital;
 USE hospital;
+
+CREATE TABLE tipo_usuario (
+    id_tipo_usuario                 INT                 NOT NULL PRIMARY KEY,
+    descripcion                     VARCHAR(15)         NULL
+);
+
+CREATE TABLE usuario (
+    id_usuario                      INT                 NOT NULL    AUTO_INCREMENT      PRIMARY KEY,
+    usuario                         VARCHAR(5)          NULL,
+    contrasena_usuario              VARCHAR(100)        NULL,
+    id_tipo_usuario                 INT                 NULL,
+    FOREIGN KEY(id_tipo_usuario)        REFERENCES tipo_usuario(id_tipo_usuario)
+);
 
 CREATE TABLE diagnostico(
     id_diagnostico                  CHAR(5)             NOT NULL    PRIMARY KEY,
@@ -42,7 +57,7 @@ CREATE TABLE especialidad (
 );
 
 CREATE TABLE estado_personal (
-    id_estado_personal              CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_estado_personal              INT		            NOT NULL    PRIMARY KEY,
     descripcion_estado_personal     VARCHAR(80)         NULL
 );
 
@@ -54,11 +69,12 @@ CREATE TABLE personal (
     email_personal                  VARCHAR(80)         NULL,
     telefono_emergencia             VARCHAR(20)         NULL,
     fecha_nacimiento                DATE                NULL,
-    clave_personal                  VARCHAR(100)        NULL,
+    id_usuario                      INT                 NULL,
     id_especialidad                 CHAR(5)             NULL,
-    id_estado_personal              CHAR(5)             NULL,
+    id_estado_personal              INT		            NULL,
     FOREIGN KEY (id_especialidad)       REFERENCES especialidad (id_especialidad),
-    FOREIGN KEY (id_estado_personal)    REFERENCES estado_personal (id_estado_personal)
+    FOREIGN KEY (id_estado_personal)    REFERENCES estado_personal (id_estado_personal),
+    FOREIGN KEY (id_usuario)            REFERENCES usuario (id_usuario)
 );
 
 CREATE TABLE paciente (
@@ -209,13 +225,6 @@ CREATE TABLE salida_personal (
     FOREIGN KEY(id_personal)            REFERENCES personal (id_personal)
 );
 
-CREATE TABLE usuario (
-    id_usuario                      CHAR(5) NOT NULL    PRIMARY KEY,
-    id_personal                     CHAR(5) NULL,
-    contrasena_usuario              VARCHAR(100) NULL,
-    FOREIGN KEY (id_personal)           REFERENCES personal (id_personal)
-);
-
 -- INSERT DATA - distrito
 
 INSERT INTO distrito VALUES(1,'LIM', 'Cercado de Lima');
@@ -257,3 +266,60 @@ INSERT INTO estado_cita VALUES(2,'confirmada');
 INSERT INTO estado_cita VALUES(3,'atendida');
 INSERT INTO estado_cita VALUES(5,'cancelada');
 INSERT INTO estado_cita VALUES(4,'expirada');
+
+-- INSERT DATA - tipo_usuario
+
+INSERT INTO tipo_usuario VALUES(1,'Administrador');
+INSERT INTO tipo_usuario VALUES(2,'Doctor/a');
+INSERT INTO tipo_usuario VALUES(3,'Enfermera/o');
+
+-- INSERT DATA - especialidad
+
+INSERT INTO especialidad VALUES('ES001','CARDIÓLOGO');
+
+-- INSERT DATA - estado_personal
+
+INSERT INTO estado_personal VALUES(1,'contratado');
+
+
+-- INSERT DATA - usuario
+
+INSERT INTO usuario VALUES(1,'U0001','a4a97ffc170ec7ab32b85b2129c69c50',2);
+
+-- INSERT DATA - personal
+
+INSERT INTO personal VALUES('P0001', 'Dennis Villagaray','999999999', 'Av. simpre viva','demo@demo.com',null,'1999/12/12',null, 'ES001',1);
+INSERT INTO personal VALUES('P0002', 'Demo ','999999999', 'Av. simpre viva','demo@demo.com',null,'1999/12/12',null, 'ES001',1);
+
+
+
+-- --------------------- PROCEDURES --------------------- 
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_register_usuario(userPersonal VARCHAR(5),userCode INT,newUser VARCHAR(5),newPassword VARCHAR(100), userType INT)
+BEGIN
+INSERT INTO usuario VALUES(userCode,newUser,newPassword,userType);
+UPDATE personal
+	SET
+    id_usuario = userCode
+    WHERE id_personal = userPersonal;    
+END $$
+DELIMITER ;
+
+CREATE PROCEDURE sp_validate_usuario(user VARCHAR(5), pass VARCHAR(100))
+    SELECT * FROM usuario WHERE usuario = user AND contrasena_usuario = pass;
+
+-- END PROCEDURES
+
+
+
+-- QUERY
+
+call sp_consulting_personal('P0001');
+
+SELECT SUBSTRING(MAX(usuario),2) FROM usuario;
+
+SELECT * FROM personal WHERE id_personal = user;
+
+CALL sp_validate_usuario('U0001','a4a97ffc170ec7ab32b85b2129c69c50')

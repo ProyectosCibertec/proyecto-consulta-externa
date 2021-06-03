@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MySQLConection8 {
+public class MySQLConection {
 	public static Connection getConexion() {
 		Connection con = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/ciberfarma?useSSL=false&useTimezone=true&serverTimezone=UTC";
+			String url = "jdbc:mysql://localhost:3306/hospital?useSSL=false&useTimezone=true&serverTimezone=UTC";
 			String usr = "root";
 			String psw = "";
 //			String psw = "2211mysqlM1122";
