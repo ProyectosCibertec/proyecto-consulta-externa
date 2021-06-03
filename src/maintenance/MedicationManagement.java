@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import interfaces.MedicationInterface;
 import models.Medicamento;
 
-public class MedicationM implements MedicationInterface {
+public class MedicationManagement implements MedicationInterface {
 
 	@Override
 	public Medicamento buscar(int codigo) {
