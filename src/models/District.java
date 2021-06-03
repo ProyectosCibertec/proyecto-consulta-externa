@@ -1,13 +1,13 @@
 package models;
 
 public class District {
-	
+
 	private String idDistrict;
 	private String isoDistrict;
 	private String districtDescription;
-	
+
 	public District() {
-		
+
 	}
 
 	public District(String idDistrict, String isoDistrict, String districtDescription) {

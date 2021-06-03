@@ -1,11 +1,11 @@
 package models;
 
 public class Diagnostic {
-	
+
 	private String idDiagnostic;
 	private String diagnosticName;
 	private String diagnosticDescription;
-	
+
 	public Diagnostic() {
 
 	}

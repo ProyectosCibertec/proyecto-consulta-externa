@@ -11,9 +11,9 @@ public class Personal {
 	private String personalPassword;
 	private String idSpecialty;
 	private String idPersonalState;
-	
+
 	public Personal() {
-		
+
 	}
 
 	public Personal(String idPersonal, String personalName, String personalPhone, String personalDirection,

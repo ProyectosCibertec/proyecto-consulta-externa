@@ -2,18 +2,17 @@ package models;
 
 public class HistoriaPersonal {
 
-
-	private int   id_historia,id_personal;
+	private int id_historia, id_personal;
 
 	public HistoriaPersonal() {
-	
+
 	}
 
 	public HistoriaPersonal(int id_historia, int id_personal) {
-		
+
 		this.id_historia = id_historia;
 		this.id_personal = id_personal;
-	} 
+	}
 
 	public int getId_historia() {
 		return id_historia;
@@ -31,5 +30,4 @@ public class HistoriaPersonal {
 		this.id_personal = id_personal;
 	}
 
-	
 }

@@ -8,7 +8,7 @@ public class Appointment {
 	private String idAppointmentState;
 	private String idConsultingRoom;
 	private String idPersonal;
-	
+
 	public Appointment() {
 
 	}

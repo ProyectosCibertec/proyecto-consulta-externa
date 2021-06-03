@@ -1,4 +1,5 @@
 package models;
+
 public class Patient {
 
 	private String idPatient;
@@ -13,9 +14,9 @@ public class Patient {
 	private String idDistrict;
 	private Float patientHeight;
 	private Float patientWeight;
-	
+
 	public Patient() {
-		
+
 	}
 
 	public Patient(String idPatient, String patientName, String patientLastName, String patientDirection,

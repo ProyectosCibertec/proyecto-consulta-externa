@@ -7,7 +7,7 @@ public class Excuse {
 	private String creationDate;
 	private String idPatient;
 	private String idPersonal;
-	
+
 	public Excuse() {
 
 	}

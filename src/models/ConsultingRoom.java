@@ -4,7 +4,7 @@ public class ConsultingRoom {
 	private String idConsultingRoom;
 	private String privateRoomDescription;
 	private String idPrivateRoomState;
-	
+
 	public ConsultingRoom() {
 
 	}

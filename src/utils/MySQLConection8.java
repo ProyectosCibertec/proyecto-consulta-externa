@@ -12,6 +12,8 @@ public class MySQLConection8 {
 			String url = "jdbc:mysql://localhost:3306/ciberfarma?useSSL=false&useTimezone=true&serverTimezone=UTC";
 			String usr = "root";
 			String psw = "";
+//			String psw = "2211mysqlM1122";
+//			String psw = "Forever_hi5.";
 			con = DriverManager.getConnection(url, usr, psw);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error >> Driver no Instalado!!" + e.getMessage());
@@ -19,7 +21,7 @@ public class MySQLConection8 {
 			System.out.println("Error >> de conexi�n con la BD" + e.getMessage());
 		} catch (Exception e) {
 			System.out.println("Error >> general : " + e.getMessage());
-		} 
+		}
 		return con;
 	}
 
