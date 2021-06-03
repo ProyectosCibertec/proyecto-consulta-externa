@@ -1,9 +1,9 @@
 package interfaces;
 
-import models.Medicamento;
+import models.Medication;
 
 public interface MedicationInterface {
 
-	public Medicamento buscar(int codigo);
+	public Medication buscar(int codigo);
 
 }
