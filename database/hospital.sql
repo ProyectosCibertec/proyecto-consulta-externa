@@ -370,10 +370,8 @@ CREATE PROCEDURE sp_validate_usuario(user VARCHAR(5), pass VARCHAR(100))
 
 -- QUERY
 
-call sp_consulting_personal('P0001');
-
 SELECT SUBSTRING(MAX(usuario),2) FROM usuario;
 
-SELECT * FROM personal WHERE id_personal = user;
-
-CALL sp_validate_usuario('U0001','a4a97ffc170ec7ab32b85b2129c69c50')
+CALL sp_validate_usuario('U0001','a4a97ffc170ec7ab32b85b2129c69c50');
+select * from usuario;
+select * from personal;

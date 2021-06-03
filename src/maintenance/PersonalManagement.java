@@ -7,9 +7,45 @@ import java.util.ArrayList;
 
 import interfaces.PersonalInterface;
 import models.Personal;
-import utils.MySQLConection8;
+import utils.MySQLConection;
 
 public class PersonalManagement implements PersonalInterface {
+
+	public Personal verify(String user) {
+		Personal p = null;
+		ResultSet result = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			con = MySQLConection.getConexion();
+			String sql = "SELECT * FROM personal WHERE id_personal = ?";
+			System.out.println(user);
+			pst = con.prepareStatement(sql);
+
+			pst.setString(1, user);
+
+			result = pst.executeQuery();
+
+			if (result.next()) {
+				p = new Personal(result.getString(1), result.getString(2), result.getString(3), result.getString(4),
+						result.getString(5), result.getString(6), result.getString(7), result.getInt(8),
+						result.getString(9), result.getString(10));
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error al verificar personal : " + e.getMessage());
+		} finally {
+			try {
+				if (pst != null || con != null)
+					con.close();
+			} catch (Exception e2) {
+				System.out.println("Error al cerrar: " + e2.getMessage());
+			}
+		}
+
+		return p;
+	}
 
 	@Override
 	public int addPersonal(Personal personal) {
@@ -21,7 +57,7 @@ public class PersonalManagement implements PersonalInterface {
 
 		try {
 			final String SQL = "CALL usp_signUpPersonal(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			con = MySQLConection8.getConexion();
+			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
 			pst.setString(1, personal.getIdPersonal());
@@ -31,7 +67,7 @@ public class PersonalManagement implements PersonalInterface {
 			pst.setString(5, personal.getPersonalEmail());
 			pst.setString(6, personal.getEmergencyPhone());
 			pst.setString(7, personal.getBirthDate());
-			pst.setString(8, personal.getPersonalPassword());
+			pst.setInt(8, personal.getIdUsuario());
 			pst.setString(9, personal.getIdSpecialty());
 			pst.setString(10, personal.getIdPersonalState());
 			result = pst.executeUpdate();
@@ -60,7 +96,7 @@ public class PersonalManagement implements PersonalInterface {
 
 		try {
 			final String SQL = "CALL usp_updatePersonal(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			con = MySQLConection8.getConexion();
+			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
 			pst.setString(1, personal.getIdPersonal());
@@ -70,7 +106,7 @@ public class PersonalManagement implements PersonalInterface {
 			pst.setString(5, personal.getPersonalEmail());
 			pst.setString(6, personal.getEmergencyPhone());
 			pst.setString(7, personal.getBirthDate());
-			pst.setString(8, personal.getPersonalPassword());
+			pst.setInt(8, personal.getIdUsuario());
 			pst.setString(9, personal.getIdSpecialty());
 			pst.setString(10, personal.getIdPersonalState());
 			result = pst.executeUpdate();
@@ -99,7 +135,7 @@ public class PersonalManagement implements PersonalInterface {
 
 		try {
 			final String SQL = "DELETE FROM personal WHERE id_personal = ?";
-			con = MySQLConection8.getConexion();
+			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
 			pst.setString(1, id);
@@ -129,7 +165,7 @@ public class PersonalManagement implements PersonalInterface {
 
 		try {
 			final String SQL = "SELECT * FROM personal WHERE id_personal = ?";
-			con = MySQLConection8.getConexion();
+			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
 			pst.setString(1, id);
@@ -143,7 +179,7 @@ public class PersonalManagement implements PersonalInterface {
 							result.getString(5),
 							result.getString(6),
 							result.getString(7),
-							result.getString(8),
+							result.getInt(8),
 							result.getString(9),
 							result.getString(10)
 						);
@@ -173,7 +209,7 @@ public class PersonalManagement implements PersonalInterface {
 		
 		try {
 			final String SQL = "CALL usp_listPersonal()";
-			con = MySQLConection8.getConexion();
+			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 			
 			result = pst.executeQuery();
@@ -186,7 +222,7 @@ public class PersonalManagement implements PersonalInterface {
 							result.getString(5),
 							result.getString(6),
 							result.getString(7),
-							result.getString(8),
+							result.getInt(8),
 							result.getString(9),
 							result.getString(10)
 						));
@@ -219,7 +255,7 @@ public class PersonalManagement implements PersonalInterface {
 		
 		try {
 			final String SQL = "CALL usp_list()";
-			con = MySQLConection8.getConexion();
+			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 			
 			result = pst.executeQuery();
@@ -232,7 +268,7 @@ public class PersonalManagement implements PersonalInterface {
 							result.getString(5),
 							result.getString(6),
 							result.getString(7),
-							result.getString(8),
+							result.getInt(8),
 							result.getString(9),
 							result.getString(10)
 						));
@@ -260,5 +296,4 @@ public class PersonalManagement implements PersonalInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

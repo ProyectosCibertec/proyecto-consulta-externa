@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import utils.MySQLConection8;
+import utils.MySQLConection;
 import interfaces.AppointmentInterface;
 import models.Appointment;
 
