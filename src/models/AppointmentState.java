@@ -3,9 +3,9 @@ package models;
 public class AppointmentState {
 	private String appointmentState;
 	private String appointmentStateDescription;
-	
+
 	public AppointmentState() {
-		
+
 	}
 
 	public AppointmentState(String appointmentState, String appointmentStateDescription) {

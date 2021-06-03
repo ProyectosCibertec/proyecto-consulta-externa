@@ -1,8 +1,8 @@
 package models;
 
 public class Historia {
-	
-    private int id_historia, id_cita;
+
+	private int id_historia, id_cita;
 
 	public Historia() {
 	}
@@ -26,6 +26,6 @@ public class Historia {
 
 	public void setId_cita(int id_cita) {
 		this.id_cita = id_cita;
-	}                     
+	}
 
 }

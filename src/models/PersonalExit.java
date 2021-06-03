@@ -5,9 +5,9 @@ public class PersonalExit {
 	private String exitHour;
 	private String exitDate;
 	private String idPersonal;
-	
+
 	public PersonalExit() {
-		
+
 	}
 
 	public PersonalExit(String idPersonalExit, String exitHour, String exitDate, String idPersonal) {

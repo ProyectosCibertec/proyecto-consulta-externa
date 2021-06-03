@@ -3,7 +3,7 @@ package models;
 public class ConsultingRoomState {
 	private String idConsultingRoomState;
 	private String consultingRoomStateDescription;
-	
+
 	public ConsultingRoomState() {
 
 	}

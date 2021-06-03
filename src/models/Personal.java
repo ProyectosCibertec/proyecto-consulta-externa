@@ -1,3 +1,4 @@
+
 package models;
 
 public class Personal {
@@ -8,16 +9,16 @@ public class Personal {
 	private String personalEmail;
 	private String emergencyPhone;
 	private String birthDate;
-	private String personalPassword;
+	private int idUsuario;
 	private String idSpecialty;
 	private String idPersonalState;
-	
+
 	public Personal() {
-		
+
 	}
 
 	public Personal(String idPersonal, String personalName, String personalPhone, String personalDirection,
-			String personalEmail, String emergencyPhone, String birthDate, String personalPassword, String idSpecialty,
+			String personalEmail, String emergencyPhone, String birthDate, int idUsuario, String idSpecialty,
 			String idPersonalState) {
 		this.idPersonal = idPersonal;
 		this.personalName = personalName;
@@ -26,7 +27,7 @@ public class Personal {
 		this.personalEmail = personalEmail;
 		this.emergencyPhone = emergencyPhone;
 		this.birthDate = birthDate;
-		this.personalPassword = personalPassword;
+		this.idUsuario = idUsuario;
 		this.idSpecialty = idSpecialty;
 		this.idPersonalState = idPersonalState;
 	}
@@ -87,12 +88,12 @@ public class Personal {
 		this.birthDate = birthDate;
 	}
 
-	public String getPersonalPassword() {
-		return personalPassword;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setPersonalPassword(String personalPassword) {
-		this.personalPassword = personalPassword;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getIdSpecialty() {
