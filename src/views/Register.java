@@ -32,7 +32,7 @@ import java.lang.reflect.Field;
 import Yarns.YarnArrayList;
 import Yarns.YarnEncriptKey;
 import Yarns.YarnSetVisibleComponents;
-import maintenance.PersonalManagement;
+import maintenance.PersonalM;
 import maintenance.UserManagement;
 import models.Personal;
 import models.User;
@@ -179,7 +179,7 @@ public class Register extends JFrame {
 				if (code == null) {
 					message("Debe ingresar el codigo de personal");
 				} else {
-					p = new PersonalManagement().verifyPersonal(code);
+					p = new PersonalM().verifyPersonal(code);
 					if (p == null) {
 						message("Código inexistente \n _______________________________________ \n Debe ser trabajador del hospital");
 						hiddenInputs();
