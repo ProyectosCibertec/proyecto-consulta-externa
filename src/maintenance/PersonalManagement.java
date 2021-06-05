@@ -56,7 +56,7 @@ public class PersonalManagement implements PersonalInterface {
 		PreparedStatement pst = null;
 
 		try {
-			final String SQL = "CALL usp_signUpPersonal(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			final String SQL = "{usp_signUpPersonal(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
@@ -95,7 +95,7 @@ public class PersonalManagement implements PersonalInterface {
 		PreparedStatement pst = null;
 
 		try {
-			final String SQL = "CALL usp_updatePersonal(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			final String SQL = "{usp_updatePersonal(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
@@ -208,7 +208,7 @@ public class PersonalManagement implements PersonalInterface {
 		ResultSet result = null;
 		
 		try {
-			final String SQL = "CALL usp_listPersonal()";
+			final String SQL = "{usp_listPersonal()}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 			
@@ -254,7 +254,7 @@ public class PersonalManagement implements PersonalInterface {
 		ResultSet result = null;
 		
 		try {
-			final String SQL = "CALL usp_list()";
+			final String SQL = "{usp_list()}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 			
