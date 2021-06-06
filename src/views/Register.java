@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,9 +30,10 @@ import com.mysql.cj.xdevapi.JsonLiteral;
 
 import java.lang.reflect.Field;
 
-import Yarns.YarnArrayList;
 import Yarns.YarnEncriptKey;
 import Yarns.YarnSetVisibleComponents;
+import commons.CMessage;
+import commons.ArrayList;
 import maintenance.PersonalManagement;
 import maintenance.UserManagement;
 import models.Personal;
@@ -44,6 +46,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
 
 public class Register extends JFrame {
 
@@ -58,6 +61,8 @@ public class Register extends JFrame {
 	private JLabel lblPassword;
 	private JLabel lblRetryPassword;
 	private JLabel lblErrorMessage;
+	private JLabel lblRolDeUsuario;
+	private JComboBox cboRol;
 
 	/**
 	 * Launch the application.
@@ -88,14 +93,14 @@ public class Register extends JFrame {
 		});
 		setTitle("Hospital - Register");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 342, 551);
+		setBounds(100, 100, 342, 628);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lblLogoCibertec = new JLabel("");
-		lblLogoCibertec.setIcon(new ImageIcon(Login.class.getResource("/assets/images/cibertec-logo.png")));
+		lblLogoCibertec.setIcon(new ImageIcon(Register.class.getResource("/assets/images/cibertec-logo.png")));
 		lblLogoCibertec.setBounds(96, -11, 150, 122);
 		contentPane.add(lblLogoCibertec);
 
@@ -122,16 +127,16 @@ public class Register extends JFrame {
 		txtUser.setColumns(10);
 
 		lblPassword = new JLabel("Contraseña:");
-		lblPassword.setBounds(35, 306, 195, 15);
+		lblPassword.setBounds(35, 371, 195, 15);
 		contentPane.add(lblPassword);
 
 		txtPassword = new JPasswordField();
 		txtPassword.setBackground(Color.LIGHT_GRAY);
-		txtPassword.setBounds(35, 333, 256, 25);
+		txtPassword.setBounds(35, 398, 256, 25);
 		contentPane.add(txtPassword);
 
 		lblRetryPassword = new JLabel("Repita contraseña:");
-		lblRetryPassword.setBounds(35, 370, 195, 15);
+		lblRetryPassword.setBounds(35, 435, 195, 15);
 		contentPane.add(lblRetryPassword);
 
 		btnSingUp = new JButton("REGISTRARSE");
@@ -143,9 +148,9 @@ public class Register extends JFrame {
 
 		txtRetryPassword = new JPasswordField();
 		txtRetryPassword.setBackground(Color.LIGHT_GRAY);
-		txtRetryPassword.setBounds(35, 397, 256, 25);
+		txtRetryPassword.setBounds(35, 462, 256, 25);
 		contentPane.add(txtRetryPassword);
-		btnSingUp.setBounds(106, 450, 130, 25);
+		btnSingUp.setBounds(106, 515, 130, 25);
 		contentPane.add(btnSingUp);
 
 		lblErrorMessage = new JLabel("");
@@ -177,16 +182,22 @@ public class Register extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				String code = readPersonal();
 				if (code == null) {
-					message("Debe ingresar el codigo de personal");
+					message.message(this, "Debe ingresar el codigo de personal");
 				} else {
 					p = new PersonalManagement().verify(code);
 					if (p == null) {
-						message("Código inexistente \n _______________________________________ \n Debe ser trabajador del hospital");
+						message.message(this,
+								"Código inexistente \n _______________________________________ \n Debe ser trabajador del hospital");
 						hiddenInputs();
 					} else {
-						u = new UserManagement().getUser();
-						txtUser.setText(u.getCode());
-						showInputs();
+						if (p.getIdUsuario() != null) {
+							message.message(this, "Ya cuenta con un usuario");
+							hiddenInputs();
+						} else {
+							u = new UserManagement().userGenerate();
+							txtUser.setText(u.getCode());
+							showInputs();
+						}
 					}
 				}
 
@@ -194,17 +205,24 @@ public class Register extends JFrame {
 		});
 
 		contentPane.add(lblSearch);
+
+		lblRolDeUsuario = new JLabel("Rol de usuario:");
+		lblRolDeUsuario.setBounds(35, 312, 182, 15);
+		contentPane.add(lblRolDeUsuario);
+
+		cboRol = new JComboBox();
+		cboRol.setBackground(Color.LIGHT_GRAY);
+		cboRol.setBounds(35, 335, 256, 25);
+		contentPane.add(cboRol);
 		hiddenInputs();
 	}
 
 	public static Personal p = new Personal();
 	public static User u = new User();
 
-	private void message(String msg) {
-		JOptionPane.showMessageDialog(this, msg, "Avisos", 2);
-	}
-
 	YarnSetVisibleComponents yarn = new YarnSetVisibleComponents();
+	ArrayList yarnA = new ArrayList(this);
+	CMessage message = new CMessage();
 
 	void signUp() {
 		String user, pass, rpass, pers;
@@ -214,12 +232,12 @@ public class Register extends JFrame {
 		rpass = readRetryPassword();
 
 		String[][] string = { { pass, "contraseña" }, { rpass, "repetir contraseña" } };
-		YarnArrayList yarnA = new YarnArrayList(this);
+
 		boolean isNull = yarnA.validateInputs(string);
 
 		if (!isNull) {
 			if (!pass.matches(rpass)) {
-				message("Las contraseñas tienen que coincidir");
+				message.message(this, "Las contraseñas tienen que coincidir");
 			} else {
 				YarnEncriptKey yarnEK = new YarnEncriptKey(rpass);
 				rpass = yarnEK.encript();
@@ -227,16 +245,16 @@ public class Register extends JFrame {
 				NewUser nu = new NewUser();
 
 				nu.setUserPersonal(pers);
-				nu.setNewUser(user);
+				nu.setUserCode(user);
 				nu.setNewPassword(rpass);
 				nu.setUserType(1);
 
-				int ok = new UserManagement().createUser(nu);
+				int ok = new UserManagement().userCreate(nu);
 
 				if (ok == 0) {
-					message("Error al registrar");
+					message.message(this, "Error al registrar");
 				} else {
-					message("Registro ok");
+					message.message(this, "Registro ok", "Existoso");
 				}
 			}
 
@@ -247,7 +265,7 @@ public class Register extends JFrame {
 		JComponent[] components = { txtUser, txtPassword, txtRetryPassword, lblUser, lblPassword, lblRetryPassword,
 				lblErrorMessage, btnSingUp };
 		yarn.show(components);
-		setBounds(100, 100, 342, 551);
+		setBounds(100, 100, 342, 628);
 		setLocationRelativeTo(null);
 	}
 
@@ -260,32 +278,24 @@ public class Register extends JFrame {
 	}
 
 	public String readPersonal() {
-		if (txtPersonal.getText().length() == 0) {
-			return null;
-		}
-		return txtPersonal.getText();
+		return txtPersonal.getText().length() == 0 ? null : txtPersonal.getText();
 	}
 
 	public String readUser() {
-		if (txtUser.getText().length() == 0) {
-			return null;
-		}
-		return txtUser.getText();
+		return txtUser.getText().length() == 0 ? null : txtUser.getText();
 	}
 
 	public String readPassword() {
 		String password = String.valueOf(txtPassword.getPassword());
-		if (password.length() == 0) {
-			return null;
-		}
-		return password;
+		return password.length() == 0 ? null : password;
 	}
 
 	public String readRetryPassword() {
 		String password = String.valueOf(txtRetryPassword.getPassword());
-		if (password.length() == 0) {
-			return null;
-		}
-		return password;
+		return password.length() == 0 ? null : password;
+	}
+
+	public int readRol() {
+		return cboRol.getSelectedIndex() == 0 ? null : cboRol.getSelectedIndex();
 	}
 }

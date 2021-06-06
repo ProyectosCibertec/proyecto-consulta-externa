@@ -10,10 +10,11 @@ CREATE TABLE tipo_usuario (
 );
 
 CREATE TABLE usuario (
-    id_usuario                      INT                 NOT NULL    AUTO_INCREMENT      PRIMARY KEY,
-    usuario                         VARCHAR(5)          NULL,
+    id_usuario                      VARCHAR(5)          NOT NULL PRIMARY KEY,
     contrasena_usuario              VARCHAR(100)        NULL,
     id_tipo_usuario                 INT                 NULL,
+    fecha_hora_creacion             DATETIME            NULL,
+    fecha_hora_edicion              DATETIME            NULL,
     FOREIGN KEY(id_tipo_usuario)        REFERENCES tipo_usuario(id_tipo_usuario)
 );
 
@@ -69,7 +70,7 @@ CREATE TABLE personal (
     email_personal                  VARCHAR(80)         NULL,
     telefono_emergencia             VARCHAR(20)         NULL,
     fecha_nacimiento                DATE                NULL,
-    id_usuario                      INT                 NULL,
+    id_usuario                  VARCHAR(5)          NULL,
     id_especialidad                 CHAR(5)             NULL,
     id_estado_personal              INT		            NULL,
     FOREIGN KEY (id_especialidad)       REFERENCES especialidad (id_especialidad),
@@ -111,7 +112,7 @@ CREATE TABLE cita (
 CREATE TABLE entrada_personal (
     id_entrada_personal             CHAR(5)             NOT NULL    PRIMARY KEY,
     hora_entrada                    VARCHAR(45)         NULL,
-    fecha_entrada                   DATE                NULL,
+    fecha_entrada                   DATETIME            NULL,
     id_personal                     CHAR(5)             NULL,
     FOREIGN KEY(id_personal)            REFERENCES personal(id_personal)
 );
@@ -124,7 +125,7 @@ CREATE TABLE estado_medicamento (
 CREATE TABLE excusa (
     id_excusa                       CHAR(5)             NOT NULL    PRIMARY KEY,
     descripcion_excusa              VARCHAR(80)         NULL,
-    fecha_creacion                  DATE                NULL,
+    fecha_creacion                  DATETIME            NULL,
     id_paciente                     CHAR(5)             NULL,
     id_personal                     CHAR(5)             NULL,
     FOREIGN KEY(id_paciente)            REFERENCES paciente(id_paciente),
@@ -210,7 +211,7 @@ CREATE TABLE medicamento_proveedor (
     id_medicamento_proveedor        CHAR(5)             NOT NULL    PRIMARY KEY,
     cantidad_medicamento            INT                 NULL,
     lote_medicamento                VARCHAR(80)         NULL,
-    fecha_vencimiento               DATE                NULL,
+    fecha_vencimiento               DATE            NULL,
     id_medicamento                  CHAR(5)             NULL,
     id_proveedor                    CHAR(5)             NULL,
     FOREIGN KEY (id_medicamento)        REFERENCES medicamento (id_medicamento),
@@ -220,7 +221,7 @@ CREATE TABLE medicamento_proveedor (
 CREATE TABLE salida_personal (
     id_salida_personal              CHAR(5)             NOT NULL    PRIMARY KEY,
     hora_salida                     VARCHAR(45)         NULL,
-    fecha_salida                    DATE                NULL,
+    fecha_salida                    DATETIME            NULL,
     id_personal                     CHAR(5)             NULL,
     FOREIGN KEY(id_personal)            REFERENCES personal (id_personal)
 );
@@ -338,11 +339,11 @@ INSERT INTO estado_personal VALUES(1,'contratado');
 
 -- INSERT DATA - usuario
 
-INSERT INTO usuario VALUES(1,'U0001','a4a97ffc170ec7ab32b85b2129c69c50',2);
+INSERT INTO usuario VALUES('U0001','a4a97ffc170ec7ab32b85b2129c69c50',2, '1990-09-15 17:14:12',NULL);
 
 -- INSERT DATA - personal
 
-INSERT INTO personal VALUES('P0001', 'Dennis Villagaray','999999999', 'Av. simpre viva','demo@demo.com',null,'1999/12/12',null, 'ES001',1);
+INSERT INTO personal VALUES('P0001', 'Dennis Villagaray','999999999', 'Av. simpre viva','dennis@demo.com',null,'1999/12/12','U0001', 'ES001',1);
 INSERT INTO personal VALUES('P0002', 'Demo ','999999999', 'Av. simpre viva','demo@demo.com',null,'1999/12/12',null, 'ES001',1);
 
 
@@ -351,18 +352,18 @@ INSERT INTO personal VALUES('P0002', 'Demo ','999999999', 'Av. simpre viva','dem
 
 
 DELIMITER $$
-CREATE PROCEDURE sp_register_usuario(userPersonal VARCHAR(5),userCode INT,newUser VARCHAR(5),newPassword VARCHAR(100), userType INT)
+CREATE PROCEDURE sp_register_usuario(personalCode VARCHAR(5),userId VARCHAR(5),userPassword VARCHAR(100), userType INT, userCreationDate DATETIME)
 BEGIN
-INSERT INTO usuario VALUES(userCode,newUser,newPassword,userType);
+INSERT INTO usuario VALUES(userId,userPassword,userType,userCreationDate, NULL);
 UPDATE personal
 	SET
-    id_usuario = userCode
-    WHERE id_personal = userPersonal;    
+    id_usuario = userId
+    WHERE id_personal = personalCode;    
 END $$
 DELIMITER ;
 
-CREATE PROCEDURE sp_validate_usuario(user VARCHAR(5), pass VARCHAR(100))
-    SELECT * FROM usuario WHERE usuario = user AND contrasena_usuario = pass;
+CREATE PROCEDURE sp_validate_usuario(userCode VARCHAR(5), userPas VARCHAR(100))
+    SELECT * FROM usuario WHERE id_usuario = userCode AND contrasena_usuario = userPas;
 
 -- END PROCEDURES
 
@@ -370,8 +371,14 @@ CREATE PROCEDURE sp_validate_usuario(user VARCHAR(5), pass VARCHAR(100))
 
 -- QUERY
 
-SELECT SUBSTRING(MAX(usuario),2) FROM usuario;
+SELECT SUBSTRING(MAX(id_usuario),2) FROM usuario;
 
 CALL sp_validate_usuario('U0001','a4a97ffc170ec7ab32b85b2129c69c50');
 select * from usuario;
 select * from personal;
+
+
+/*UPDATE usuario
+	SET
+    contrasena_usuario = 'demo'
+    WHERE id_usuario = 1;*/

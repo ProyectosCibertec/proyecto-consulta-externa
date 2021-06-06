@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import interfaces.PersonalInterface;
 import models.Personal;
+import models.User;
 import utils.MySQLConection;
 
 public class PersonalManagement implements PersonalInterface {
@@ -20,7 +21,6 @@ public class PersonalManagement implements PersonalInterface {
 		try {
 			con = MySQLConection.getConexion();
 			String sql = "SELECT * FROM personal WHERE id_personal = ?";
-			System.out.println(user);
 			pst = con.prepareStatement(sql);
 
 			pst.setString(1, user);
@@ -29,7 +29,7 @@ public class PersonalManagement implements PersonalInterface {
 
 			if (result.next()) {
 				p = new Personal(result.getString(1), result.getString(2), result.getString(3), result.getString(4),
-						result.getString(5), result.getString(6), result.getString(7), result.getInt(8),
+						result.getString(5), result.getString(6), result.getString(7), result.getString(8),
 						result.getString(9), result.getString(10));
 			}
 
@@ -67,7 +67,7 @@ public class PersonalManagement implements PersonalInterface {
 			pst.setString(5, personal.getPersonalEmail());
 			pst.setString(6, personal.getEmergencyPhone());
 			pst.setString(7, personal.getBirthDate());
-			pst.setInt(8, personal.getIdUsuario());
+			pst.setString(8, personal.getIdUsuario());
 			pst.setString(9, personal.getIdSpecialty());
 			pst.setString(10, personal.getIdPersonalState());
 			result = pst.executeUpdate();
@@ -106,7 +106,7 @@ public class PersonalManagement implements PersonalInterface {
 			pst.setString(5, personal.getPersonalEmail());
 			pst.setString(6, personal.getEmergencyPhone());
 			pst.setString(7, personal.getBirthDate());
-			pst.setInt(8, personal.getIdUsuario());
+			pst.setString(8, personal.getIdUsuario());
 			pst.setString(9, personal.getIdSpecialty());
 			pst.setString(10, personal.getIdPersonalState());
 			result = pst.executeUpdate();
@@ -170,19 +170,10 @@ public class PersonalManagement implements PersonalInterface {
 
 			pst.setString(1, id);
 			result = pst.executeQuery();
-			if(result.next()) {
-				personal = new Personal(
-							result.getString(1),
-							result.getString(2),
-							result.getString(3),
-							result.getString(4),
-							result.getString(5),
-							result.getString(6),
-							result.getString(7),
-							result.getInt(8),
-							result.getString(9),
-							result.getString(10)
-						);
+			if (result.next()) {
+				personal = new Personal(result.getString(1), result.getString(2), result.getString(3),
+						result.getString(4), result.getString(5), result.getString(6), result.getString(7),
+						result.getString(8), result.getString(9), result.getString(10));
 			}
 		} catch (Exception e) {
 			System.out.println("Error al consultar : " + e.getMessage());
@@ -199,35 +190,25 @@ public class PersonalManagement implements PersonalInterface {
 		return personal;
 	}
 
-	
 	public ArrayList<Personal> listPersonal() {
 		ArrayList<Personal> listPersonal = new ArrayList<Personal>();
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet result = null;
-		
+
 		try {
 			final String SQL = "{usp_listPersonal()}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
-			
+
 			result = pst.executeQuery();
-			while(result.next()) {
-				listPersonal.add(new Personal(
-							result.getString(1),
-							result.getString(2),
-							result.getString(3),
-							result.getString(4),
-							result.getString(5),
-							result.getString(6),
-							result.getString(7),
-							result.getInt(8),
-							result.getString(9),
-							result.getString(10)
-						));
+			while (result.next()) {
+				listPersonal.add(new Personal(result.getString(1), result.getString(2), result.getString(3),
+						result.getString(4), result.getString(5), result.getString(6), result.getString(7),
+						result.getString(8), result.getString(9), result.getString(10)));
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("Error en listado : " + e.getMessage());
 		} finally {
 			try {
@@ -241,39 +222,30 @@ public class PersonalManagement implements PersonalInterface {
 				System.out.println("Error al cerrar: " + e2.getMessage());
 			}
 		}
-		
+
 		return listPersonal;
 	}
-	
+
 	@Override
 	public ArrayList<Personal> listByPersonalState(String id) {
 		ArrayList<Personal> listPersonal = new ArrayList<Personal>();
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet result = null;
-		
+
 		try {
 			final String SQL = "{usp_list()}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
-			
+
 			result = pst.executeQuery();
-			while(result.next()) {
-				listPersonal.add(new Personal(
-							result.getString(1),
-							result.getString(2),
-							result.getString(3),
-							result.getString(4),
-							result.getString(5),
-							result.getString(6),
-							result.getString(7),
-							result.getInt(8),
-							result.getString(9),
-							result.getString(10)
-						));
+			while (result.next()) {
+				listPersonal.add(new Personal(result.getString(1), result.getString(2), result.getString(3),
+						result.getString(4), result.getString(5), result.getString(6), result.getString(7),
+						result.getString(8), result.getString(9), result.getString(10)));
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("Error en listado : " + e.getMessage());
 		} finally {
 			try {
@@ -287,7 +259,7 @@ public class PersonalManagement implements PersonalInterface {
 				System.out.println("Error al cerrar: " + e2.getMessage());
 			}
 		}
-		
+
 		return listPersonal;
 	}
 
@@ -295,5 +267,42 @@ public class PersonalManagement implements PersonalInterface {
 	public ArrayList<Personal> listBySpeciality(String id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Personal getPersonalWithUser(String user) {
+		Personal p = null;
+		ResultSet result = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			con = MySQLConection.getConexion();
+			String sql = "SELECT * FROM personal WHERE id_usuario = ?";
+			pst = con.prepareStatement(sql);
+
+			pst.setString(1, user);
+
+			result = pst.executeQuery();
+
+			if (result.next()) {
+				p = new Personal(result.getString(1), result.getString(2), result.getString(3), result.getString(4),
+						result.getString(5), result.getString(6), result.getString(7), result.getString(8),
+						result.getString(9), result.getString(10));
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error al verificar personal : " + e.getMessage());
+		} finally {
+			try {
+				if (pst != null || con != null)
+					con.close();
+			} catch (Exception e2) {
+				System.out.println("Error al cerrar: " + e2.getMessage());
+			}
+		}
+
+		return p;
+
 	}
 }

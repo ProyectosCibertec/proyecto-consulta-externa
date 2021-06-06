@@ -9,7 +9,7 @@ public class Personal {
 	private String personalEmail;
 	private String emergencyPhone;
 	private String birthDate;
-	private int idUsuario;
+	private String idUsuario;
 	private String idSpecialty;
 	private String idPersonalState;
 
@@ -18,7 +18,7 @@ public class Personal {
 	}
 
 	public Personal(String idPersonal, String personalName, String personalPhone, String personalDirection,
-			String personalEmail, String emergencyPhone, String birthDate, int idUsuario, String idSpecialty,
+			String personalEmail, String emergencyPhone, String birthDate, String idUsuario, String idSpecialty,
 			String idPersonalState) {
 		this.idPersonal = idPersonal;
 		this.personalName = personalName;
@@ -88,11 +88,11 @@ public class Personal {
 		this.birthDate = birthDate;
 	}
 
-	public int getIdUsuario() {
+	public String getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(String idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
