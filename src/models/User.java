@@ -2,7 +2,7 @@ package models;
 
 public class User {
 
-	private String code, password, user;
+	private String code, password, fecha_hora_creacion, fecha_hora_edicion;
 	private int userType;
 
 	public User() {
@@ -13,10 +13,27 @@ public class User {
 		this.code = code;
 	}
 
-	public User(String code, String password, String user, int userType) {
+	public User(String code, String password, int userType, String fecha_hora_creacion, String fecha_hora_edicion) {
 		this.code = code;
 		this.password = password;
-		this.user = user;
+		this.fecha_hora_creacion = fecha_hora_creacion;
+		this.fecha_hora_edicion = fecha_hora_edicion;
+	}
+
+	public String getFecha_hora_creacion() {
+		return fecha_hora_creacion;
+	}
+
+	public void setFecha_hora_creacion(String fecha_hora_creacion) {
+		this.fecha_hora_creacion = fecha_hora_creacion;
+	}
+
+	public String getFecha_hora_edicion() {
+		return fecha_hora_edicion;
+	}
+
+	public void setFecha_hora_edicion(String fecha_hora_edicion) {
+		this.fecha_hora_edicion = fecha_hora_edicion;
 	}
 
 	public int getUserType() {
@@ -29,13 +46,11 @@ public class User {
 
 	public void setCode(String code) {
 		this.code = code;
-		System.out.println("setCode.java-> " + code);
 	}
 
 	public String getCode() {
 		return code;
 	}
-
 
 	public String getPassword() {
 		return password;
@@ -43,14 +58,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
 	}
 
 }
