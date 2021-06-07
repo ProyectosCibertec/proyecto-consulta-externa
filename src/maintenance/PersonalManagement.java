@@ -3,7 +3,9 @@ package maintenance;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import interfaces.PersonalInterface;
 import models.Personal;
@@ -56,7 +58,7 @@ public class PersonalManagement implements PersonalInterface {
 		PreparedStatement pst = null;
 
 		try {
-			final String SQL = "CALL usp_signUpPersonal(?,?,?,?,?,?,?,?,?,?)";
+			final String SQL = "{CALL usp_addPersonal(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
@@ -95,7 +97,7 @@ public class PersonalManagement implements PersonalInterface {
 		PreparedStatement pst = null;
 
 		try {
-			final String SQL = "CALL usp_updatePersonal(?,?,?,?,?,?,?,?,?,?)";
+			final String SQL = "{CALL usp_updatePersonal(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
@@ -111,7 +113,7 @@ public class PersonalManagement implements PersonalInterface {
 			pst.setString(10, personal.getIdPersonalState());
 			result = pst.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("Error al actualizar : " + e.getMessage());
+			System.out.println("Error al registrar : " + e.getMessage());
 		} finally {
 			try {
 				if (pst != null)
@@ -198,7 +200,7 @@ public class PersonalManagement implements PersonalInterface {
 		ResultSet result = null;
 
 		try {
-			final String SQL = "CALL usp_listPersonal()";
+			final String SQL = "{CALL usp_listPersonal()}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
@@ -235,7 +237,7 @@ public class PersonalManagement implements PersonalInterface {
 		ResultSet result = null;
 
 		try {
-			final String SQL = "CALL usp_list()";
+			final String SQL = "{usp_list()}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 

@@ -4,6 +4,6 @@ import models.Medication;
 
 public interface MedicationInterface {
 
-	public Medication buscar(int codigo);
+	public Medication get(int codigo);
 
 }
