@@ -53,12 +53,12 @@ CREATE TABLE consultorio (
 );
 
 CREATE TABLE especialidad (
-    id_especialidad                 CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_especialidad                 INT             	NOT NULL    PRIMARY KEY auto_increment,
     descripcion_especialidad        VARCHAR(80)         NULL
 );
 
 CREATE TABLE estado_personal (
-    id_estado_personal              INT		            NOT NULL    PRIMARY KEY,
+    id_estado_personal              INT		            NOT NULL    PRIMARY KEY auto_increment,
     descripcion_estado_personal     VARCHAR(80)         NULL
 );
 
@@ -70,8 +70,8 @@ CREATE TABLE personal (
     email_personal                  VARCHAR(80)         NULL,
     telefono_emergencia             VARCHAR(20)         NULL,
     fecha_nacimiento                DATE                NULL,
-    id_usuario                  VARCHAR(5)          NULL,
-    id_especialidad                 CHAR(5)             NULL,
+    id_usuario                  	VARCHAR(5)          NULL,
+    id_especialidad                 INT           		NULL,
     id_estado_personal              INT		            NULL,
     FOREIGN KEY (id_especialidad)       REFERENCES especialidad (id_especialidad),
     FOREIGN KEY (id_estado_personal)    REFERENCES estado_personal (id_estado_personal),
@@ -275,19 +275,19 @@ INSERT INTO tipo_usuario VALUES(2,'Doctor/a');
 INSERT INTO tipo_usuario VALUES(3,'Enfermera/o');
 
 -- INSERT DATA - especialidad
-INSERT INTO especialidad VALUES('ES001','CARDIÓLOGO');
+INSERT INTO especialidad(descripcion_especialidad) VALUES('CARDIÓLOGO');
 
 -- INSERT DATA - estado_personal
-INSERT INTO estado_personal VALUES(1,'contratado');
+-- INSERT INTO estado_personal(descripcion_estado_personal) VALUES('contratado');
 
 -- INSERT DATA - usuario
 INSERT INTO usuario VALUES('U0001','a4a97ffc170ec7ab32b85b2129c69c50',2, '1990-09-15 17:14:12',NULL);
 
 -- INSERT DATA - personal
-INSERT INTO personal VALUES('P0001', 'Dennis Villagaray','999999999', 'Av. simpre viva','dennis@demo.com',null,'1999/12/12','U0001', 'ES001',1);
-INSERT INTO personal VALUES('P0002', 'Demo ','999999999', 'Av. simpre viva','demo@demo.com',null,'1999/12/12',null, 'ES001',1);
-INSERT INTO personal VALUES('P0003', 'Dennis Villagaray','999999999', 'Av. simpre viva','dennis@consultaexterna.com',null,'1999/12/12','U0001', 'ES001',1);
-
+/*INSERT INTO personal VALUES('P0001', 'Dennis Villagaray','999999999', 'Av. simpre viva','dennis@demo.com',null,'1999/12/12','U0001', 1 ,1);
+INSERT INTO personal VALUES('P0002', 'Demo ','999999999', 'Av. simpre viva','demo@demo.com',null,'1999/12/12',null, 1,1);
+INSERT INTO personal VALUES('P0003', 'Dennis Villagaray','999999999', 'Av. simpre viva','dennis@consultaexterna.com',null,'1999/12/12','U0001', 1,1);
+*/
 
 /* --------------------- PROCEDURES --------------------- */
 
@@ -365,8 +365,8 @@ CREATE PROCEDURE usp_addPersonal(idP CHAR(5),
 nameP VARCHAR(80), phoneP VARCHAR(20),
 directionP VARCHAR(80), emailP VARCHAR(80),
 emergencyPhoneP VARCHAR(20), birthP VARCHAR(80),
-idUserP VARCHAR(100), idEspP CHAR(5),
-idStateP CHAR(5))
+idUserP VARCHAR(100), idEspP INT,
+idStateP INT)
 BEGIN
 INSERT INTO personal VALUES (idP, nameP, phoneP, directionP, emailP, emergencyPhoneP, birthP, idUserP, idEspP, idStateP);
 END $$
@@ -379,8 +379,8 @@ CREATE PROCEDURE usp_updatePersonal(idP CHAR(5),
 nameP VARCHAR(80), phoneP VARCHAR(20),
 directionP VARCHAR(80), emailP VARCHAR(80),
 emergencyPhoneP VARCHAR(20), birthP VARCHAR(80),
-idUserP VARCHAR(100), idEspP CHAR(5),
-idStateP CHAR(5))
+idUserP VARCHAR(100), idEspP INT,
+idStateP INT)
 BEGIN
 UPDATE personal SET nombre_personal = nameP, telefono_personal = phoneP,
 direccion_personal = directionP, email_personal = emailP,
@@ -412,7 +412,41 @@ END $$
 DELIMITER ;
 -- <END> USER STORE PROCEDURES
 
+-- <BEGIN> SPECIALITY STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listSpeciality;
+DELIMITER $$
+CREATE PROCEDURE usp_listSpeciality() BEGIN
+	SELECT id_especialidad, descripcion_especialidad
+	FROM especialidad;
+END $$
+DELIMITER ;
 
+DROP PROCEDURE IF EXISTS usp_addSpeciality;
+DELIMITER $$
+CREATE PROCEDURE usp_addSpeciality(descriptionS VARCHAR(80)) BEGIN
+	INSERT INTO especialidad(descripcion_especialidad)
+	VALUES (descriptionS);
+END $$
+DELIMITER ;
+-- <END> SPECIALITY STORE PROCEDURES
+
+-- <BEGIN> PERSONAL STATE STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listPersonalState;
+DELIMITER $$
+CREATE PROCEDURE usp_listPersonalState() BEGIN
+	SELECT id_estado_personal, descripcion_estado_personal
+	FROM estado_personal;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_addPersonalState;
+DELIMITER $$
+CREATE PROCEDURE usp_addPersonalState(descriptionP VARCHAR(80)) BEGIN
+	INSERT INTO estado_personal(descripcion_estado_personal)
+	VALUES (descriptionP);
+END $$
+DELIMITER ;
+-- <END> PERSONAL STATE STORE PROCEDURES
 
 -- QUERY
 
@@ -427,4 +461,6 @@ SELECT * FROM personal;
 	SET
     contrasena_usuario = 'demo'
     WHERE id_usuario = 1;*/
+    
+    select * from estado_personal;
 
