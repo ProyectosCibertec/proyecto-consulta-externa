@@ -86,7 +86,7 @@ public class SpecialityManagement implements SpecialityInterface {
 		PreparedStatement pst = null;
 
 		try {
-			final String SQL = "DELETE FROM especialidad WHERE id_estado_personal = ?";
+			final String SQL = "DELETE FROM especialidad WHERE id_especialidad = ?";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
