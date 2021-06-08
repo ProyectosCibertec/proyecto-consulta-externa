@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import maintenance.PersonalStateManagement;
 import maintenance.SpecialityManagement;
+import models.Personal;
 import models.PersonalState;
 import models.Speciality;
 
@@ -28,9 +29,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.awt.event.WindowEvent;
+import java.awt.Window.Type;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class FrmSpeciality extends JFrame implements ActionListener, WindowListener {
+public class FrmSpeciality extends JFrame implements ActionListener, WindowListener, MouseListener {
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoEspecialidad;
@@ -66,7 +72,7 @@ public class FrmSpeciality extends JFrame implements ActionListener, WindowListe
 	public FrmSpeciality() {
 		addWindowListener(this);
 		setTitle("Mantenimiento Especialidad");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 221, 342);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -123,6 +129,7 @@ public class FrmSpeciality extends JFrame implements ActionListener, WindowListe
 		dtm = new DefaultTableModel();
 		dtm.setColumnIdentifiers(columns);
 		dataTableSpeciality = new JTable(dtm);
+		dataTableSpeciality.addMouseListener(this);
 		dataTableSpeciality.setFillsViewportHeight(true);
 		scrollPane.setViewportView(dataTableSpeciality);
 		
@@ -205,8 +212,10 @@ public class FrmSpeciality extends JFrame implements ActionListener, WindowListe
 	public void windowActivated(WindowEvent e) {
 	}
 	public void windowClosed(WindowEvent e) {
+		this.dispose();
 	}
 	public void windowClosing(WindowEvent e) {
+		
 	}
 	public void windowDeactivated(WindowEvent e) {
 	}
@@ -221,5 +230,28 @@ public class FrmSpeciality extends JFrame implements ActionListener, WindowListe
 	}
 	protected void windowOpenedThis(WindowEvent e) {
 		listSpeciality();
+	}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == dataTableSpeciality) {
+			mouseClickedDataTableSpeciality(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedDataTableSpeciality(MouseEvent e) {
+		int row = dataTableSpeciality.getSelectedRow();
+		try {
+			Speciality speciality = new Speciality();
+			speciality.setIdSpeciality(dtm.getValueAt(row, 0).toString());
+			txtSpeciality.setText(speciality.getIdSpeciality());
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Hubo un error: " + ex.getMessage());
+		}
 	}
 }
