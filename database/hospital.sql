@@ -69,7 +69,7 @@ CREATE TABLE personal (
     direccion_personal              VARCHAR(80)         NULL,
     email_personal                  VARCHAR(80)         NULL,
     telefono_emergencia             VARCHAR(20)         NULL,
-    fecha_nacimiento                DATE                NULL,
+    fecha_nacimiento                VARCHAR(20)			NULL,
     id_usuario                  	VARCHAR(5)          NULL,
     id_especialidad                 INT           		NULL,
     id_estado_personal              INT		            NULL,
@@ -364,14 +364,18 @@ DELIMITER $$
 CREATE PROCEDURE usp_addPersonal(idP CHAR(5),
 nameP VARCHAR(80), phoneP VARCHAR(20),
 directionP VARCHAR(80), emailP VARCHAR(80),
-emergencyPhoneP VARCHAR(20), birthP VARCHAR(80),
-idUserP VARCHAR(100), idEspP INT,
-idStateP INT)
+emergencyPhoneP VARCHAR(20), birthP VARCHAR(20),
+idUserP VARCHAR(100), descEspP VARCHAR(80),
+descStateP VARCHAR(80))
 BEGIN
-INSERT INTO personal VALUES (idP, nameP, phoneP, directionP, emailP, emergencyPhoneP, birthP, idUserP, idEspP, idStateP);
+INSERT INTO personal VALUES (idP,
+nameP, phoneP,
+directionP, emailP,
+emergencyPhoneP, birthP,
+idUserP, (SELECT id_especialidad FROM especialidad WHERE descripcion_especialidad = descEspP),
+(SELECT id_estado_personal FROM estado_personal WHERE descripcion_estado_personal = descStateP));
 END $$
 DELIMITER ;
-
 
 DROP PROCEDURE IF EXISTS usp_updatePersonal;
 DELIMITER $$
@@ -379,14 +383,16 @@ CREATE PROCEDURE usp_updatePersonal(idP CHAR(5),
 nameP VARCHAR(80), phoneP VARCHAR(20),
 directionP VARCHAR(80), emailP VARCHAR(80),
 emergencyPhoneP VARCHAR(20), birthP VARCHAR(80),
-idUserP VARCHAR(100), idEspP INT,
-idStateP INT)
+idUserP VARCHAR(100), descEspP VARCHAR(80),
+descStateP VARCHAR(80))
 BEGIN
 UPDATE personal SET nombre_personal = nameP, telefono_personal = phoneP,
 direccion_personal = directionP, email_personal = emailP,
 telefono_emergencia = emergencyPhoneP, fecha_nacimiento = birthP,
 id_usuario = idUserP,
-id_especialidad = idEspP, id_estado_personal = idStateP WHERE id_personal = idP;
+id_especialidad = (SELECT id_especialidad FROM especialidad WHERE descripcion_especialidad = descEspP),
+id_estado_personal = (SELECT id_estado_personal FROM estado_personal WHERE descripcion_estado_personal = descStateP)
+WHERE id_personal = idP;
 END $$
 DELIMITER ;
 -- <END> PERSONAL STORE PROCEDURES

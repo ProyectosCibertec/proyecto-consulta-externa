@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import maintenance.PersonalStateManagement;
 import models.PersonalState;
+import models.Speciality;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -30,8 +31,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowEvent;
+import java.awt.Window.Type;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class FrmPersonalState extends JFrame implements ActionListener, WindowListener {
+public class FrmPersonalState extends JFrame implements ActionListener, WindowListener, MouseListener {
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoEstado;
@@ -67,7 +71,7 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 	public FrmPersonalState() {
 		addWindowListener(this);
 		setTitle("Mantenimiento Estado Personal");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 294, 277);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -125,6 +129,7 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 		dtm = new DefaultTableModel();
 		dtm.setColumnIdentifiers(columns);
 		dataListPersonalState = new JTable(dtm);
+		dataListPersonalState.addMouseListener(this);
 		dataListPersonalState.setFillsViewportHeight(true);
 		scrollPane.setViewportView(dataListPersonalState);
 		
@@ -192,10 +197,13 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 	public void windowActivated(WindowEvent e) {
 	}
 	public void windowClosed(WindowEvent e) {
+		this.dispose();
 	}
 	public void windowClosing(WindowEvent e) {
+		this.dispose();
 	}
 	public void windowDeactivated(WindowEvent e) {
+		this.dispose();
 	}
 	public void windowDeiconified(WindowEvent e) {
 	}
@@ -215,5 +223,28 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 		personalStateM.removePersonalState(Integer.parseInt(txtPersonalState.getText()));
 		listPersonalState();
 		clearTxt();
+	}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == dataListPersonalState) {
+			mouseClickedDataListPersonalState(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedDataListPersonalState(MouseEvent e) {
+		int row = dataListPersonalState.getSelectedRow();
+		try {
+			PersonalState personalState = new PersonalState();
+			personalState.setIdPersonalState(dtm.getValueAt(row, 0).toString());
+			txtPersonalState.setText(personalState.getIdPersonalState());
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Hubo un error: " + ex.getMessage());
+		}
 	}
 }
