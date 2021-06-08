@@ -77,6 +77,7 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	DefaultTableModel dmt;
 	private JLabel lblAgregar;
 	private JLabel lblAgregar_1;
+	public static Personal personal;
 
 	/**
 	 * Launch the application.
@@ -503,6 +504,8 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	}
 
 	protected void actionPerformedBtnAgregar(ActionEvent arg0) {
+		// dmt.addRow(new Object[] { "", "","","","","","","sdfs", new JButton("sdfsf").add()});
+
 		addPersonal();
 	}
 
