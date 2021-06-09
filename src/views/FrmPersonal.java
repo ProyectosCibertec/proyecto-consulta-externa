@@ -1,7 +1,5 @@
 package views;
 
-import models.Personal;
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,34 +7,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
+import maintenance.PersonalManagement;
+import models.Personal;
+
+import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.JComboBox;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.Font;
-import com.toedter.calendar.JDateChooser;
-
-import maintenance.PersonalManagement;
-
-import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowEvent;
@@ -47,37 +34,23 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoPersonal;
-	private JLabel lblCdigo;
-	private JLabel lblNombres;
-	private JLabel lblTelefono;
-	private JLabel lblDireccin;
-	private JLabel lblEmail;
-	private JLabel lblTelfonoDeEmergencia;
-	private JLabel lblFechaDeNacimiento;
-	private JLabel lblClaveDePersonal;
-	private JTextField txtCode;
-	private JTextField txtNames;
-	private JTextField txtPhone;
-	private JTextField txtDirection;
-	private JTextField txtEmail;
-	private JTextField txtEmergencyPhone;
-	private JDateChooser dateBithday;
-	private JTextField txtKey;
-	private JLabel lblEspecialidad;
-	private JLabel lblEstado;
-	private JComboBox cboSpeciality;
-	private JComboBox cboState;
-	private JLabel lblInformacinAdicional;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
 	private JButton btnAgregar;
 	private JButton btnBuscar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
+	private JPanel panel_6;
+	private JLabel lblCdigo;
+	private JTextField txtCode;
 	private JScrollPane scrollPane;
 	private JTable dataTable;
+	private JPanel panel_7;
 	DefaultTableModel dmt;
-	private JLabel lblAgregar;
-	private JLabel lblAgregar_1;
-	public static Personal personal;
 
 	/**
 	 * Launch the application.
@@ -100,168 +73,201 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	 */
 	public FrmPersonal() {
 		addWindowListener(this);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 593, 554);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 800, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[] { 687, 0 };
+		gbl_contentPane.rowHeights = new int[] { 0, 0, 0 };
+		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		contentPane.setLayout(gbl_contentPane);
 
 		lblMantenimientoPersonal = new JLabel("Mantenimiento Personal");
 		lblMantenimientoPersonal.setFont(new Font("C059", Font.BOLD, 25));
-		lblMantenimientoPersonal.setBounds(117, 7, 367, 31);
-		contentPane.add(lblMantenimientoPersonal);
+		GridBagConstraints gbc_lblMantenimientoPersonal = new GridBagConstraints();
+		gbc_lblMantenimientoPersonal.insets = new Insets(0, 0, 5, 0);
+		gbc_lblMantenimientoPersonal.gridx = 0;
+		gbc_lblMantenimientoPersonal.gridy = 0;
+		contentPane.add(lblMantenimientoPersonal, gbc_lblMantenimientoPersonal);
+
+		panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 1;
+		contentPane.add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[] { 220, 397, 0 };
+		gbl_panel.rowHeights = new int[] { 217, 0 };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		panel.setLayout(gbl_panel);
+
+		panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.anchor = GridBagConstraints.WEST;
+		gbc_panel_1.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_1.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_1.gridx = 0;
+		gbc_panel_1.gridy = 0;
+		panel.add(panel_1, gbc_panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] { -4, 0, 0 };
+		gbl_panel_1.rowHeights = new int[] { 17, 0, 0 };
+		gbl_panel_1.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_1.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		panel_1.setLayout(gbl_panel_1);
+
+		panel_6 = new JPanel();
+		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
+		gbc_panel_6.anchor = GridBagConstraints.BASELINE;
+		gbc_panel_6.gridwidth = 2;
+		gbc_panel_6.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_6.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_6.gridx = 0;
+		gbc_panel_6.gridy = 0;
+		panel_1.add(panel_6, gbc_panel_6);
+		GridBagLayout gbl_panel_6 = new GridBagLayout();
+		gbl_panel_6.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_6.rowHeights = new int[] { 0, 0 };
+		gbl_panel_6.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_6.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		panel_6.setLayout(gbl_panel_6);
 
 		lblCdigo = new JLabel("Código");
-		lblCdigo.setBounds(32, 45, 91, 15);
-		contentPane.add(lblCdigo);
-
-		lblNombres = new JLabel("Nombres");
-		lblNombres.setBounds(292, 45, 70, 15);
-		contentPane.add(lblNombres);
-
-		lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(32, 72, 70, 15);
-		contentPane.add(lblTelefono);
-
-		lblDireccin = new JLabel("Dirección");
-		lblDireccin.setBounds(292, 72, 70, 15);
-		contentPane.add(lblDireccin);
-
-		lblEmail = new JLabel("Email");
-		lblEmail.setBounds(32, 99, 70, 15);
-		contentPane.add(lblEmail);
-
-		lblTelfonoDeEmergencia = new JLabel("Teléfono de Emergencia");
-		lblTelfonoDeEmergencia.setBounds(32, 126, 185, 15);
-		contentPane.add(lblTelfonoDeEmergencia);
-
-		lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
-		lblFechaDeNacimiento.setBounds(32, 153, 174, 15);
-		contentPane.add(lblFechaDeNacimiento);
-
-		lblClaveDePersonal = new JLabel("Clave de Personal");
-		lblClaveDePersonal.setBounds(292, 97, 174, 15);
-		contentPane.add(lblClaveDePersonal);
+		GridBagConstraints gbc_lblCdigo = new GridBagConstraints();
+		gbc_lblCdigo.insets = new Insets(0, 0, 0, 5);
+		gbc_lblCdigo.anchor = GridBagConstraints.EAST;
+		gbc_lblCdigo.gridx = 0;
+		gbc_lblCdigo.gridy = 0;
+		panel_6.add(lblCdigo, gbc_lblCdigo);
 
 		txtCode = new JTextField();
-		txtCode.setBounds(136, 43, 114, 19);
-		contentPane.add(txtCode);
 		txtCode.setColumns(10);
+		GridBagConstraints gbc_txtCode = new GridBagConstraints();
+		gbc_txtCode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCode.gridx = 1;
+		gbc_txtCode.gridy = 0;
+		panel_6.add(txtCode, gbc_txtCode);
 
-		txtNames = new JTextField();
-		txtNames.setBounds(441, 43, 114, 19);
-		contentPane.add(txtNames);
-		txtNames.setColumns(10);
+		panel_3 = new JPanel();
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.gridwidth = 2;
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
+		gbc_panel_3.gridx = 0;
+		gbc_panel_3.gridy = 1;
+		panel_1.add(panel_3, gbc_panel_3);
+		panel_3.setLayout(new GridLayout(0, 2, 10, 0));
 
-		txtPhone = new JTextField();
-		txtPhone.setBounds(136, 70, 114, 19);
-		contentPane.add(txtPhone);
-		txtPhone.setColumns(10);
-
-		txtDirection = new JTextField();
-		txtDirection.setBounds(441, 70, 114, 19);
-		contentPane.add(txtDirection);
-		txtDirection.setColumns(10);
-
-		txtEmail = new JTextField();
-		txtEmail.setBounds(136, 97, 114, 19);
-		contentPane.add(txtEmail);
-		txtEmail.setColumns(10);
-
-		txtEmergencyPhone = new JTextField();
-		txtEmergencyPhone.setBounds(247, 124, 308, 19);
-		contentPane.add(txtEmergencyPhone);
-		txtEmergencyPhone.setColumns(10);
-
-		dateBithday = new JDateChooser();
-		dateBithday.setBounds(247, 149, 308, 19);
-		contentPane.add(dateBithday);
-
-		txtKey = new JTextField();
-		txtKey.setBounds(441, 95, 114, 19);
-		contentPane.add(txtKey);
-		txtKey.setColumns(10);
-
-		lblEspecialidad = new JLabel("Especialidad");
-		lblEspecialidad.setBounds(32, 245, 114, 15);
-		contentPane.add(lblEspecialidad);
-
-		lblEstado = new JLabel("Estado");
-		lblEstado.setBounds(368, 245, 70, 15);
-		contentPane.add(lblEstado);
-
-		cboSpeciality = new JComboBox();
-		cboSpeciality.setBounds(136, 242, 114, 20);
-		contentPane.add(cboSpeciality);
-
-		cboState = new JComboBox();
-		cboState.setBounds(441, 242, 114, 20);
-		contentPane.add(cboState);
-
-		lblInformacinAdicional = new JLabel("Información Adicional");
-		lblInformacinAdicional.setFont(new Font("C059", Font.BOLD, 20));
-		lblInformacinAdicional.setBounds(32, 193, 330, 26);
-		contentPane.add(lblInformacinAdicional);
+		panel_4 = new JPanel();
+		panel_3.add(panel_4);
+		GridBagLayout gbl_panel_4 = new GridBagLayout();
+		gbl_panel_4.columnWidths = new int[] { 131, 0 };
+		gbl_panel_4.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panel_4.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel_4.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		panel_4.setLayout(gbl_panel_4);
 
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(this);
-		btnAgregar.setBounds(32, 274, 117, 25);
-		contentPane.add(btnAgregar);
+		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
+		gbc_btnAgregar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAgregar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAgregar.gridx = 0;
+		gbc_btnAgregar.gridy = 0;
+		panel_4.add(btnAgregar, gbc_btnAgregar);
 
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(164, 274, 117, 25);
-		contentPane.add(btnBuscar);
+		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
+		gbc_btnBuscar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnBuscar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnBuscar.gridx = 0;
+		gbc_btnBuscar.gridy = 1;
+		panel_4.add(btnBuscar, gbc_btnBuscar);
+
+		panel_7 = new JPanel();
+		GridBagConstraints gbc_panel_7 = new GridBagConstraints();
+		gbc_panel_7.fill = GridBagConstraints.BOTH;
+		gbc_panel_7.gridx = 0;
+		gbc_panel_7.gridy = 2;
+		panel_4.add(panel_7, gbc_panel_7);
+
+		panel_5 = new JPanel();
+		panel_3.add(panel_5);
+		GridBagLayout gbl_panel_5 = new GridBagLayout();
+		gbl_panel_5.columnWidths = new int[] { 0, 0 };
+		gbl_panel_5.rowHeights = new int[] { 0, 0, 0 };
+		gbl_panel_5.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel_5.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		panel_5.setLayout(gbl_panel_5);
 
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(this);
-		btnActualizar.setBounds(302, 274, 117, 25);
-		contentPane.add(btnActualizar);
+		GridBagConstraints gbc_btnActualizar = new GridBagConstraints();
+		gbc_btnActualizar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnActualizar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnActualizar.gridx = 0;
+		gbc_btnActualizar.gridy = 0;
+		panel_5.add(btnActualizar, gbc_btnActualizar);
 
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(438, 274, 117, 25);
-		contentPane.add(btnEliminar);
+		GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
+		gbc_btnEliminar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnEliminar.gridx = 0;
+		gbc_btnEliminar.gridy = 1;
+		panel_5.add(btnEliminar, gbc_btnEliminar);
 
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 320, 538, 199);
-		contentPane.add(scrollPane);
+		panel_2 = new JPanel();
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.fill = GridBagConstraints.BOTH;
+		gbc_panel_2.gridx = 1;
+		gbc_panel_2.gridy = 0;
+		panel.add(panel_2, gbc_panel_2);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[] { 0, 0 };
+		gbl_panel_2.rowHeights = new int[] { 0, 0 };
+		gbl_panel_2.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel_2.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+		panel_2.setLayout(gbl_panel_2);
 
 		Object title[] = { "Código", "Nombres", "Teléfono", "Dirección", "Email", "T. de Emergencia",
 				"F. de Nacimiento", "Especialidad", "Estado" };
 		dmt = new DefaultTableModel();
 		dmt.setColumnIdentifiers(title);
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		panel_2.add(scrollPane, gbc_scrollPane);
 		dataTable = new JTable(dmt);
 		dataTable.addMouseListener(this);
 		dataTable.setFillsViewportHeight(true);
 		scrollPane.setViewportView(dataTable);
-		
-		lblAgregar = new JLabel("Agregar");
-		lblAgregar.addMouseListener(this);
-		lblAgregar.setBounds(138, 226, 70, 15);
-		contentPane.add(lblAgregar);
-		
-		lblAgregar_1 = new JLabel("Agregar");
-		lblAgregar_1.addMouseListener(this);
-		lblAgregar_1.setBounds(441, 226, 70, 15);
-		contentPane.add(lblAgregar_1);
+
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnBuscar) {
+			actionPerformedBtnBuscar(arg0);
+		}
 		if (arg0.getSource() == btnEliminar) {
 			actionPerformedBtnEliminar(arg0);
 		}
 		if (arg0.getSource() == btnActualizar) {
 			actionPerformedBtnActualizar(arg0);
 		}
-		if (arg0.getSource() == btnBuscar) {
-			actionPerformedBtnBuscar(arg0);
-		}
 		if (arg0.getSource() == btnAgregar) {
 			actionPerformedBtnAgregar(arg0);
 		}
 	}
+
+	/*----- Methods -----*/
 
 	public void listPersonal() {
 		dmt.setRowCount(0);
@@ -275,253 +281,81 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 		}
 	}
 
-	public void addPersonal() {
-		PersonalManagement personalManagement = new PersonalManagement();
-		Personal personal = new Personal();
-		try {
-			personal.setIdPersonal(getCodeOfPersonal());
-			personal.setPersonalName(getNameOfPersonal());
-			personal.setEmergencyPhone(getEmergencyPhoneOfPersonal());
-			personal.setBirthDate(getBirthday());
-			personal.setIdPersonalState(getStateOfPersonal());
-			personal.setPersonalDirection(getDirectionOfPersonal());
-			personal.setIdUsuario(getKeyOfPersonal());
-			personal.setPersonalEmail(getEmailOfPersonal());
-			personal.setPersonalPhone(getPhoneOfPersonal());
-			personal.setIdSpecialty(getSpecialityOfPersonal());
-			personalManagement.addPersonal(personal);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		listPersonal();
-	}
-
-	public void deletePersonal() {
-		PersonalManagement personalManagement = new PersonalManagement();
-		try {
-			personalManagement.deletePersonal(getCodeOfPersonal());
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
-		}
-		listPersonal();
-	}
-
-	public void updatePersonal() {
-		PersonalManagement personalManagement = new PersonalManagement();
-		Personal personal = new Personal();
-		try {
-			personal.setIdPersonal(getCodeOfPersonal());
-			personal.setPersonalName(getNameOfPersonal());
-			personal.setEmergencyPhone(getEmergencyPhoneOfPersonal());
-			personal.setBirthDate(getBirthday());
-			personal.setIdPersonalState(getStateOfPersonal());
-			personal.setPersonalDirection(getDirectionOfPersonal());
-			personal.setIdUsuario(getKeyOfPersonal());
-			personal.setPersonalEmail(getEmailOfPersonal());
-			personal.setPersonalPhone(getPhoneOfPersonal());
-			personal.setIdSpecialty(getSpecialityOfPersonal());
-			personalManagement.updatePersonal(personal);
-		} catch (Exception e) {
-
-		}
-		listPersonal();
-	}
-
-	public void searchPersonal() {
-		PersonalManagement personalManagement = new PersonalManagement();
-		try {
-			personalManagement.getPersonal(getCodeOfPersonal());			
-		} catch(Exception e) {
-			
-		}
-		listPersonal();
-	}
-
 	public String getCodeOfPersonal() throws Exception {
 		String result = null;
-		if (txtCode.getText().length() != 0 && txtCode.getText().matches("P[0-9]{5}")) {
+
+		if (txtCode.getText().length() != 0 && txtCode.getText().matches("P[0-9]{4}")) {
 			try {
 				result = txtCode.getText();
 			} catch (Exception e) {
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un código válido en el formato: PE001.");
+			JOptionPane.showMessageDialog(null, "Debe introducir un código válido en el formato: P0001.");
 			throw new Exception();
 		}
 
 		return result;
 	}
 
-	public String getNameOfPersonal() throws Exception {
-		String result = null;
-		if (txtNames.getText().length() != 0) {
-			try {
-				result = txtNames.getText();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un nombre válido.");
-			throw new Exception();
+	/*----- Events -----*/
+
+	protected void actionPerformedBtnEliminar(ActionEvent arg0) {
+		PersonalManagement personalManagement = new PersonalManagement();
+		try {
+			personalManagement.deletePersonal(getCodeOfPersonal());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-
-		return result;
-	}
-
-	public String getPhoneOfPersonal() throws Exception {
-		String result = null;
-		if (txtPhone.getText().length() != 0 && txtPhone.getText().matches("[0-9]{9}")) {
-			try {
-				result = txtPhone.getText();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un teléfono válido, en formato: 999999999.");
-			throw new Exception();
-		}
-
-		return result;
-	}
-
-	public String getDirectionOfPersonal() throws Exception {
-		String result = null;
-		if (txtDirection.getText().length() != 0) {
-			try {
-				result = txtDirection.getText();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir una dirección válida.");
-			throw new Exception();
-		}
-
-		return result;
-	}
-
-	public String getEmailOfPersonal() throws Exception {
-		String result = null;
-		if (txtEmail.getText().length() != 0 && txtEmail.getText().matches("P[0-9]{5}@consultaexterna.com")) {
-			try {
-				result = txtEmail.getText();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null,
-					"Debe introducir un email válido en el formato: PE00001@consultaexterna.com.");
-			throw new Exception();
-		}
-
-		return result;
-	}
-
-	public String getKeyOfPersonal() throws Exception {
-		String result = null;
-		if (txtKey.getText().length() != 0) {
-			try {
-				result = txtKey.getText();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir una clave válida.");
-			throw new Exception();
-		}
-
-		return result;
-	}
-
-	public String getEmergencyPhoneOfPersonal() throws Exception {
-		String result = null;
-		if (txtEmergencyPhone.getText().length() != 0 && txtPhone.getText().matches("[0-9]{9}")) {
-			try {
-				result = txtEmergencyPhone.getText();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null,
-					"Debe introducir un teléfono de emergencia válido, en formato: 999999999.");
-			throw new Exception();
-		}
-
-		return result;
-	}
-
-	public String getBirthday() throws Exception {
-		String result = null;
-		if (Integer.parseInt(new SimpleDateFormat("yyyy-MM-dd").format(dateBithday.getDate())) < Integer
-				.parseInt(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))) {
-			try {
-				result = new SimpleDateFormat("yyyy-MM-dd").format(dateBithday.getDate());
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede ser mayor a la fecha actual.");
-			throw new Exception();
-		}
-
-		return result;
-	}
-
-	public String getStateOfPersonal() throws Exception {
-		String result = null;
-
-		if (cboState.getSelectedItem() != null) {
-			try {
-				result = cboState.getSelectedItem().toString();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Debe seleccionar un estado.");
-			throw new Exception();
-		}
-
-		return result;
-	}
-
-	public String getSpecialityOfPersonal() throws Exception {
-		String result = null;
-
-		if (cboSpeciality.getSelectedItem() != null) {
-			try {
-				result = cboSpeciality.getSelectedItem().toString();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, e.getMessage());
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Debe seleccionar una especialidad.");
-			throw new Exception();
-		}
-
-		return result;
-	}
-
-	protected void actionPerformedBtnAgregar(ActionEvent arg0) {
-		// dmt.addRow(new Object[] { "", "","","","","","","sdfs", new JButton("sdfsf").add()});
-
-		addPersonal();
 	}
 
 	protected void actionPerformedBtnBuscar(ActionEvent arg0) {
-		searchPersonal();
+		ArrayList<Personal> listPersonal = new ArrayList<Personal>();
+		int row = 0;
+
+		for (int i = 0; i < listPersonal.size(); i++) {
+			if (listPersonal.get(i).getIdPersonal() == txtCode.getText()) {
+				row = i;
+			}
+		}
+
+		dataTable.setRowSelectionInterval(row, row);
 	}
 
-	protected void actionPerformedBtnActualizar(ActionEvent arg0) {
-		updatePersonal();
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == dataTable) {
+			mouseClickedDataTable(e);
+		}
 	}
 
-	protected void actionPerformedBtnEliminar(ActionEvent arg0) {
-		deletePersonal();
+	public void windowIconified(WindowEvent e) {
+		if (e.getSource() == this) {
+			windowIconifiedThis(e);
+		}
 	}
 
 	public void windowActivated(WindowEvent e) {
+		listPersonal();
+	}
+
+	protected void actionPerformedBtnAgregar(ActionEvent arg0) {
+		FrmPersonalData personalData = new FrmPersonalData();
+		personalData.setVisible(true);
+	}
+
+	protected void mouseClickedDataTable(MouseEvent e) {
+		try {
+			int row = dataTable.getSelectedRow();
+			txtCode.setText(dmt.getValueAt(row, 0).toString());
+		} catch (Exception ex) {
+
+		}
+	}
+
+	protected void actionPerformedBtnActualizar(ActionEvent arg0) {
+		FrmPersonalData personalData = new FrmPersonalData();
+		personalData.codeOfPersonal = txtCode.getText();
+		personalData.setVisible(true);
 	}
 
 	public void windowClosed(WindowEvent e) {
@@ -536,69 +370,22 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	public void windowDeiconified(WindowEvent e) {
 	}
 
-	public void windowIconified(WindowEvent e) {
-	}
-
 	public void windowOpened(WindowEvent e) {
-		if (e.getSource() == this) {
-			windowOpenedThis(e);
-		}
 	}
 
-	protected void windowOpenedThis(WindowEvent e) {
-		listPersonal();
+	protected void windowIconifiedThis(WindowEvent e) {
 	}
-	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == lblAgregar_1) {
-			mouseClickedLblAgregar_1(e);
-		}
-		if (e.getSource() == lblAgregar) {
-			mouseClickedLblAgregar(e);
-		}
-		if (e.getSource() == dataTable) {
-			mouseClickedDataTable(e);
-		}
-	}
+
 	public void mouseEntered(MouseEvent e) {
 	}
+
 	public void mouseExited(MouseEvent e) {
 	}
+
 	public void mousePressed(MouseEvent e) {
 	}
+
 	public void mouseReleased(MouseEvent e) {
 	}
-	protected void mouseClickedDataTable(MouseEvent e) {
-		int row = dataTable.getSelectedRow();
-		try {
-			Personal personal = new Personal(
-					dmt.getValueAt(row, 0).toString(),
-					dmt.getValueAt(row, 1).toString(),
-					dmt.getValueAt(row, 2).toString(),
-					dmt.getValueAt(row, 3).toString(),
-					dmt.getValueAt(row, 4).toString(),
-					dmt.getValueAt(row, 5).toString(),
-					dmt.getValueAt(row, 6).toString(),
-					dmt.getValueAt(row, 7).toString(),
-					dmt.getValueAt(row, 8).toString(),
-					dmt.getValueAt(row, 9).toString()
-					);
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			txtCode.setText(personal.getIdPersonal());
-			txtNames.setText(personal.getPersonalName());
-			txtPhone.setText(personal.getPersonalPhone());
-			txtDirection.setText(personal.getPersonalDirection());
-			txtEmail.setText(personal.getPersonalEmail());
-			txtKey.setText(personal.getIdUsuario());
-			txtEmergencyPhone.setText(personal.getEmergencyPhone());
-			dateBithday.setDate(df.parse(personal.getBirthDate()));
-			cboSpeciality.setSelectedItem(personal.getIdPersonal());
-			cboState.setSelectedItem(personal.getIdPersonal());
-		} catch(Exception ex) {
-			JOptionPane.showMessageDialog(null, "Hubo un error: " + ex.getMessage());
-		}
-	}
-	protected void mouseClickedLblAgregar(MouseEvent e) {
-	}
-	protected void mouseClickedLblAgregar_1(MouseEvent e) {
-	}
+
 }
