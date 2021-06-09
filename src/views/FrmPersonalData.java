@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.EventQueue;
 
@@ -104,12 +103,12 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{400, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 100, 0, 50, 26, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[] { 400, 0 };
+		gbl_contentPane.rowHeights = new int[] { 0, 100, 0, 50, 26, 0 };
+		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		lblMantenimientoPersonal = new JLabel("Mantenimiento Personal");
 		lblMantenimientoPersonal.setFont(new Font("C059", Font.BOLD, 25));
 		GridBagConstraints gbc_lblMantenimientoPersonal = new GridBagConstraints();
@@ -117,7 +116,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblMantenimientoPersonal.gridx = 0;
 		gbc_lblMantenimientoPersonal.gridy = 0;
 		contentPane.add(lblMantenimientoPersonal, gbc_lblMantenimientoPersonal);
-		
+
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
@@ -126,12 +125,12 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_panel.gridy = 1;
 		contentPane.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0};
-		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] { 0, 0 };
+		gbl_panel.rowHeights = new int[] { 0, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-		
+
 		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
@@ -139,16 +138,16 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_panel_1.gridy = 0;
 		panel.add(panel_1, gbc_panel_1);
 		panel_1.setLayout(new GridLayout(0, 2, 30, 30));
-		
+
 		panel_2 = new JPanel();
 		panel_1.add(panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_2.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_2.rowHeights = new int[] { 0, 0, 0, 0, 0 };
+		gbl_panel_2.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_2.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_2.setLayout(gbl_panel_2);
-		
+
 		lblCdigo = new JLabel("Código");
 		GridBagConstraints gbc_lblCdigo = new GridBagConstraints();
 		gbc_lblCdigo.insets = new Insets(0, 0, 5, 5);
@@ -156,7 +155,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblCdigo.gridx = 0;
 		gbc_lblCdigo.gridy = 0;
 		panel_2.add(lblCdigo, gbc_lblCdigo);
-		
+
 		txtCode = new JTextField();
 		txtCode.setColumns(10);
 		GridBagConstraints gbc_txtCode = new GridBagConstraints();
@@ -165,7 +164,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_txtCode.gridx = 1;
 		gbc_txtCode.gridy = 0;
 		panel_2.add(txtCode, gbc_txtCode);
-		
+
 		lblTelefono = new JLabel("Telefono");
 		GridBagConstraints gbc_lblTelefono = new GridBagConstraints();
 		gbc_lblTelefono.anchor = GridBagConstraints.WEST;
@@ -173,7 +172,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblTelefono.gridx = 0;
 		gbc_lblTelefono.gridy = 1;
 		panel_2.add(lblTelefono, gbc_lblTelefono);
-		
+
 		txtPhone = new JTextField();
 		txtPhone.setColumns(10);
 		GridBagConstraints gbc_txtPhone = new GridBagConstraints();
@@ -182,7 +181,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_txtPhone.gridx = 1;
 		gbc_txtPhone.gridy = 1;
 		panel_2.add(txtPhone, gbc_txtPhone);
-		
+
 		lblEmail = new JLabel("Email");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
 		gbc_lblEmail.anchor = GridBagConstraints.WEST;
@@ -190,7 +189,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblEmail.gridx = 0;
 		gbc_lblEmail.gridy = 2;
 		panel_2.add(lblEmail, gbc_lblEmail);
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
@@ -199,7 +198,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_txtEmail.gridx = 1;
 		gbc_txtEmail.gridy = 2;
 		panel_2.add(txtEmail, gbc_txtEmail);
-		
+
 		lblTDeEmergencia = new JLabel("T. de Emergencia");
 		GridBagConstraints gbc_lblTDeEmergencia = new GridBagConstraints();
 		gbc_lblTDeEmergencia.anchor = GridBagConstraints.EAST;
@@ -207,7 +206,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblTDeEmergencia.gridx = 0;
 		gbc_lblTDeEmergencia.gridy = 3;
 		panel_2.add(lblTDeEmergencia, gbc_lblTDeEmergencia);
-		
+
 		txtEmergencyPhone = new JTextField();
 		txtEmergencyPhone.setColumns(10);
 		GridBagConstraints gbc_txtEmergencyPhone = new GridBagConstraints();
@@ -215,16 +214,16 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_txtEmergencyPhone.gridx = 1;
 		gbc_txtEmergencyPhone.gridy = 3;
 		panel_2.add(txtEmergencyPhone, gbc_txtEmergencyPhone);
-		
+
 		panel_3 = new JPanel();
 		panel_1.add(panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_3.rowHeights = new int[]{0, 0, 31, 30, 0};
-		gbl_panel_3.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_3.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_3.rowHeights = new int[] { 0, 0, 31, 30, 0 };
+		gbl_panel_3.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panel_3.setLayout(gbl_panel_3);
-		
+
 		lblNombres = new JLabel("Nombres");
 		GridBagConstraints gbc_lblNombres = new GridBagConstraints();
 		gbc_lblNombres.insets = new Insets(0, 0, 5, 5);
@@ -232,7 +231,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblNombres.gridx = 0;
 		gbc_lblNombres.gridy = 0;
 		panel_3.add(lblNombres, gbc_lblNombres);
-		
+
 		txtNames = new JTextField();
 		txtNames.setColumns(10);
 		GridBagConstraints gbc_txtNames = new GridBagConstraints();
@@ -241,7 +240,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_txtNames.gridx = 1;
 		gbc_txtNames.gridy = 0;
 		panel_3.add(txtNames, gbc_txtNames);
-		
+
 		lblDireccin = new JLabel("Dirección");
 		GridBagConstraints gbc_lblDireccin = new GridBagConstraints();
 		gbc_lblDireccin.anchor = GridBagConstraints.WEST;
@@ -249,7 +248,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblDireccin.gridx = 0;
 		gbc_lblDireccin.gridy = 1;
 		panel_3.add(lblDireccin, gbc_lblDireccin);
-		
+
 		txtDirection = new JTextField();
 		txtDirection.setColumns(10);
 		GridBagConstraints gbc_txtDirection = new GridBagConstraints();
@@ -258,7 +257,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_txtDirection.gridx = 1;
 		gbc_txtDirection.gridy = 1;
 		panel_3.add(txtDirection, gbc_txtDirection);
-		
+
 		lblClaveDePersonal = new JLabel("ID de personal");
 		GridBagConstraints gbc_lblClaveDePersonal = new GridBagConstraints();
 		gbc_lblClaveDePersonal.anchor = GridBagConstraints.WEST;
@@ -266,7 +265,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblClaveDePersonal.gridx = 0;
 		gbc_lblClaveDePersonal.gridy = 2;
 		panel_3.add(lblClaveDePersonal, gbc_lblClaveDePersonal);
-		
+
 		txtKey = new JTextField();
 		txtKey.setColumns(10);
 		GridBagConstraints gbc_txtKey = new GridBagConstraints();
@@ -275,7 +274,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_txtKey.gridx = 1;
 		gbc_txtKey.gridy = 2;
 		panel_3.add(txtKey, gbc_txtKey);
-		
+
 		lblFDeNacimiento = new JLabel("F. de Nacimiento");
 		GridBagConstraints gbc_lblFDeNacimiento = new GridBagConstraints();
 		gbc_lblFDeNacimiento.anchor = GridBagConstraints.NORTH;
@@ -283,7 +282,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblFDeNacimiento.gridx = 0;
 		gbc_lblFDeNacimiento.gridy = 3;
 		panel_3.add(lblFDeNacimiento, gbc_lblFDeNacimiento);
-		
+
 		dateBithday = new JDateChooser();
 		GridBagConstraints gbc_dateBithday = new GridBagConstraints();
 		gbc_dateBithday.anchor = GridBagConstraints.NORTH;
@@ -291,7 +290,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_dateBithday.gridx = 1;
 		gbc_dateBithday.gridy = 3;
 		panel_3.add(dateBithday, gbc_dateBithday);
-		
+
 		lblInformacinAdicional = new JLabel("Información Adicional");
 		lblInformacinAdicional.setFont(new Font("C059", Font.BOLD, 20));
 		GridBagConstraints gbc_lblInformacinAdicional = new GridBagConstraints();
@@ -299,7 +298,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblInformacinAdicional.gridx = 0;
 		gbc_lblInformacinAdicional.gridy = 2;
 		contentPane.add(lblInformacinAdicional, gbc_lblInformacinAdicional);
-		
+
 		panel_4 = new JPanel();
 		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
 		gbc_panel_4.insets = new Insets(0, 0, 5, 0);
@@ -308,12 +307,12 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_panel_4.gridy = 3;
 		contentPane.add(panel_4, gbc_panel_4);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[]{482, 0};
-		gbl_panel_4.rowHeights = new int[]{0, 0};
-		gbl_panel_4.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_4.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_4.columnWidths = new int[] { 482, 0 };
+		gbl_panel_4.rowHeights = new int[] { 0, 0 };
+		gbl_panel_4.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel_4.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		panel_4.setLayout(gbl_panel_4);
-		
+
 		panel_5 = new JPanel();
 		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
 		gbc_panel_5.fill = GridBagConstraints.BOTH;
@@ -321,16 +320,16 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_panel_5.gridy = 0;
 		panel_4.add(panel_5, gbc_panel_5);
 		panel_5.setLayout(new GridLayout(0, 2, 30, 0));
-		
+
 		panel_6 = new JPanel();
 		panel_5.add(panel_6);
 		GridBagLayout gbl_panel_6 = new GridBagLayout();
-		gbl_panel_6.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_6.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_6.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_6.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_6.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_6.rowHeights = new int[] { 0, 0, 0 };
+		gbl_panel_6.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_6.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		panel_6.setLayout(gbl_panel_6);
-		
+
 		lblAgregar = new JLabel("Agregar");
 		lblAgregar.addMouseListener(this);
 		GridBagConstraints gbc_lblAgregar = new GridBagConstraints();
@@ -339,7 +338,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblAgregar.gridx = 1;
 		gbc_lblAgregar.gridy = 0;
 		panel_6.add(lblAgregar, gbc_lblAgregar);
-		
+
 		lblEspecialidad = new JLabel("Especialidad");
 		GridBagConstraints gbc_lblEspecialidad = new GridBagConstraints();
 		gbc_lblEspecialidad.insets = new Insets(0, 0, 0, 5);
@@ -347,7 +346,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblEspecialidad.gridx = 0;
 		gbc_lblEspecialidad.gridy = 1;
 		panel_6.add(lblEspecialidad, gbc_lblEspecialidad);
-		
+
 		cboSpeciality = new JComboBox();
 		cboSpeciality.addMouseListener(this);
 		GridBagConstraints gbc_cboSpeciality = new GridBagConstraints();
@@ -355,17 +354,17 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_cboSpeciality.gridx = 1;
 		gbc_cboSpeciality.gridy = 1;
 		panel_6.add(cboSpeciality, gbc_cboSpeciality);
-		
+
 		panel_7 = new JPanel();
 		panel_7.addMouseListener(this);
 		panel_5.add(panel_7);
 		GridBagLayout gbl_panel_7 = new GridBagLayout();
-		gbl_panel_7.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_7.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_7.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_7.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_7.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_7.rowHeights = new int[] { 0, 0, 0 };
+		gbl_panel_7.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_7.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		panel_7.setLayout(gbl_panel_7);
-		
+
 		lblAgregar_1 = new JLabel("Agregar");
 		lblAgregar_1.addMouseListener(this);
 		GridBagConstraints gbc_lblAgregar_1 = new GridBagConstraints();
@@ -374,7 +373,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblAgregar_1.gridx = 1;
 		gbc_lblAgregar_1.gridy = 0;
 		panel_7.add(lblAgregar_1, gbc_lblAgregar_1);
-		
+
 		lblEstado = new JLabel("Estado");
 		GridBagConstraints gbc_lblEstado = new GridBagConstraints();
 		gbc_lblEstado.insets = new Insets(0, 0, 0, 5);
@@ -382,7 +381,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_lblEstado.gridx = 0;
 		gbc_lblEstado.gridy = 1;
 		panel_7.add(lblEstado, gbc_lblEstado);
-		
+
 		cboState = new JComboBox();
 		cboState.addMouseListener(this);
 		GridBagConstraints gbc_cboState = new GridBagConstraints();
@@ -390,119 +389,40 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		gbc_cboState.gridx = 1;
 		gbc_cboState.gridy = 1;
 		panel_7.add(cboState, gbc_cboState);
-		
+
 		panel_8 = new JPanel();
 		GridBagConstraints gbc_panel_8 = new GridBagConstraints();
 		gbc_panel_8.gridx = 0;
 		gbc_panel_8.gridy = 4;
 		contentPane.add(panel_8, gbc_panel_8);
-		
+
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(this);
 		panel_8.add(btnAgregar);
-		
+
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(this);
 		panel_8.add(btnActualizar);
 	}
-	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == cboSpeciality) {
-			mouseClickedCboSpeciality(e);
-		}
-		if (e.getSource() == cboState) {
-			mouseClickedCboState(e);
-		}
-		if (e.getSource() == lblAgregar_1) {
-			mouseClickedLblAgregar_1(e);
-		}
-		if (e.getSource() == lblAgregar) {
-			mouseClickedLblAgregar(e);
-		}
-	}
-	public void mouseEntered(MouseEvent e) {
-		if (e.getSource() == panel_7) {
-			mouseEnteredPanel_7(e);
-		}
-		lblAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	}
-	public void mouseExited(MouseEvent e) {
-	}
-	public void mousePressed(MouseEvent e) {
-	}
-	public void mouseReleased(MouseEvent e) {
-	}
-	protected void mouseClickedLblAgregar(MouseEvent e) {
-		FrmSpeciality speciality = new FrmSpeciality();
-		speciality.setVisible(true);
-	}
-	protected void mouseClickedLblAgregar_1(MouseEvent e) {
-		FrmPersonalState personalState = new FrmPersonalState();
-		personalState.setVisible(true);
-	}
-	public void windowActivated(WindowEvent e) {
-	}
-	public void windowClosed(WindowEvent e) {
-		
-	}
-	public void windowClosing(WindowEvent e) {
-	}
-	public void windowDeactivated(WindowEvent e) {
-	}
-	public void windowDeiconified(WindowEvent e) {
-	}
-	public void windowIconified(WindowEvent e) {
-	}
-	public void windowOpened(WindowEvent e) {
-		if (e.getSource() == this) {
-			windowOpenedThis(e);
-		}
-	}
-	protected void windowOpenedThis(WindowEvent e) {
-		try {
-			PersonalManagement personalManagement = new PersonalManagement();
-			Personal personal = personalManagement.getPersonal(codeOfPersonal);
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			listSpeciality();
-			listPersonalState();
-			txtCode.setText(personal.getIdPersonal());
-			txtNames.setText(personal.getPersonalName());
-			txtPhone.setText(personal.getPersonalPhone());
-			txtDirection.setText(personal.getPersonalDirection());
-			txtEmail.setText(personal.getPersonalEmail());
-			txtKey.setText(personal.getIdUsuario());
-			txtEmergencyPhone.setText(personal.getEmergencyPhone());
-			dateBithday.setDate(df.parse(personal.getBirthDate()));
-			System.out.println(personal.getIdSpecialty());
-			System.out.println(personal.getIdPersonalState());
-			cboSpeciality.setSelectedIndex(Integer.parseInt(personal.getIdSpecialty()) - 1);
-			cboState.setSelectedIndex(Integer.parseInt(personal.getIdPersonalState()) - 1);
-		} catch(Exception ex) {
-			
-		}
-	}
-	
+
+	/*----- Methods -----*/
+
 	public void listSpeciality() {
 		cboSpeciality.removeAllItems();
 		SpecialityManagement specialityM = new SpecialityManagement();
-		for(Speciality speciality : specialityM.listSpeciality()) {
+		for (Speciality speciality : specialityM.listSpeciality()) {
 			cboSpeciality.addItem(speciality.getSpecialityDescription().toString());
 		}
 	}
-	
+
 	public void listPersonalState() {
 		cboState.removeAllItems();
 		PersonalStateManagement personalStateM = new PersonalStateManagement();
-		for(PersonalState personalState : personalStateM.listPersonalState()) {
+		for (PersonalState personalState : personalStateM.listPersonalState()) {
 			cboState.addItem(personalState.getPersonalStateDescription().toString());
 		}
 	}
-	protected void mouseClickedCboState(MouseEvent e) {
-		listPersonalState();
-	}
-	protected void mouseClickedCboSpeciality(MouseEvent e) {
-		listSpeciality();
-	}
-	
+
 	public String getCodeOfPersonal() throws Exception {
 		String result = null;
 		if (txtCode.getText().length() != 0 && txtCode.getText().matches("P[0-9]{4}")) {
@@ -586,7 +506,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 
 	public String getKeyOfPersonal() throws Exception {
 		String result = null;
-		
+
 		try {
 			result = txtKey.getText();
 		} catch (Exception e) {
@@ -663,7 +583,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 
 		return result;
 	}
-	
+
 	public int addPersonal() {
 		PersonalManagement personalManagement = new PersonalManagement();
 		Personal personal = new Personal();
@@ -678,13 +598,13 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 			personal.setPersonalEmail(getEmailOfPersonal());
 			personal.setPersonalPhone(getPhoneOfPersonal());
 			personal.setIdSpecialty(getSpecialityOfPersonal());
-			if(personalManagement.addPersonal(personal) >= 1) {
+			if (personalManagement.addPersonal(personal) >= 1) {
 				return 1;
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage() + e.getCause());
 		}
-		
+
 		return 0;
 	}
 
@@ -711,15 +631,88 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 			personal.setPersonalEmail(getEmailOfPersonal());
 			personal.setPersonalPhone(getPhoneOfPersonal());
 			personal.setIdSpecialty(getSpecialityOfPersonal());
-			if(personalManagement.updatePersonal(personal) >= 1) {
+			if (personalManagement.updatePersonal(personal) >= 1) {
 				return 1;
 			}
 		} catch (Exception e) {
 
 		}
-		
+
 		return 0;
 	}
+
+	/*----- Events -----*/
+
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == cboSpeciality) {
+			mouseClickedCboSpeciality(e);
+		}
+		if (e.getSource() == cboState) {
+			mouseClickedCboState(e);
+		}
+		if (e.getSource() == lblAgregar_1) {
+			mouseClickedLblAgregar_1(e);
+		}
+		if (e.getSource() == lblAgregar) {
+			mouseClickedLblAgregar(e);
+		}
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		if (e.getSource() == panel_7) {
+			mouseEnteredPanel_7(e);
+		}
+		lblAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	}
+
+	protected void mouseClickedLblAgregar(MouseEvent e) {
+		FrmSpeciality speciality = new FrmSpeciality();
+		speciality.setVisible(true);
+	}
+
+	protected void mouseClickedLblAgregar_1(MouseEvent e) {
+		FrmPersonalState personalState = new FrmPersonalState();
+		personalState.setVisible(true);
+	}
+
+	public void windowOpened(WindowEvent e) {
+		if (e.getSource() == this) {
+			windowOpenedThis(e);
+		}
+	}
+
+	protected void windowOpenedThis(WindowEvent e) {
+		try {
+			PersonalManagement personalManagement = new PersonalManagement();
+			Personal personal = personalManagement.getPersonal(codeOfPersonal);
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			listSpeciality();
+			listPersonalState();
+			txtCode.setText(personal.getIdPersonal());
+			txtNames.setText(personal.getPersonalName());
+			txtPhone.setText(personal.getPersonalPhone());
+			txtDirection.setText(personal.getPersonalDirection());
+			txtEmail.setText(personal.getPersonalEmail());
+			txtKey.setText(personal.getIdUsuario());
+			txtEmergencyPhone.setText(personal.getEmergencyPhone());
+			dateBithday.setDate(df.parse(personal.getBirthDate()));
+			System.out.println(personal.getIdSpecialty());
+			System.out.println(personal.getIdPersonalState());
+			cboSpeciality.setSelectedIndex(Integer.parseInt(personal.getIdSpecialty()) - 1);
+			cboState.setSelectedIndex(Integer.parseInt(personal.getIdPersonalState()) - 1);
+		} catch (Exception ex) {
+
+		}
+	}
+
+	protected void mouseClickedCboState(MouseEvent e) {
+		listPersonalState();
+	}
+
+	protected void mouseClickedCboSpeciality(MouseEvent e) {
+		listSpeciality();
+	}
+
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == btnActualizar) {
 			actionPerformedBtnActualizar(arg0);
@@ -728,17 +721,49 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 			actionPerformedBtnAgregar(arg0);
 		}
 	}
+
 	protected void actionPerformedBtnAgregar(ActionEvent arg0) {
-		if(addPersonal() == 1) {
-			this.dispose();			
+		if (addPersonal() == 1) {
+			this.dispose();
 		}
 	}
+
 	protected void actionPerformedBtnActualizar(ActionEvent arg0) {
-		if(updatePersonal() == 1) {
-			this.dispose();			
+		if (updatePersonal() == 1) {
+			this.dispose();
 		}
 	}
+
 	protected void mouseEnteredPanel_7(MouseEvent e) {
 		lblAgregar_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
+
+	public void mouseExited(MouseEvent e) {
+	}
+
+	public void mousePressed(MouseEvent e) {
+	}
+
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	public void windowActivated(WindowEvent e) {
+	}
+
+	public void windowClosed(WindowEvent e) {
+
+	}
+
+	public void windowClosing(WindowEvent e) {
+	}
+
+	public void windowDeactivated(WindowEvent e) {
+	}
+
+	public void windowDeiconified(WindowEvent e) {
+	}
+
+	public void windowIconified(WindowEvent e) {
+	}
+
 }
