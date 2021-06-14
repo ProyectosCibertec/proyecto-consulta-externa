@@ -69,7 +69,7 @@ CREATE TABLE personal (
     direccion_personal              VARCHAR(80)         NULL,
     email_personal                  VARCHAR(80)         NULL,
     telefono_emergencia             VARCHAR(20)         NULL,
-    fecha_nacimiento                VARCHAR(20)			NULL,
+    fecha_nacimiento                DATE				NULL,
     id_usuario                  	VARCHAR(5)          NULL,
     id_especialidad                 INT           		NULL,
     id_estado_personal              INT		            NULL,
@@ -393,6 +393,28 @@ id_usuario = idUserP,
 id_especialidad = (SELECT id_especialidad FROM especialidad WHERE descripcion_especialidad = descEspP),
 id_estado_personal = (SELECT id_estado_personal FROM estado_personal WHERE descripcion_estado_personal = descStateP)
 WHERE id_personal = idP;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_listByPersonalName;
+DELIMITER $$
+CREATE PROCEDURE usp_listByPersonalName(personal_name VARCHAR(100)) BEGIN
+SELECT 	p.id_personal,
+		p.nombre_personal,
+        p.telefono_personal,
+        p.direccion_personal,
+        p.email_personal,
+        p.telefono_emergencia,
+        p.fecha_nacimiento,
+        p.clave_personal,
+        e.descripcion_especialidad,
+        ep.descripcion_estado_personal
+FROM personal p
+INNER JOIN estado_personal ep
+ON p.id_estado_personal = ep.id_estado_personal
+INNER JOIN especialidad e
+ON p.id_especialidad = e.id_especialidad
+WHERE p.nombre_personal LIKE CONCAT('%',personal_name,'%');
 END $$
 DELIMITER ;
 -- <END> PERSONAL STORE PROCEDURES

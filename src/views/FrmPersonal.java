@@ -29,8 +29,15 @@ import java.awt.event.WindowListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
-public class FrmPersonal extends JFrame implements ActionListener, WindowListener, MouseListener {
+public class FrmPersonal extends JFrame implements ActionListener, WindowListener, MouseListener,
+		PropertyChangeListener, InputMethodListener, KeyListener {
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoPersonal;
@@ -51,6 +58,8 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	private JTable dataTable;
 	private JPanel panel_7;
 	DefaultTableModel dmt;
+	private JTextField txtName;
+	private JLabel lblNombre;
 
 	/**
 	 * Launch the application.
@@ -229,21 +238,42 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 		gbc_panel_2.gridy = 0;
 		panel.add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[] { 0, 0 };
-		gbl_panel_2.rowHeights = new int[] { 0, 0 };
-		gbl_panel_2.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel_2.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel_2.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_2.rowHeights = new int[] { 0, 0, 0 };
+		gbl_panel_2.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_2.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		panel_2.setLayout(gbl_panel_2);
 
 		Object title[] = { "Código", "Nombres", "Teléfono", "Dirección", "Email", "T. de Emergencia",
 				"F. de Nacimiento", "Especialidad", "Estado" };
 		dmt = new DefaultTableModel();
 		dmt.setColumnIdentifiers(title);
+
+		lblNombre = new JLabel("Nombre");
+		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombre.anchor = GridBagConstraints.EAST;
+		gbc_lblNombre.gridx = 0;
+		gbc_lblNombre.gridy = 0;
+		panel_2.add(lblNombre, gbc_lblNombre);
+
+		txtName = new JTextField();
+		txtName.addKeyListener(this);
+		txtName.addInputMethodListener(this);
+		txtName.addPropertyChangeListener(this);
+		GridBagConstraints gbc_txtName = new GridBagConstraints();
+		gbc_txtName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtName.gridx = 1;
+		gbc_txtName.gridy = 0;
+		panel_2.add(txtName, gbc_txtName);
+		txtName.setColumns(10);
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 0;
+		gbc_scrollPane.gridy = 1;
 		panel_2.add(scrollPane, gbc_scrollPane);
 		dataTable = new JTable(dmt);
 		dataTable.addMouseListener(this);
@@ -304,6 +334,8 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 		PersonalManagement personalManagement = new PersonalManagement();
 		try {
 			personalManagement.deletePersonal(getCodeOfPersonal());
+			listPersonal();
+			txtCode.setText("");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -339,6 +371,7 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	}
 
 	protected void actionPerformedBtnAgregar(ActionEvent arg0) {
+		FrmPersonalData.isForAdd = true;
 		FrmPersonalData personalData = new FrmPersonalData();
 		personalData.setVisible(true);
 	}
@@ -353,9 +386,14 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	}
 
 	protected void actionPerformedBtnActualizar(ActionEvent arg0) {
-		FrmPersonalData personalData = new FrmPersonalData();
-		personalData.codeOfPersonal = txtCode.getText();
-		personalData.setVisible(true);
+		if (!txtCode.getText().matches("P[0-9]{4}")) {
+			JOptionPane.showMessageDialog(null, "Para actualizar un usuario, selecciónelo o escriba su código.");
+		} else {
+			FrmPersonalData.isForAdd = false;
+			FrmPersonalData personalData = new FrmPersonalData();
+			personalData.codeOfPersonal = txtCode.getText();
+			personalData.setVisible(true);
+		}
 	}
 
 	public void windowClosed(WindowEvent e) {
@@ -388,4 +426,49 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	public void mouseReleased(MouseEvent e) {
 	}
 
+	public void propertyChange(PropertyChangeEvent arg0) {
+		if (arg0.getSource() == txtName) {
+			propertyChangeTextField(arg0);
+		}
+	}
+
+	protected void propertyChangeTextField(PropertyChangeEvent arg0) {
+
+	}
+
+	public void caretPositionChanged(InputMethodEvent arg0) {
+	}
+
+	public void inputMethodTextChanged(InputMethodEvent arg0) {
+		if (arg0.getSource() == txtName) {
+			inputMethodTextChangedTextField(arg0);
+		}
+	}
+
+	protected void inputMethodTextChangedTextField(InputMethodEvent arg0) {
+	}
+
+	public void keyPressed(KeyEvent e) {
+		if (e.getSource() == txtName) {
+			keyPressedTextField(e);
+		}
+	}
+
+	public void keyReleased(KeyEvent e) {
+		dmt.setRowCount(0);
+		PersonalManagement personalManagement = new PersonalManagement();
+		ArrayList<Personal> listPersonal = personalManagement.listPersonalByName(txtName.getText());
+
+		for (Personal personal : listPersonal) {
+			dmt.addRow(new Object[] { personal.getIdPersonal(), personal.getPersonalName(), personal.getPersonalPhone(),
+					personal.getPersonalDirection(), personal.getPersonalEmail(), personal.getEmergencyPhone(),
+					personal.getBirthDate(), personal.getIdSpecialty(), personal.getIdPersonalState() });
+		}
+	}
+
+	public void keyTyped(KeyEvent e) {
+	}
+
+	protected void keyPressedTextField(KeyEvent e) {
+	}
 }

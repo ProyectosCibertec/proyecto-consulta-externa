@@ -20,4 +20,6 @@ public interface PersonalInterface {
 	public ArrayList<Personal> listBySpeciality(String id);
 
 	public Personal verify(String user);
+	
+	public ArrayList<Personal> listPersonalByName(String name);
 }
