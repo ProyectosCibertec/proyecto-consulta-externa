@@ -34,8 +34,10 @@ import java.util.Date;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 
-public class FrmPersonalData extends JFrame implements MouseListener, WindowListener, ActionListener {
+public class FrmPersonalData extends JFrame implements MouseListener, WindowListener, ActionListener, PopupMenuListener {
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoPersonal;
@@ -74,6 +76,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	public static String codeOfPersonal;
+	public static boolean isForAdd = true;
 
 	/**
 	 * Launch the application.
@@ -348,6 +351,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		panel_6.add(lblEspecialidad, gbc_lblEspecialidad);
 
 		cboSpeciality = new JComboBox();
+		cboSpeciality.addPopupMenuListener(this);
 		cboSpeciality.addMouseListener(this);
 		GridBagConstraints gbc_cboSpeciality = new GridBagConstraints();
 		gbc_cboSpeciality.fill = GridBagConstraints.HORIZONTAL;
@@ -383,6 +387,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		panel_7.add(lblEstado, gbc_lblEstado);
 
 		cboState = new JComboBox();
+		cboState.addPopupMenuListener(this);
 		cboState.addMouseListener(this);
 		GridBagConstraints gbc_cboState = new GridBagConstraints();
 		gbc_cboState.fill = GridBagConstraints.HORIZONTAL;
@@ -397,10 +402,12 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		contentPane.add(panel_8, gbc_panel_8);
 
 		btnAgregar = new JButton("Agregar");
+		btnAgregar.setEnabled(false);
 		btnAgregar.addActionListener(this);
 		panel_8.add(btnAgregar);
 
 		btnActualizar = new JButton("Actualizar");
+		btnActualizar.setEnabled(false);
 		btnActualizar.addActionListener(this);
 		panel_8.add(btnActualizar);
 	}
@@ -683,6 +690,14 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 
 	protected void windowOpenedThis(WindowEvent e) {
 		try {
+			if(isForAdd) {
+				btnActualizar.setEnabled(false);
+				btnAgregar.setEnabled(true);
+				clearTxts();
+			} else {
+				btnActualizar.setEnabled(true);
+				btnAgregar.setEnabled(false);
+			}
 			PersonalManagement personalManagement = new PersonalManagement();
 			Personal personal = personalManagement.getPersonal(codeOfPersonal);
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -696,8 +711,6 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 			txtKey.setText(personal.getIdUsuario());
 			txtEmergencyPhone.setText(personal.getEmergencyPhone());
 			dateBithday.setDate(df.parse(personal.getBirthDate()));
-			System.out.println(personal.getIdSpecialty());
-			System.out.println(personal.getIdPersonalState());
 			cboSpeciality.setSelectedIndex(Integer.parseInt(personal.getIdSpecialty()) - 1);
 			cboState.setSelectedIndex(Integer.parseInt(personal.getIdPersonalState()) - 1);
 		} catch (Exception ex) {
@@ -725,12 +738,16 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 	protected void actionPerformedBtnAgregar(ActionEvent arg0) {
 		if (addPersonal() == 1) {
 			this.dispose();
+		} else {
+			JOptionPane.showMessageDialog(null, "No se agregó al usuario.");
 		}
 	}
 
 	protected void actionPerformedBtnActualizar(ActionEvent arg0) {
 		if (updatePersonal() == 1) {
 			this.dispose();
+		} else {
+			JOptionPane.showMessageDialog(null, "No se actualizaron los datos.");
 		}
 	}
 
@@ -766,4 +783,35 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 	public void windowIconified(WindowEvent e) {
 	}
 
+	public void popupMenuCanceled(PopupMenuEvent arg0) {
+	}
+	public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+	}
+	public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
+		if (arg0.getSource() == cboState) {
+			popupMenuWillBecomeVisibleCboState(arg0);
+		}
+		if (arg0.getSource() == cboSpeciality) {
+			popupMenuWillBecomeVisibleCboSpeciality(arg0);
+		}
+	}
+	protected void popupMenuWillBecomeVisibleCboSpeciality(PopupMenuEvent arg0) {
+		listSpeciality();
+	}
+	protected void popupMenuWillBecomeVisibleCboState(PopupMenuEvent arg0) {
+		listPersonalState();
+	}
+	
+	public void clearTxts() {
+		txtCode.setText("");
+		txtDirection.setText("");
+		txtEmail.setText("");
+		txtEmergencyPhone.setText("");
+		txtKey.setText("");
+		txtNames.setText("");
+		txtPhone.setText("");
+		cboSpeciality.setSelectedIndex(1);
+		cboState.setSelectedIndex(1);
+		dateBithday.setDate(null);
+	}
 }
