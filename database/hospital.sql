@@ -406,14 +406,16 @@ SELECT 	p.id_personal,
         p.email_personal,
         p.telefono_emergencia,
         p.fecha_nacimiento,
-        p.clave_personal,
+        u.id_usuario,
         e.descripcion_especialidad,
         ep.descripcion_estado_personal
 FROM personal p
-INNER JOIN estado_personal ep
+LEFT JOIN estado_personal ep
 ON p.id_estado_personal = ep.id_estado_personal
-INNER JOIN especialidad e
+LEFT JOIN especialidad e
 ON p.id_especialidad = e.id_especialidad
+LEFT JOIN usuario u
+ON p.id_usuario = u.id_usuario
 WHERE p.nombre_personal LIKE CONCAT('%',personal_name,'%');
 END $$
 DELIMITER ;
@@ -454,6 +456,13 @@ DELIMITER $$
 CREATE PROCEDURE usp_addSpeciality(descriptionS VARCHAR(80)) BEGIN
 	INSERT INTO especialidad(descripcion_especialidad)
 	VALUES (descriptionS);
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_generatePersonalIndex;
+DELIMITER $$
+CREATE PROCEDURE usp_generatePersonalIndex() BEGIN
+	SELECT CONCAT(SUBSTRING('P0000', 3), COUNT(*)) FROM personal;
 END $$
 DELIMITER ;
 -- <END> SPECIALITY STORE PROCEDURES
