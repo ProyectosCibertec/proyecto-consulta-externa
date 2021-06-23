@@ -1,5 +1,3 @@
-USE hospital;
-
 DROP DATABASE IF EXISTS hospital;
 CREATE DATABASE hospital;
 USE hospital;
@@ -267,11 +265,11 @@ INSERT INTO estado_cita VALUES(3,'atendida');
 INSERT INTO estado_cita VALUES(5,'cancelada');
 INSERT INTO estado_cita VALUES(4,'expirada');
 
---INSERT DATA - proveedor
+-- INSERT DATA - proveedor
 
 INSERT INTO proveedor VALUES ('PRO01','Pepe','Medicamentos LULU','Petituars KM10.5','983123567','Pepe@gmail.com');
-INSERT INTO proveedor VALUES ('PRO02','Luis','Centro de Medicina Forense',' Avenida Víctor Andrés Belaúnde., 147','923523522','Luis@gmail.com');
-INSERT INTO proveedor VALUES ('PRO03','Jose','Alibaba','Jirón Washington, 1080','098312312','Jose@gmail.com');
+INSERT INTO proveedor VALUES ('PRO02','Luis','Centro de Medicina Forense',' Avenida Vï¿½ctor Andrï¿½s Belaï¿½nde., 147','923523522','Luis@gmail.com');
+INSERT INTO proveedor VALUES ('PRO03','Jose','Alibaba','Jirï¿½n Washington, 1080','098312312','Jose@gmail.com');
 INSERT INTO proveedor VALUES ('PRO04','Ana','Medicamentos Importados SAC'     ,'psje cesar vallejo moche','984091724','Ana@gmail.com');
 INSERT INTO proveedor VALUES ('PRO05','Patricio'  ,'Lulu Tons Pastillas A','Avenida Grimaldo Del Solar, 236, Tda.103','980918321','Patricio@gmail.com');
 INSERT INTO proveedor VALUES ('PRO06','Maricarmen','Phone Town Past','Calle Donatello, 206','901832181','Maricarmen@gmail.com');
@@ -400,9 +398,8 @@ CALL sp_validate_usuario('U0001','a4a97ffc170ec7ab32b85b2129c69c50');
 select * from usuario;
 select * from personal;
 
---PROCEDURE proveedor
+-- PROCEDURE proveedor
 
-drop procedure usp_listsupplier;
 CREATE PROCEDURE usp_listsupplier()
 select  p.id_proveedor,
 p.nombre_proveedor,
@@ -412,6 +409,8 @@ p.telefono_proveedor,
 p.email_proveedor
  from proveedor p;
  call usp_listsupplier();
+
+ 
 select * from proveedor where nombre_proveedor like "%P%" ; -- EDITAR
 -- INSERT DATA - proveedor
 INSERT INTO proveedor VALUES ('PRO11','AAAAA','BBBBBBBBB','CCCCCCCCCCC','908109328','FFFFFFFF@gmail.com');
@@ -424,5 +423,4 @@ CREATE PROCEDURE usp_update(idp CHAR(5),namep VARCHAR(80),contactp VARCHAR(80),d
 update proveedor set   nombre_proveedor= namep,contacto_proveedor=contactp,direccion_proveedor=directp,telefono_proveedor=phonep,email_proveedor=emailp
 where id_proveedor= idp ;
 
-call usp_update;
 

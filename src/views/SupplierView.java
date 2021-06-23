@@ -1,8 +1,11 @@
 package views;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -17,7 +20,7 @@ import models.Supplier;
 
 import maintenance.SupplierManagement;
 
-public class SupplierView {
+public class SupplierView extends JFrame {
 
 	private JFrame frmProveedor;
 	public static JTextField txtIdSupplier;
@@ -28,7 +31,9 @@ public class SupplierView {
 	public static JTextField txtEmail;
 	private JTable tblDepature;
 
-	DefaultTableModel model = new DefaultTableModel();
+	static boolean SUPPLIER_UPDATE_WINDOW;
+
+	DefaultTableModel tableModel = new DefaultTableModel();
 
 	/**
 	 * Launch the application.
@@ -59,7 +64,7 @@ public class SupplierView {
 	private void initialize() {
 		frmProveedor = new JFrame();
 		frmProveedor.setTitle("Proveedor");
-		frmProveedor.setBounds(100, 100, 937, 634);
+		frmProveedor.setBounds(100, 100, 1146, 634);
 		frmProveedor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProveedor.getContentPane().setLayout(null);
 
@@ -98,37 +103,67 @@ public class SupplierView {
 		txtName.setColumns(10);
 
 		txtContact = new JTextField();
+		txtContact.setEditable(false);
 		txtContact.setBounds(10, 86, 221, 20);
 		frmProveedor.getContentPane().add(txtContact);
 		txtContact.setColumns(10);
 
 		txtDirection = new JTextField();
+		txtDirection.setEditable(false);
 		txtDirection.setBounds(251, 86, 660, 20);
 		frmProveedor.getContentPane().add(txtDirection);
 		txtDirection.setColumns(10);
 
 		txtPhone = new JTextField();
+		txtPhone.setEditable(false);
 		txtPhone.setBounds(10, 142, 221, 20);
 		frmProveedor.getContentPane().add(txtPhone);
 		txtPhone.setColumns(10);
 
 		txtEmail = new JTextField();
+		txtEmail.setEditable(false);
 		txtEmail.setBounds(251, 142, 660, 20);
 		frmProveedor.getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 186, 901, 336);
+		scrollPane.setBounds(10, 186, 1124, 336);
 		frmProveedor.getContentPane().add(scrollPane);
 
 		tblDepature = new JTable();
-		tblDepature.setModel(model);
-		model.addColumn("Id de proveedor");
-		model.addColumn("Nombre");
-		model.addColumn("Contacato");
-		model.addColumn("Direccion");
-		model.addColumn("Telefono");
-		model.addColumn("Email");
+		tblDepature.setModel(tableModel);
+
+		tableModel.addColumn("Id de proveedor");
+		tableModel.addColumn("Nombre");
+		tableModel.addColumn("Contacato");
+		tableModel.addColumn("Direccion");
+		tableModel.addColumn("Telefono");
+		tableModel.addColumn("Email");
+		tableModel.addColumn("Editar");
+		tblDepature.getTableHeader().setBackground(new Color(32, 136, 203));
+		tblDepature.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				JTable target = (JTable) e.getSource();
+				int row = target.getSelectedRow();
+				int column = target.getSelectedColumn();
+
+				if (column == 6) {
+					String code = (String) tableModel.getValueAt(row, 0);
+
+					SupplierUpdateView sup = new SupplierUpdateView();
+					System.out.println(SUPPLIER_UPDATE_WINDOW);
+
+					if (SUPPLIER_UPDATE_WINDOW != true) {
+						SupplierUpdateView.CODE_SUPPLIER = code;
+						sup.setVisible(true);
+						sup.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+						SUPPLIER_UPDATE_WINDOW = true;
+					} else {
+						JOptionPane.showMessageDialog(null, "Ya tienes un ventana de edición abierta");
+					}
+				}
+			}
+		});
 
 		scrollPane.setViewportView(tblDepature);
 
@@ -138,7 +173,7 @@ public class SupplierView {
 				Search();
 			}
 		});
-		btnSearchCode.setBounds(591, 549, 122, 23);
+		btnSearchCode.setBounds(620, 549, 177, 23);
 		frmProveedor.getContentPane().add(btnSearchCode);
 
 		JButton btnRegister = new JButton("Registrar");
@@ -148,7 +183,7 @@ public class SupplierView {
 
 			}
 		});
-		btnRegister.setBounds(723, 549, 89, 23);
+		btnRegister.setBounds(833, 549, 133, 23);
 		frmProveedor.getContentPane().add(btnRegister);
 
 		JButton btnDelete = new JButton("Eliminar");
@@ -158,13 +193,13 @@ public class SupplierView {
 			}
 
 		});
-		btnDelete.setBounds(822, 549, 89, 23);
+		btnDelete.setBounds(1001, 549, 133, 23);
 		frmProveedor.getContentPane().add(btnDelete);
 
 		JButton btnListOfSuppliers = new JButton("Lista de Proveedores");
 		btnListOfSuppliers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				list();
+				supplierList();
 			}
 		});
 		btnListOfSuppliers.setBounds(10, 549, 156, 23);
@@ -196,20 +231,22 @@ public class SupplierView {
 		});
 		btnSearchName.setBounds(448, 549, 133, 23);
 		frmProveedor.getContentPane().add(btnSearchName);
+
+		supplierList();
+		setLocationRelativeTo(null);
 	}
 
 ///////////////////////////////////////////////////////////////////LISTAR//////////////////////////////////////////////////////////////////
-	void list() {
-		@SuppressWarnings("unchecked")
+	void supplierList() {
 		ArrayList<Supplier> lstSupplier = new SupplierManagement().listSupplier();
 		if (lstSupplier.size() == 0) {
 			JOptionPane.showMessageDialog(null, "Lista vacia");
 		} else {
-			model.setRowCount(0);
+			tableModel.setRowCount(0);
 			for (Supplier s : lstSupplier) {
 				Object aDatos[] = { s.getId_supplier(), s.getName_supplier(), s.getContact_supplier(),
-						s.getDirection_supplier(), s.getPhone_supplier(), s.getEmail_supplier() };
-				model.addRow(aDatos);
+						s.getDirection_supplier(), s.getPhone_supplier(), s.getEmail_supplier(), "CLICK" };
+				tableModel.addRow(aDatos);
 			}
 		}
 
