@@ -70,7 +70,7 @@ CREATE TABLE personal (
     email_personal                  VARCHAR(80)         NULL,
     telefono_emergencia             VARCHAR(20)         NULL,
     fecha_nacimiento                VARCHAR(20)			NULL,
-    id_usuario                  	VARCHAR(5)          NULL,
+    id_usuario                  	DATE                NULL,
     id_especialidad                 INT           		NULL,
     id_estado_personal              INT		            NULL,
     FOREIGN KEY (id_especialidad)       REFERENCES especialidad (id_especialidad),
@@ -96,7 +96,7 @@ CREATE TABLE paciente (
 
 CREATE TABLE cita (
     id_cita                         CHAR(5)             NOT NULL    PRIMARY KEY,
-    fecha_creacion                  DATE                NULL,
+    fecha_creacion                  DATETIME            NULL,
     id_paciente                     CHAR(5)             NULL,
     id_tipo_cita                    CHAR(5)             NULL,
     id_estado_cita                  CHAR(5)             NULL,
@@ -211,7 +211,7 @@ CREATE TABLE medicamento_proveedor (
     id_medicamento_proveedor        CHAR(5)             NOT NULL    PRIMARY KEY,
     cantidad_medicamento            INT                 NULL,
     lote_medicamento                VARCHAR(80)         NULL,
-    fecha_vencimiento               DATE            NULL,
+    fecha_vencimiento               DATE                NULL,
     id_medicamento                  CHAR(5)             NULL,
     id_proveedor                    CHAR(5)             NULL,
     FOREIGN KEY (id_medicamento)        REFERENCES medicamento (id_medicamento),

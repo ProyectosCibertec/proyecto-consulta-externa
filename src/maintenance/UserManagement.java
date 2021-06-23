@@ -54,8 +54,6 @@ public class UserManagement implements UserInterface {
 	public int userCreate(NewUser user) {
 		int result = 0;
 
-		ResultSet result1 = null;
-
 		Connection con = null;
 		PreparedStatement pst = null;
 
@@ -106,8 +104,8 @@ public class UserManagement implements UserInterface {
 			result = pst.executeQuery();
 
 			if (result.next()) {
-				u = new User(result.getString(1), result.getString(2), result.getInt(3),
-						result.getString(4), result.getString(5));
+				u = new User(result.getString(1), result.getString(2), result.getInt(3), result.getString(4),
+						result.getString(5));
 			}
 
 		} catch (Exception e) {
@@ -175,8 +173,8 @@ public class UserManagement implements UserInterface {
 			result = pst.executeQuery();
 
 			if (result.next()) {
-				u = new User(result.getString(1), result.getString(2), result.getInt(3),
-						result.getString(4), result.getString(5));
+				u = new User(result.getString(1), result.getString(2), result.getInt(3), result.getString(4),
+						result.getString(5));
 			}
 
 		} catch (Exception e) {
