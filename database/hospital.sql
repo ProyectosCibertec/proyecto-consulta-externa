@@ -537,7 +537,7 @@ DELIMITER ;
 SELECT SUBSTRING(MAX(id_usuario),2) FROM usuario;
 CALL sp_validate_usuario('U0001','a4a97ffc170ec7ab32b85b2129c69c50');
 select * from usuario;
-
+select * from tipo_cita;
 SELECT * FROM personal;
 
 /*UPDATE usuario
