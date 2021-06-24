@@ -31,24 +31,24 @@ CREATE TABLE distrito(
 );
 
 CREATE TABLE estado_cita (
-    id_estado_cita                  CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_estado_cita                  INT             	NOT NULL    PRIMARY KEY auto_increment,
     descripcion_estado_cita         VARCHAR(80)         NULL
 );
 
 CREATE TABLE tipo_cita (
-    id_tipo_cita                    CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_tipo_cita                    INT		            NOT NULL    PRIMARY KEY auto_increment,
     descripcion_tipo_cita           VARCHAR(80)         NULL
 );
 
 CREATE TABLE estado_consultorio (
-    id_estado_consultorio           CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_estado_consultorio           INT		            NOT NULL    PRIMARY KEY auto_increment,
     descripcion_estado_consultorio  VARCHAR(80)         NULL
 );
 
 CREATE TABLE consultorio (
     id_consultorio                  CHAR(5)             NOT NULL    PRIMARY KEY,
     descripcion_consultorio         VARCHAR(80)         NULL,
-    id_estado_consultorio           CHAR(5)             NULL,
+    id_estado_consultorio           INT             	NULL,
     FOREIGN KEY(id_estado_consultorio)  REFERENCES estado_consultorio(id_estado_consultorio)
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE personal (
     email_personal                  VARCHAR(80)         NULL,
     telefono_emergencia             VARCHAR(20)         NULL,
     fecha_nacimiento                VARCHAR(20)			NULL,
-    id_usuario                  	DATE                NULL,
+    id_usuario                  	VARCHAR(5)          NULL,
     id_especialidad                 INT           		NULL,
     id_estado_personal              INT		            NULL,
     FOREIGN KEY (id_especialidad)       REFERENCES especialidad (id_especialidad),
@@ -98,8 +98,8 @@ CREATE TABLE cita (
     id_cita                         CHAR(5)             NOT NULL    PRIMARY KEY,
     fecha_creacion                  DATETIME            NULL,
     id_paciente                     CHAR(5)             NULL,
-    id_tipo_cita                    CHAR(5)             NULL,
-    id_estado_cita                  CHAR(5)             NULL,
+    id_tipo_cita                    INT             	NULL,
+    id_estado_cita                  INT             	NULL,
     id_consultorio                  CHAR(5)             NULL,
     id_personal                     CHAR(5)             NULL,
     FOREIGN KEY(id_paciente)            REFERENCES paciente(id_paciente),
@@ -118,7 +118,7 @@ CREATE TABLE entrada_personal (
 );
 
 CREATE TABLE estado_medicamento (
-    id_estado_medicamento           CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_estado_medicamento           INT             	NOT NULL    PRIMARY KEY auto_increment,
     descripcion_estado_medicamento  VARCHAR(80)         NULL
 );
 
@@ -151,7 +151,7 @@ CREATE TABLE medicamento (
     id_medicamento                  CHAR(5)             NOT NULL    PRIMARY KEY,
     nombre_medicamento              VARCHAR(80)         NULL,
     marca_medicamento               VARCHAR(80)         NULL,
-    id_estado_medicamento           CHAR(5)             NULL,
+    id_estado_medicamento           INT             	NULL,
     FOREIGN KEY (id_estado_medicamento) REFERENCES estado_medicamento (id_estado_medicamento)
 );
 
@@ -419,6 +419,17 @@ ON p.id_usuario = u.id_usuario
 WHERE p.nombre_personal LIKE CONCAT('%',personal_name,'%');
 END $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_getPersonalIdAutomatically;
+DELIMITER $$
+CREATE PROCEDURE usp_getPersonalIdAutomatically() BEGIN
+	IF((SELECT COUNT(*) FROM personal) = 0) THEN
+		SELECT 'P0001';
+    ELSE
+		SELECT CONCAT('P', LPAD(SUBSTRING((SELECT MAX(id_personal) FROM personal), 4) + 1, 4, '0')) FROM personal;
+	END IF;
+END $$
+DELIMITER ;
 -- <END> PERSONAL STORE PROCEDURES
 
 -- <BEGIN> USER STORE PROCEDURES
@@ -485,13 +496,84 @@ END $$
 DELIMITER ;
 -- <END> PERSONAL STATE STORE PROCEDURES
 
--- QUERY
+-- <BEGIN> APPOINTMENT STATE STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listAppointmentState;
+DELIMITER $$
+CREATE PROCEDURE usp_listAppointmentState() BEGIN
+	SELECT id_estado_cita, descripcion_estado_cita
+	FROM estado_cita;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_addAppointmentState;
+DELIMITER $$
+CREATE PROCEDURE usp_addAppointmentState(descriptionA VARCHAR(80)) BEGIN
+	INSERT INTO estado_cita(descripcion_estado_cita)
+	VALUES (descriptionA);
+END $$
+DELIMITER ;
+-- <END> APPOINTMENT STATE STORE PROCEDURES
+
+-- <BEGIN> APPOINTMENT TYPE STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listAppointmentType;
+DELIMITER $$
+CREATE PROCEDURE usp_listAppointmentType() BEGIN
+	SELECT id_tipo_cita, descripcion_tipo_cita
+	FROM tipo_cita;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_addAppointmentType;
+DELIMITER $$
+CREATE PROCEDURE usp_addAppointmentType(descriptionA VARCHAR(80)) BEGIN
+	INSERT INTO tipo_cita(descripcion_tipo_cita)
+	VALUES (descriptionA);
+END $$
+DELIMITER ;
+-- <END> APPOINTMENT TYPE STORE PROCEDURES
+
+-- <BEGIN> ROOM STATE STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listRoomState;
+DELIMITER $$
+CREATE PROCEDURE usp_listRoomState() BEGIN
+	SELECT id_estado_consultorio, descripcion_estado_consultorio
+	FROM estado_consultorio;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_addRoomState;
+DELIMITER $$
+CREATE PROCEDURE usp_addRoomState(descriptionR VARCHAR(80)) BEGIN
+	INSERT INTO estado_consultorio(descripcion_estado_consultorio)
+	VALUES (descriptionR);
+END $$
+DELIMITER ;
+-- <END> ROOM STATE STORE PROCEDURES
+
+-- <BEGIN> MEDICATION STATE STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listMedicationState;
+DELIMITER $$
+CREATE PROCEDURE usp_listMedicationState() BEGIN
+	SELECT id_estado_medicamento, descripcion_estado_medicamento
+	FROM estado_medicamento;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_addMedicationState;
+DELIMITER $$
+CREATE PROCEDURE usp_addMedicationState(descriptionM VARCHAR(80)) BEGIN
+	INSERT INTO estado_medicamento(descripcion_estado_medicamento)
+	VALUES (descriptionM);
+END $$
+DELIMITER ;
+-- <END> MEDICATION STATE STORE PROCEDURES
+
+-- QUERIES
 
 SELECT SUBSTRING(MAX(id_usuario),2) FROM usuario;
-
 CALL sp_validate_usuario('U0001','a4a97ffc170ec7ab32b85b2129c69c50');
 select * from usuario;
-
+select * from tipo_cita;
 SELECT * FROM personal;
 
 /*UPDATE usuario
@@ -500,4 +582,3 @@ SELECT * FROM personal;
     WHERE id_usuario = 1;*/
     
     select * from estado_personal;
-
