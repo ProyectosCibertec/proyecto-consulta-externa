@@ -5,14 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import interfaces.AppointmentTypeInterface;
-import models.AppointmentType;
+import interfaces.RoomStateInterface;
+import models.RoomState;
 import utils.MySQLConection;
 
-public class AppointmentTypeManagement implements AppointmentTypeInterface {
+public class RoomStateManagement implements RoomStateInterface {
 
 	@Override
-	public int addAppointmentType(String appointmentTypeT) {
+	public int addRoomState(String RoomStateT) {
 		int result = 0;
 
 		// template
@@ -20,11 +20,11 @@ public class AppointmentTypeManagement implements AppointmentTypeInterface {
 		PreparedStatement pst = null;
 
 		try {
-			final String SQL = "{CALL usp_addAppointmentType(?)}";
+			final String SQL = "{CALL usp_addRoomState(?)}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
-			pst.setString(1, appointmentTypeT);
+			pst.setString(1, RoomStateT);
 			result = pst.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("Error al registrar : " + e.getMessage());
@@ -42,21 +42,22 @@ public class AppointmentTypeManagement implements AppointmentTypeInterface {
 	}
 
 	@Override
-	public ArrayList<AppointmentType> listAppointmentType() {
-		ArrayList<AppointmentType> listAppointmentType = new ArrayList<AppointmentType>();
+	public ArrayList<RoomState> listRoomState() {
+		ArrayList<RoomState> listRoomState = new ArrayList<RoomState>();
 
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet result = null;
 
 		try {
-			final String SQL = "{CALL usp_listAppointmentType()}";
+			final String SQL = "{CALL usp_listRoomState()}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
 			result = pst.executeQuery();
 			while (result.next()) {
-				listAppointmentType.add(new AppointmentType(result.getString(1), result.getString(2)));
+				listRoomState.add(new RoomState(result.getString(1),
+														result.getString(2)));
 			}
 		} catch (Exception e) {
 			System.out.println("Error en listado : " + e.getMessage());
@@ -73,11 +74,11 @@ public class AppointmentTypeManagement implements AppointmentTypeInterface {
 			}
 		}
 
-		return listAppointmentType;
+		return listRoomState;
 	}
 
 	@Override
-	public int removeAppointmentType(int idAppointmentType) {
+	public int removeRoomState(int idRoomState) {
 		int result = 0;
 
 		// template
@@ -85,11 +86,11 @@ public class AppointmentTypeManagement implements AppointmentTypeInterface {
 		PreparedStatement pst = null;
 
 		try {
-			final String SQL = "DELETE FROM tipo_cita WHERE id_tipo_cita = ?";
+			final String SQL = "DELETE FROM estado_consultorio WHERE id_estado_consultorio = ?";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(SQL);
 
-			pst.setInt(1, idAppointmentType);
+			pst.setInt(1, idRoomState);
 			result = pst.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("Error al eliminar : " + e.getMessage());

@@ -41,14 +41,14 @@ CREATE TABLE tipo_cita (
 );
 
 CREATE TABLE estado_consultorio (
-    id_estado_consultorio           CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_estado_consultorio           INT		            NOT NULL    PRIMARY KEY auto_increment,
     descripcion_estado_consultorio  VARCHAR(80)         NULL
 );
 
 CREATE TABLE consultorio (
     id_consultorio                  CHAR(5)             NOT NULL    PRIMARY KEY,
     descripcion_consultorio         VARCHAR(80)         NULL,
-    id_estado_consultorio           CHAR(5)             NULL,
+    id_estado_consultorio           INT             	NULL,
     FOREIGN KEY(id_estado_consultorio)  REFERENCES estado_consultorio(id_estado_consultorio)
 );
 
@@ -531,6 +531,24 @@ CREATE PROCEDURE usp_addAppointmentType(descriptionA VARCHAR(80)) BEGIN
 END $$
 DELIMITER ;
 -- <END> APPOINTMENT TYPE STORE PROCEDURES
+
+-- <BEGIN> ROOM STATE STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listRoomState;
+DELIMITER $$
+CREATE PROCEDURE usp_listRoomState() BEGIN
+	SELECT id_estado_consultorio, descripcion_estado_consultorio
+	FROM estado_consultorio;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_addRoomState;
+DELIMITER $$
+CREATE PROCEDURE usp_addRoomState(descriptionR VARCHAR(80)) BEGIN
+	INSERT INTO estado_consultorio(descripcion_estado_consultorio)
+	VALUES (descriptionR);
+END $$
+DELIMITER ;
+-- <END> ROOM STATE STORE PROCEDURES
 
 -- QUERIES
 
