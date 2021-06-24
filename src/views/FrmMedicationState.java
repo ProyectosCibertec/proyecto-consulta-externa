@@ -7,9 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import maintenance.RoomStateManagement;
+import maintenance.MedicationStateManagement;
 import maintenance.PersonalStateManagement;
-import models.RoomState;
+import models.MedicationState;
 import models.PersonalState;
 
 import javax.swing.JLabel;
@@ -32,17 +32,17 @@ import java.awt.event.WindowEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-public class FrmRoomState extends JFrame implements ActionListener, WindowListener, MouseListener {
+public class FrmMedicationState extends JFrame implements ActionListener, WindowListener, MouseListener {
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoEstado;
 	private JButton btnDelete;
 	private JButton btnAdd;
 	private JPanel panel;
-	private JTextField txtRoomState;
+	private JTextField txtMedicationState;
 	private JPanel panel_1;
 	private JScrollPane scrollPane;
-	private JTable dataListRoomState;
+	private JTable dataListMedicationState;
 	private JPanel panel_2;
 	DefaultTableModel dtm;
 
@@ -53,7 +53,7 @@ public class FrmRoomState extends JFrame implements ActionListener, WindowListen
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmRoomState frame = new FrmRoomState();
+					FrmMedicationState frame = new FrmMedicationState();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,11 +65,11 @@ public class FrmRoomState extends JFrame implements ActionListener, WindowListen
 	/**
 	 * Create the frame.
 	 */
-	public FrmRoomState() {
+	public FrmMedicationState() {
 		addWindowListener(this);
-		setTitle("Mantenimiento Estado Consultorios");
+		setTitle("Mantenimiento Estado Medicamentos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 349, 277);
+		setBounds(100, 100, 366, 277);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -80,7 +80,7 @@ public class FrmRoomState extends JFrame implements ActionListener, WindowListen
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-		lblMantenimientoEstado = new JLabel("Estados de consultorios");
+		lblMantenimientoEstado = new JLabel("Estados de Medicamentos");
 		lblMantenimientoEstado.setFont(new Font("C059", Font.BOLD, 25));
 		GridBagConstraints gbc_lblMantenimientoEstado = new GridBagConstraints();
 		gbc_lblMantenimientoEstado.fill = GridBagConstraints.BOTH;
@@ -103,14 +103,14 @@ public class FrmRoomState extends JFrame implements ActionListener, WindowListen
 		gbl_panel_1.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
-		txtRoomState = new JTextField();
-		GridBagConstraints gbc_txtRoomState = new GridBagConstraints();
-		gbc_txtRoomState.insets = new Insets(0, 0, 5, 0);
-		gbc_txtRoomState.fill = GridBagConstraints.BOTH;
-		gbc_txtRoomState.gridx = 0;
-		gbc_txtRoomState.gridy = 0;
-		panel_1.add(txtRoomState, gbc_txtRoomState);
-		txtRoomState.setColumns(10);
+		txtMedicationState = new JTextField();
+		GridBagConstraints gbc_txtMedicationState = new GridBagConstraints();
+		gbc_txtMedicationState.insets = new Insets(0, 0, 5, 0);
+		gbc_txtMedicationState.fill = GridBagConstraints.BOTH;
+		gbc_txtMedicationState.gridx = 0;
+		gbc_txtMedicationState.gridy = 0;
+		panel_1.add(txtMedicationState, gbc_txtMedicationState);
+		txtMedicationState.setColumns(10);
 
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -122,10 +122,10 @@ public class FrmRoomState extends JFrame implements ActionListener, WindowListen
 		Object[] columns = { "ID", "Descripción" };
 		dtm = new DefaultTableModel();
 		dtm.setColumnIdentifiers(columns);
-		dataListRoomState = new JTable(dtm);
-		dataListRoomState.addMouseListener(this);
-		dataListRoomState.setFillsViewportHeight(true);
-		scrollPane.setViewportView(dataListRoomState);
+		dataListMedicationState = new JTable(dtm);
+		dataListMedicationState.addMouseListener(this);
+		dataListMedicationState.setFillsViewportHeight(true);
+		scrollPane.setViewportView(dataListMedicationState);
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -159,13 +159,13 @@ public class FrmRoomState extends JFrame implements ActionListener, WindowListen
 
 	protected void actionPerformedBtnAdd(ActionEvent arg0) {
 		String result = null;
-		RoomStateManagement RoomStateM = new RoomStateManagement();
+		MedicationStateManagement MedicationStateM = new MedicationStateManagement();
 
-		if (txtRoomState.getText().length() != 0) {
+		if (txtMedicationState.getText().length() != 0) {
 			try {
-				result = txtRoomState.getText();
-				RoomStateM.addRoomState(result);
-				listRoomState();
+				result = txtMedicationState.getText();
+				MedicationStateM.addMedicationState(result);
+				listMedicationState();
 				clearTxt();
 			} catch (Exception e) {
 				JOptionPane.showConfirmDialog(null, e.getMessage());
@@ -175,21 +175,21 @@ public class FrmRoomState extends JFrame implements ActionListener, WindowListen
 		}
 	}
 
-	public void listRoomState() {
+	public void listMedicationState() {
 		dtm.setRowCount(0);
-		RoomStateManagement RoomStateM = new RoomStateManagement();
-		for (RoomState RoomState : RoomStateM.listRoomState()) {
+		MedicationStateManagement MedicationStateM = new MedicationStateManagement();
+		for (MedicationState MedicationState : MedicationStateM.listMedicationState()) {
 			dtm.addRow(
-					new Object[] { RoomState.getIdRoomState(), RoomState.getRoomStateDescription() });
+					new Object[] { MedicationState.getIdMedicationState(), MedicationState.getMedicationStateDescription() });
 		}
 	}
 
 	protected void mouseClickedDataListPersonalState(MouseEvent e) {
-		int row = dataListRoomState.getSelectedRow();
+		int row = dataListMedicationState.getSelectedRow();
 		try {
-			RoomState RoomState = new RoomState();
-			RoomState.setIdRoomState(dtm.getValueAt(row, 0).toString());
-			txtRoomState.setText(RoomState.getIdRoomState());
+			MedicationState MedicationState = new MedicationState();
+			MedicationState.setIdMedicationState(dtm.getValueAt(row, 0).toString());
+			txtMedicationState.setText(MedicationState.getIdMedicationState());
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Hubo un error: " + ex.getMessage());
 		}
@@ -214,24 +214,24 @@ public class FrmRoomState extends JFrame implements ActionListener, WindowListen
 	}
 
 	protected void windowOpenedThis(WindowEvent e) {
-		listRoomState();
+		listMedicationState();
 	}
 
 	protected void actionPerformedBtnDelete(ActionEvent arg0) {
-		RoomStateManagement RoomStateM = new RoomStateManagement();
-		RoomStateM.removeRoomState(Integer.parseInt(txtRoomState.getText()));
-		listRoomState();
+		MedicationStateManagement MedicationStateM = new MedicationStateManagement();
+		MedicationStateM.removeMedicationState(Integer.parseInt(txtMedicationState.getText()));
+		listMedicationState();
 		clearTxt();
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == dataListRoomState) {
+		if (e.getSource() == dataListMedicationState) {
 			mouseClickedDataListPersonalState(e);
 		}
 	}
 
 	public void clearTxt() {
-		txtRoomState.setText("");
+		txtMedicationState.setText("");
 	}
 
 	public void windowActivated(WindowEvent e) {

@@ -67,7 +67,7 @@ public class FrmAppointmentType extends JFrame implements ActionListener, Window
 	 */
 	public FrmAppointmentType() {
 		addWindowListener(this);
-		setTitle("Mantenimiento Estado Citas");
+		setTitle("Mantenimiento Tipos Citas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 294, 277);
 		contentPane = new JPanel();

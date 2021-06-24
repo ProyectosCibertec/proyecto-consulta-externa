@@ -118,7 +118,7 @@ CREATE TABLE entrada_personal (
 );
 
 CREATE TABLE estado_medicamento (
-    id_estado_medicamento           CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_estado_medicamento           INT             	NOT NULL    PRIMARY KEY auto_increment,
     descripcion_estado_medicamento  VARCHAR(80)         NULL
 );
 
@@ -151,7 +151,7 @@ CREATE TABLE medicamento (
     id_medicamento                  CHAR(5)             NOT NULL    PRIMARY KEY,
     nombre_medicamento              VARCHAR(80)         NULL,
     marca_medicamento               VARCHAR(80)         NULL,
-    id_estado_medicamento           CHAR(5)             NULL,
+    id_estado_medicamento           INT             	NULL,
     FOREIGN KEY (id_estado_medicamento) REFERENCES estado_medicamento (id_estado_medicamento)
 );
 
@@ -549,6 +549,24 @@ CREATE PROCEDURE usp_addRoomState(descriptionR VARCHAR(80)) BEGIN
 END $$
 DELIMITER ;
 -- <END> ROOM STATE STORE PROCEDURES
+
+-- <BEGIN> MEDICATION STATE STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listMedicationState;
+DELIMITER $$
+CREATE PROCEDURE usp_listMedicationState() BEGIN
+	SELECT id_estado_medicamento, descripcion_estado_medicamento
+	FROM estado_medicamento;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_addMedicationState;
+DELIMITER $$
+CREATE PROCEDURE usp_addMedicationState(descriptionM VARCHAR(80)) BEGIN
+	INSERT INTO estado_medicamento(descripcion_estado_medicamento)
+	VALUES (descriptionM);
+END $$
+DELIMITER ;
+-- <END> MEDICATION STATE STORE PROCEDURES
 
 -- QUERIES
 
