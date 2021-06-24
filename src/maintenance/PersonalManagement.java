@@ -354,7 +354,7 @@ public class PersonalManagement implements PersonalInterface {
 
 		try {
 			// This query generates the personal's id automatically and brings to the system
-			String sql = "SELECT CONCAT('P', LPAD(SUBSTRING((SELECT MAX(id_personal) FROM personal), 4) + 1, 4, '0')) FROM personal";
+			String sql = "{CALL usp_getPersonalIdAutomatically()}";
 			con = MySQLConection.getConexion();
 			pst = con.prepareStatement(sql);
 
