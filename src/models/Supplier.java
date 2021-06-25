@@ -5,7 +5,11 @@ public class Supplier {
 	private String id_supplier, name_supplier, contact_supplier, direction_supplier, phone_supplier, email_supplier;
 
 	public Supplier() {
-		
+
+	}
+
+	public Supplier(String id_supplier) {
+		this.id_supplier = id_supplier;
 	}
 
 	public Supplier(String id_supplier, String name_supplier, String contact_supplier, String direction_supplier,
