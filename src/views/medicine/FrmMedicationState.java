@@ -1,4 +1,4 @@
-package views;
+package views.medicine;
 
 import java.awt.EventQueue;
 

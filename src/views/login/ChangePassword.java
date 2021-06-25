@@ -1,4 +1,4 @@
-package views;
+package views.login;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package views;
+package views.appointment;
 
 import java.awt.EventQueue;
 
@@ -7,9 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import maintenance.AppointmentStateManagement;
+import maintenance.AppointmentTypeManagement;
 import maintenance.PersonalStateManagement;
-import models.AppointmentState;
+import models.AppointmentType;
 import models.PersonalState;
 
 import javax.swing.JLabel;
@@ -32,17 +32,17 @@ import java.awt.event.WindowEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-public class FrmAppointmentState extends JFrame implements ActionListener, WindowListener, MouseListener {
+public class FrmAppointmentType extends JFrame implements ActionListener, WindowListener, MouseListener {
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoEstado;
 	private JButton btnDelete;
 	private JButton btnAdd;
 	private JPanel panel;
-	private JTextField txtAppointmentState;
+	private JTextField txtAppointmentType;
 	private JPanel panel_1;
 	private JScrollPane scrollPane;
-	private JTable dataListAppointmentState;
+	private JTable dataListAppointmentType;
 	private JPanel panel_2;
 	DefaultTableModel dtm;
 
@@ -53,7 +53,7 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmAppointmentState frame = new FrmAppointmentState();
+					FrmAppointmentType frame = new FrmAppointmentType();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,9 +65,9 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 	/**
 	 * Create the frame.
 	 */
-	public FrmAppointmentState() {
+	public FrmAppointmentType() {
 		addWindowListener(this);
-		setTitle("Mantenimiento Estado Citas");
+		setTitle("Mantenimiento Tipos Citas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 294, 277);
 		contentPane = new JPanel();
@@ -80,7 +80,7 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-		lblMantenimientoEstado = new JLabel("Estados de citas");
+		lblMantenimientoEstado = new JLabel("Tipos de citas");
 		lblMantenimientoEstado.setFont(new Font("C059", Font.BOLD, 25));
 		GridBagConstraints gbc_lblMantenimientoEstado = new GridBagConstraints();
 		gbc_lblMantenimientoEstado.fill = GridBagConstraints.BOTH;
@@ -103,14 +103,14 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 		gbl_panel_1.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
-		txtAppointmentState = new JTextField();
-		GridBagConstraints gbc_txtAppointmentState = new GridBagConstraints();
-		gbc_txtAppointmentState.insets = new Insets(0, 0, 5, 0);
-		gbc_txtAppointmentState.fill = GridBagConstraints.BOTH;
-		gbc_txtAppointmentState.gridx = 0;
-		gbc_txtAppointmentState.gridy = 0;
-		panel_1.add(txtAppointmentState, gbc_txtAppointmentState);
-		txtAppointmentState.setColumns(10);
+		txtAppointmentType = new JTextField();
+		GridBagConstraints gbc_txtAppointmentType = new GridBagConstraints();
+		gbc_txtAppointmentType.insets = new Insets(0, 0, 5, 0);
+		gbc_txtAppointmentType.fill = GridBagConstraints.BOTH;
+		gbc_txtAppointmentType.gridx = 0;
+		gbc_txtAppointmentType.gridy = 0;
+		panel_1.add(txtAppointmentType, gbc_txtAppointmentType);
+		txtAppointmentType.setColumns(10);
 
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -122,10 +122,10 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 		Object[] columns = { "ID", "Descripción" };
 		dtm = new DefaultTableModel();
 		dtm.setColumnIdentifiers(columns);
-		dataListAppointmentState = new JTable(dtm);
-		dataListAppointmentState.addMouseListener(this);
-		dataListAppointmentState.setFillsViewportHeight(true);
-		scrollPane.setViewportView(dataListAppointmentState);
+		dataListAppointmentType = new JTable(dtm);
+		dataListAppointmentType.addMouseListener(this);
+		dataListAppointmentType.setFillsViewportHeight(true);
+		scrollPane.setViewportView(dataListAppointmentType);
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -159,13 +159,13 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 
 	protected void actionPerformedBtnAdd(ActionEvent arg0) {
 		String result = null;
-		AppointmentStateManagement appointmentStateM = new AppointmentStateManagement();
+		AppointmentTypeManagement AppointmentTypeM = new AppointmentTypeManagement();
 
-		if (txtAppointmentState.getText().length() != 0) {
+		if (txtAppointmentType.getText().length() != 0) {
 			try {
-				result = txtAppointmentState.getText();
-				appointmentStateM.addAppointmentState(result);
-				listAppointmentState();
+				result = txtAppointmentType.getText();
+				AppointmentTypeM.addAppointmentType(result);
+				listAppointmentType();
 				clearTxt();
 			} catch (Exception e) {
 				JOptionPane.showConfirmDialog(null, e.getMessage());
@@ -175,21 +175,21 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 		}
 	}
 
-	public void listAppointmentState() {
+	public void listAppointmentType() {
 		dtm.setRowCount(0);
-		AppointmentStateManagement appointmentStateM = new AppointmentStateManagement();
-		for (AppointmentState appointmentState : appointmentStateM.listAppointmentState()) {
+		AppointmentTypeManagement AppointmentTypeM = new AppointmentTypeManagement();
+		for (AppointmentType AppointmentType : AppointmentTypeM.listAppointmentType()) {
 			dtm.addRow(
-					new Object[] { appointmentState.getIdAppointmentState(), appointmentState.getAppointmentStateDescription() });
+					new Object[] { AppointmentType.getIdAppointmentType(), AppointmentType.getAppointmentTypeDescription() });
 		}
 	}
 
 	protected void mouseClickedDataListPersonalState(MouseEvent e) {
-		int row = dataListAppointmentState.getSelectedRow();
+		int row = dataListAppointmentType.getSelectedRow();
 		try {
-			AppointmentState appointmentState = new AppointmentState();
-			appointmentState.setIdAppointmentState(dtm.getValueAt(row, 0).toString());
-			txtAppointmentState.setText(appointmentState.getIdAppointmentState());
+			AppointmentType AppointmentType = new AppointmentType();
+			AppointmentType.setIdAppointmentType(dtm.getValueAt(row, 0).toString());
+			txtAppointmentType.setText(AppointmentType.getIdAppointmentType());
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Hubo un error: " + ex.getMessage());
 		}
@@ -214,24 +214,24 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 	}
 
 	protected void windowOpenedThis(WindowEvent e) {
-		listAppointmentState();
+		listAppointmentType();
 	}
 
 	protected void actionPerformedBtnDelete(ActionEvent arg0) {
-		AppointmentStateManagement appointmentStateM = new AppointmentStateManagement();
-		appointmentStateM.removeAppointmentState(Integer.parseInt(txtAppointmentState.getText()));
-		listAppointmentState();
+		AppointmentTypeManagement AppointmentTypeM = new AppointmentTypeManagement();
+		AppointmentTypeM.removeAppointmentType(Integer.parseInt(txtAppointmentType.getText()));
+		listAppointmentType();
 		clearTxt();
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == dataListAppointmentState) {
+		if (e.getSource() == dataListAppointmentType) {
 			mouseClickedDataListPersonalState(e);
 		}
 	}
 
 	public void clearTxt() {
-		txtAppointmentState.setText("");
+		txtAppointmentType.setText("");
 	}
 
 	public void windowActivated(WindowEvent e) {

@@ -1,4 +1,4 @@
-package views;
+package views.appointment;
 
 import java.awt.EventQueue;
 
@@ -7,7 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import maintenance.AppointmentStateManagement;
 import maintenance.PersonalStateManagement;
+import models.AppointmentState;
 import models.PersonalState;
 
 import javax.swing.JLabel;
@@ -30,17 +32,17 @@ import java.awt.event.WindowEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-public class FrmPersonalState extends JFrame implements ActionListener, WindowListener, MouseListener {
+public class FrmAppointmentState extends JFrame implements ActionListener, WindowListener, MouseListener {
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoEstado;
 	private JButton btnDelete;
 	private JButton btnAdd;
 	private JPanel panel;
-	private JTextField txtPersonalState;
+	private JTextField txtAppointmentState;
 	private JPanel panel_1;
 	private JScrollPane scrollPane;
-	private JTable dataListPersonalState;
+	private JTable dataListAppointmentState;
 	private JPanel panel_2;
 	DefaultTableModel dtm;
 
@@ -51,7 +53,7 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmPersonalState frame = new FrmPersonalState();
+					FrmAppointmentState frame = new FrmAppointmentState();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,9 +65,9 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 	/**
 	 * Create the frame.
 	 */
-	public FrmPersonalState() {
+	public FrmAppointmentState() {
 		addWindowListener(this);
-		setTitle("Mantenimiento Estado Personal");
+		setTitle("Mantenimiento Estado Citas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 294, 277);
 		contentPane = new JPanel();
@@ -78,7 +80,7 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-		lblMantenimientoEstado = new JLabel("Estados del personal");
+		lblMantenimientoEstado = new JLabel("Estados de citas");
 		lblMantenimientoEstado.setFont(new Font("C059", Font.BOLD, 25));
 		GridBagConstraints gbc_lblMantenimientoEstado = new GridBagConstraints();
 		gbc_lblMantenimientoEstado.fill = GridBagConstraints.BOTH;
@@ -101,14 +103,14 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 		gbl_panel_1.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
-		txtPersonalState = new JTextField();
-		GridBagConstraints gbc_txtPersonalState = new GridBagConstraints();
-		gbc_txtPersonalState.insets = new Insets(0, 0, 5, 0);
-		gbc_txtPersonalState.fill = GridBagConstraints.BOTH;
-		gbc_txtPersonalState.gridx = 0;
-		gbc_txtPersonalState.gridy = 0;
-		panel_1.add(txtPersonalState, gbc_txtPersonalState);
-		txtPersonalState.setColumns(10);
+		txtAppointmentState = new JTextField();
+		GridBagConstraints gbc_txtAppointmentState = new GridBagConstraints();
+		gbc_txtAppointmentState.insets = new Insets(0, 0, 5, 0);
+		gbc_txtAppointmentState.fill = GridBagConstraints.BOTH;
+		gbc_txtAppointmentState.gridx = 0;
+		gbc_txtAppointmentState.gridy = 0;
+		panel_1.add(txtAppointmentState, gbc_txtAppointmentState);
+		txtAppointmentState.setColumns(10);
 
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -120,10 +122,10 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 		Object[] columns = { "ID", "Descripción" };
 		dtm = new DefaultTableModel();
 		dtm.setColumnIdentifiers(columns);
-		dataListPersonalState = new JTable(dtm);
-		dataListPersonalState.addMouseListener(this);
-		dataListPersonalState.setFillsViewportHeight(true);
-		scrollPane.setViewportView(dataListPersonalState);
+		dataListAppointmentState = new JTable(dtm);
+		dataListAppointmentState.addMouseListener(this);
+		dataListAppointmentState.setFillsViewportHeight(true);
+		scrollPane.setViewportView(dataListAppointmentState);
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -157,13 +159,13 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 
 	protected void actionPerformedBtnAdd(ActionEvent arg0) {
 		String result = null;
-		PersonalStateManagement personalStateM = new PersonalStateManagement();
+		AppointmentStateManagement appointmentStateM = new AppointmentStateManagement();
 
-		if (txtPersonalState.getText().length() != 0) {
+		if (txtAppointmentState.getText().length() != 0) {
 			try {
-				result = txtPersonalState.getText();
-				personalStateM.addPersonalState(result);
-				listPersonalState();
+				result = txtAppointmentState.getText();
+				appointmentStateM.addAppointmentState(result);
+				listAppointmentState();
 				clearTxt();
 			} catch (Exception e) {
 				JOptionPane.showConfirmDialog(null, e.getMessage());
@@ -173,21 +175,21 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 		}
 	}
 
-	public void listPersonalState() {
+	public void listAppointmentState() {
 		dtm.setRowCount(0);
-		PersonalStateManagement personalStateM = new PersonalStateManagement();
-		for (PersonalState personalState : personalStateM.listPersonalState()) {
+		AppointmentStateManagement appointmentStateM = new AppointmentStateManagement();
+		for (AppointmentState appointmentState : appointmentStateM.listAppointmentState()) {
 			dtm.addRow(
-					new Object[] { personalState.getIdPersonalState(), personalState.getPersonalStateDescription() });
+					new Object[] { appointmentState.getIdAppointmentState(), appointmentState.getAppointmentStateDescription() });
 		}
 	}
 
 	protected void mouseClickedDataListPersonalState(MouseEvent e) {
-		int row = dataListPersonalState.getSelectedRow();
+		int row = dataListAppointmentState.getSelectedRow();
 		try {
-			PersonalState personalState = new PersonalState();
-			personalState.setIdPersonalState(dtm.getValueAt(row, 0).toString());
-			txtPersonalState.setText(personalState.getIdPersonalState());
+			AppointmentState appointmentState = new AppointmentState();
+			appointmentState.setIdAppointmentState(dtm.getValueAt(row, 0).toString());
+			txtAppointmentState.setText(appointmentState.getIdAppointmentState());
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Hubo un error: " + ex.getMessage());
 		}
@@ -212,24 +214,24 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 	}
 
 	protected void windowOpenedThis(WindowEvent e) {
-		listPersonalState();
+		listAppointmentState();
 	}
 
 	protected void actionPerformedBtnDelete(ActionEvent arg0) {
-		PersonalStateManagement personalStateM = new PersonalStateManagement();
-		personalStateM.removePersonalState(Integer.parseInt(txtPersonalState.getText()));
-		listPersonalState();
+		AppointmentStateManagement appointmentStateM = new AppointmentStateManagement();
+		appointmentStateM.removeAppointmentState(Integer.parseInt(txtAppointmentState.getText()));
+		listAppointmentState();
 		clearTxt();
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == dataListPersonalState) {
+		if (e.getSource() == dataListAppointmentState) {
 			mouseClickedDataListPersonalState(e);
 		}
 	}
 
 	public void clearTxt() {
-		txtPersonalState.setText("");
+		txtAppointmentState.setText("");
 	}
 
 	public void windowActivated(WindowEvent e) {
