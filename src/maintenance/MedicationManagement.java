@@ -12,7 +12,7 @@ import models.Medication;
 public class MedicationManagement implements MedicationInterface {
 
 	@Override
-	public Medication buscar(int codigo) {
+	public Medication get(int codigo) {
 		Medication m = null;
 		Connection con = null;
 		PreparedStatement pst = null;

@@ -6,7 +6,11 @@ public interface UserInterface {
 
 	public User validateAccess(String user, String pass);
 
-	public int createUser(NewUser u);
+	public User userExists(String user);
 
-	public User getUser();
+	public int userCreate(NewUser u);
+
+	public User userGenerate();
+
+	public int changedUserPassword(User u);
 }

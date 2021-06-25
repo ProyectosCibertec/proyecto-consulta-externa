@@ -1,15 +1,16 @@
-package Yarns;
+package commons;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
-public class YarnArrayList extends Thread {
+public class ArrayList extends Thread {
 	private JFrame window;
 
-	public YarnArrayList() {
+	public ArrayList() {
 	}
 
-	public YarnArrayList(JFrame window) {
+	CMessage message = new CMessage();
+
+	public ArrayList(JFrame window) {
 		this.window = window;
 	}
 
@@ -18,8 +19,7 @@ public class YarnArrayList extends Thread {
 		for (String[] element : array) {
 			for (int i = 0; i < element.length; i++) {
 				if (element[0] == null) {
-					JOptionPane.showMessageDialog(window, "El campo de " + element[1] + " no debe estar vacío", "Aviso",
-							2);
+					message.message(window, "El campo de " + element[1] + " no debe estar vacío","Aviso");
 					return true;
 				}
 				break;

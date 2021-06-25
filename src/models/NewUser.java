@@ -2,26 +2,33 @@ package models;
 
 public class NewUser {
 
-	String userPersonal, newUser, newPassword;
-	int userCode, userType;
+	String userPersonal, userCode, newPassword, dateCreation;
+	int userType;
 
 	public NewUser() {
 	}
 
-	public NewUser(String userPersonal, int userCode, String newUser, String newPassword, int userType) {
+	public NewUser(String userPersonal, String userCode, String newPassword, int userType, String dateCreation) {
 		this.userPersonal = userPersonal;
-		this.newUser = newUser;
 		this.newPassword = newPassword;
 		this.userCode = userCode;
 		this.userType = userType;
 	}
 
-	public int getUserCode() {
+	public String getUserCode() {
 		return userCode;
 	}
 
-	public void setUserCode(int userCode) {
+	public void setUserCode(String userCode) {
 		this.userCode = userCode;
+	}
+
+	public String getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(String dateCreation) {
+		this.dateCreation = dateCreation;
 	}
 
 	public String getUserPersonal() {
@@ -30,14 +37,6 @@ public class NewUser {
 
 	public void setUserPersonal(String userPersonal) {
 		this.userPersonal = userPersonal;
-	}
-
-	public String getNewUser() {
-		return newUser;
-	}
-
-	public void setNewUser(String newUser) {
-		this.newUser = newUser;
 	}
 
 	public String getNewPassword() {
