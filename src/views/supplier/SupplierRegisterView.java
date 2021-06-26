@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import commons.ArrayList;
 import commons.CMessage;
+import commons.Regex;
 import maintenance.SupplierManagement;
 import models.Supplier;
 
@@ -140,6 +142,8 @@ public class SupplierRegisterView extends JFrame {
 
 	Supplier s = new Supplier();
 	CMessage message = new CMessage();
+	Regex regex = new Regex();
+	ArrayList yarnA = new ArrayList(this);
 
 	void getNewCode() {
 		s = new SupplierManagement().supplierCodeGenerate();
@@ -156,20 +160,42 @@ public class SupplierRegisterView extends JFrame {
 		telephone = readTelephone();
 		email = readEmail();
 
-		s.setId_supplier(code);
-		s.setName_supplier(name);
-		s.setContact_supplier(contact);
-		s.setDirection_supplier(address);
-		s.setPhone_supplier(telephone);
-		s.setEmail_supplier(email);
+		String[][] string = { { name, "nombre" }, { contact, "contacto" }, { address, "Dirección" },
+				{ telephone, "Teléfono" }, { email, "email" } };
 
-		int ok = new SupplierManagement().register(s);
+		if (!yarnA.validateInputs(string)) {
+			if (regex.regexMatch(name)) {
+				if (regex.regexMatch(contact)) {
+					if (regex.regexMatch(telephone, "phone")) {
+						if (regex.regexMatch(email, "email")) {
+							
+							s.setId_supplier(code);
+							s.setName_supplier(name);
+							s.setContact_supplier(contact);
+							s.setDirection_supplier(address);
+							s.setPhone_supplier(telephone);
+							s.setEmail_supplier(email);
 
-		if (ok == 0) {
-			message.message(this, "No se puedo registrar");
-		} else {
-			message.message(this, "Se registró correctamente", "Success");
-			dispose();
+							int ok = new SupplierManagement().register(s);
+
+							if (ok == 0) {
+								message.message(this, "No se puedo registrar");
+							} else {
+								message.message(this, "Se registró correctamente", "Success");
+								dispose();
+							}
+						} else {
+							message.message(this, "Debe agregar correctamente el email demo@demo.com");
+						}
+					} else {
+						message.message(this, "Debe agregar correctamente el teléfono \n 999999999");
+					}
+				} else {
+					message.message(this, "Debe agregar correctamente el nombre del contacto");
+				}
+			} else {
+				message.message(this, "Debe agregar correctamente el nombre del personal");
+			}
 		}
 	}
 

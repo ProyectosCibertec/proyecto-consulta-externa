@@ -195,7 +195,7 @@ public class Login extends JFrame {
 				if (counter == 2) {
 					lblForgotPassword.setVisible(true);
 				}
-			} else {
+			} else { 
 				p = new PersonalManagement().getPersonalWithUser(user);
 				message.message(this, "Bienvenido " + p.getPersonalName(), "Saludo");
 				Main.USER_ID = user;
