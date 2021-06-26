@@ -1,4 +1,4 @@
-package views;
+package views.room;
 
 import java.awt.EventQueue;
 

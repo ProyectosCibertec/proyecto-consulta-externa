@@ -3,9 +3,9 @@ Sistema de consulta externa para hospital
 
 ## Contribuidores:
 - Guerrero Mori, Jose Alfredo.
-- Huapaya Salcedo Jose Braulio.
+- Huapaya Salcedo Jose Braulio (RETIRADO).
 - Villagaray Gormas, Dennis Alberto.
-- Linares Alvarado, Mario Sebastián.
+- Linares Alvarado, Mario Sebastián (RETIRADO).
 - Quispe Gómez, Wilmer Andrés (Coordinador)
 
 ## Comandos:
