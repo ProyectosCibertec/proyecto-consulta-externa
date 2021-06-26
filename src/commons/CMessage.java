@@ -24,20 +24,14 @@ public class CMessage {
 		this.title = title;
 	}
 
-	public void message(JFrame window, String message) {
-		JOptionPane.showMessageDialog(window, message, "Aviso", 2);
+	public void message(JFrame window, String message, String... title) {
+		String setTitle = title.length > 0 ? title[0] : "aviso";
+		JOptionPane.showMessageDialog(window, message, setTitle, 2);
 	}
 
-	public void message(JFrame window, String message, String title) {
-		JOptionPane.showMessageDialog(window, message, title, 2);
-	}
-
-	public void message(MouseAdapter mouseAdapter, String message) {
-		JOptionPane.showMessageDialog(window, message, "Aviso", 2);
-	}
-
-	public void message(MouseAdapter mouseAdapter, String message, String title) {
-		JOptionPane.showMessageDialog(window, message, title, 2);
+	public void message(MouseAdapter mouseAdapter, String message, String... title) {
+		String setTitle = title.length > 0 ? title[0] : "aviso";
+		JOptionPane.showMessageDialog(window, message, setTitle, 2);
 	}
 
 }

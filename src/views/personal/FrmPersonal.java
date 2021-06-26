@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import commons.CMessage;
 import maintenance.PersonalManagement;
 import models.Personal;
 
@@ -274,7 +275,11 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 		dataTable.setFillsViewportHeight(true);
 		scrollPane.setViewportView(dataTable);
 
+		setLocationRelativeTo(null);
+
 	}
+
+	CMessage message = new CMessage();
 
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == btnBuscar) {
@@ -315,7 +320,7 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un código válido en el formato: P0001.");
+			message.message(this, "Debe introducir un código válido en el formato: P0001.");
 			throw new Exception();
 		}
 
@@ -381,7 +386,7 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 
 	protected void actionPerformedBtnActualizar(ActionEvent arg0) {
 		if (!txtCode.getText().matches("P[0-9]{4}")) {
-			JOptionPane.showMessageDialog(null, "Para actualizar un usuario, selecciónelo o escriba su código.");
+			message.message(this, "Para actualizar un usuario, selecciónelo o escriba su código.");
 		} else {
 			FrmPersonalData.isForAdd = false;
 			FrmPersonalData personalData = new FrmPersonalData();

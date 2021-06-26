@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import commons.CMessage;
 import maintenance.SpecialityManagement;
 import models.Speciality;
 
@@ -151,7 +152,11 @@ public class FrmSpeciality extends JFrame implements ActionListener, WindowListe
 		btnRemoveSpeciality = new JButton("Eliminar");
 		btnRemoveSpeciality.addActionListener(this);
 		panel_2.add(btnRemoveSpeciality);
+		
+		setLocationRelativeTo(null);
 	}
+
+	CMessage message = new CMessage();
 
 	/*----- Methods -----*/
 
@@ -192,7 +197,7 @@ public class FrmSpeciality extends JFrame implements ActionListener, WindowListe
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un estado de personal");
+			message.message(this, "Debe introducir un estado de personal");
 		}
 	}
 
@@ -214,7 +219,7 @@ public class FrmSpeciality extends JFrame implements ActionListener, WindowListe
 			speciality.setIdSpeciality(dtm.getValueAt(row, 0).toString());
 			txtSpeciality.setText(speciality.getIdSpeciality());
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Hubo un error: " + ex.getMessage());
+			message.message(this, "Hubo un error: " + ex.getMessage(), "Error");
 		}
 	}
 

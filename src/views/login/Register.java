@@ -187,7 +187,8 @@ public class Register extends JFrame {
 					p = new PersonalManagement().verify(code);
 					if (p == null) {
 						message.message(this,
-								"Código inexistente \n _______________________________________ \n Debe ser trabajador del hospital");
+								"Código inexistente \n _______________________________________ \n Debe ser trabajador del hospital",
+								"Not Found");
 						hiddenInputs();
 					} else {
 						if (p.getIdUsuario() != null) {
@@ -252,9 +253,9 @@ public class Register extends JFrame {
 				int ok = new UserManagement().userCreate(nu);
 
 				if (ok == 0) {
-					message.message(this, "Error al registrar");
+					message.message(this, "Se produjo un error inesperado al registrar", "Error");
 				} else {
-					message.message(this, "Registro ok", "Existoso");
+					message.message(this, "Se registró correctamente", "Success");
 				}
 			}
 

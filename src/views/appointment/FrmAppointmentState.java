@@ -146,6 +146,8 @@ public class FrmAppointmentState extends JFrame implements ActionListener, Windo
 		btnDelete = new JButton("Eliminar");
 		btnDelete.addActionListener(this);
 		panel_2.add(btnDelete);
+		
+		setLocationRelativeTo(null);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {

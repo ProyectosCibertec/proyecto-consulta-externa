@@ -144,7 +144,7 @@ public class ChangePassword extends JFrame {
 			if (!pass.matches(rpass)) {
 				message.message(this, "Las contraseñas tienen que coincidir");
 			} else if (!userExists()) {
-				message.message(this, "El usuario no existe");
+				message.message(this, "El usuario no existe", "Not Found");
 			} else {
 				YarnEncriptKey yarnEK = new YarnEncriptKey(rpass);
 				rpass = yarnEK.encript();
@@ -155,9 +155,9 @@ public class ChangePassword extends JFrame {
 				int ok = new UserManagement().changedUserPassword(u);
 
 				if (ok == 0) {
-					message.message(this, "Error al cambiar contraseña");
+					message.message(this, "Error al cambiar contraseña", "Error");
 				} else {
-					message.message(this, "Cambio de contraseña realizado", "Existoso");
+					message.message(this, "Cambio de contraseña realizado", "Success");
 				}
 			}
 		}

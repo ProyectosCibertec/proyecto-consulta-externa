@@ -230,7 +230,7 @@ public class PatientView extends JFrame {
 		if (code != null) {
 			pt = new PatientManagement().getById(code);
 			if (pt == null) {
-				message.message(this, "No se encontró registro con ese código");
+				message.message(this, "No se encontró registro con ese código", "Not Found");
 			} else {
 				tableModel.setRowCount(0);
 				String deadDate = pt.getDeathDate() == null ? "vivo" : pt.getDeathDate();

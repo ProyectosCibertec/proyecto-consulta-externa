@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 
+import commons.CMessage;
 import maintenance.SupplierManagement;
 import models.Supplier;
 
@@ -137,12 +138,14 @@ public class SupplierUpdateView extends JFrame {
 
 	public static String CODE_SUPPLIER;
 
+	CMessage message = new CMessage();
+
 	void getSupplier() {
 		String code = CODE_SUPPLIER;
 		Supplier s = new SupplierManagement().search(code);
 
 		if (s == null) {
-			JOptionPane.showMessageDialog(this, "Código no existe");
+			message.message(this, "Código no existe", "Not Found");
 		} else {
 			txtCode.setText(code);
 			txtFullName.setText(s.getName_supplier());
@@ -173,9 +176,9 @@ public class SupplierUpdateView extends JFrame {
 		int ok = new SupplierManagement().edit(s);
 
 		if (ok == 0) {
-			JOptionPane.showMessageDialog(this, "Algo salió mal");
+			message.message(this, "No se puedo actualizar");
 		} else {
-			JOptionPane.showMessageDialog(this, "Update OK");
+			message.message(this, "Se actualizó correctamente", "Success");
 			dispose();
 		}
 

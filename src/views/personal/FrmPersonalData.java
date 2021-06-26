@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
+import commons.CMessage;
 import maintenance.PersonalManagement;
 import maintenance.PersonalStateManagement;
 import maintenance.SpecialityManagement;
@@ -37,7 +38,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 
-public class FrmPersonalData extends JFrame implements MouseListener, WindowListener, ActionListener, PopupMenuListener {
+public class FrmPersonalData extends JFrame
+		implements MouseListener, WindowListener, ActionListener, PopupMenuListener {
 
 	private JPanel contentPane;
 	private JLabel lblMantenimientoPersonal;
@@ -412,7 +414,11 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		btnActualizar.setEnabled(false);
 		btnActualizar.addActionListener(this);
 		panel_8.add(btnActualizar);
+		
+		setLocationRelativeTo(null);
 	}
+
+	CMessage message = new CMessage();
 
 	/*----- Methods -----*/
 
@@ -441,7 +447,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un código válido en el formato: P0001.");
+			message.message(this, "Debe introducir un código válido en el formato: P0001.");
 			throw new Exception();
 		}
 
@@ -457,7 +463,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un nombre válido.");
+			message.message(this, "Debe introducir un nombre válido.");
 			throw new Exception();
 		}
 
@@ -473,7 +479,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un teléfono válido, en formato: 999999999.");
+			message.message(this, "Debe introducir un teléfono válido, en formato: 999999999.");
 			throw new Exception();
 		}
 
@@ -489,7 +495,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir una dirección válida.");
+			message.message(this, "Debe introducir una dirección válida.");
 			throw new Exception();
 		}
 
@@ -505,8 +511,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null,
-					"Debe introducir un email válido en el formato: P0001@consultaexterna.com.");
+			message.message(this, "Debe introducir un email válido en el formato: P0001@consultaexterna.com.");
 			throw new Exception();
 		}
 
@@ -534,8 +539,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null,
-					"Debe introducir un teléfono de emergencia válido, en formato: 999999999.");
+			message.message(this, "Debe introducir un teléfono de emergencia válido, en formato: 999999999.");
 			throw new Exception();
 		}
 
@@ -552,7 +556,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede ser mayor a la fecha actual.");
+			message.message(this, "La fecha de nacimiento no puede ser mayor a la fecha actual.");
 			throw new Exception();
 		}
 
@@ -569,7 +573,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe seleccionar un estado.");
+			message.message(this, "Debe seleccionar un estado.");
 			throw new Exception();
 		}
 
@@ -586,7 +590,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe seleccionar una especialidad.");
+			message.message(this, "Debe seleccionar una especialidad.");
 			throw new Exception();
 		}
 
@@ -622,7 +626,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		try {
 			personalManagement.deletePersonal(getCodeOfPersonal());
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+			message.message(this, "Usuario no encontrado.", "Not Found");
 		}
 	}
 
@@ -696,7 +700,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 	protected void windowOpenedThis(WindowEvent e) {
 		try {
 			PersonalManagement personalManagement = new PersonalManagement();
-			if(isForAdd) {
+			if (isForAdd) {
 				btnAgregar.setEnabled(true);
 				btnActualizar.setEnabled(false);
 				txtCode.setText(personalManagement.getPersonalAutoGenerated());
@@ -745,7 +749,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		if (addPersonal() == 1) {
 			this.dispose();
 		} else {
-			JOptionPane.showMessageDialog(null, "No se agregó al usuario.");
+			message.message(this, "No se agregó al usuario.", "Error");
 		}
 	}
 
@@ -753,7 +757,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		if (updatePersonal() == 1) {
 			this.dispose();
 		} else {
-			JOptionPane.showMessageDialog(null, "No se actualizaron los datos.");
+			message.message(this, "No se actualizaron los datos.", "Error");
 		}
 	}
 
@@ -791,8 +795,10 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 
 	public void popupMenuCanceled(PopupMenuEvent arg0) {
 	}
+
 	public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 	}
+
 	public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
 		if (arg0.getSource() == cboState) {
 			popupMenuWillBecomeVisibleCboState(arg0);
@@ -801,13 +807,15 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 			popupMenuWillBecomeVisibleCboSpeciality(arg0);
 		}
 	}
+
 	protected void popupMenuWillBecomeVisibleCboSpeciality(PopupMenuEvent arg0) {
 		listSpeciality();
 	}
+
 	protected void popupMenuWillBecomeVisibleCboState(PopupMenuEvent arg0) {
 		listPersonalState();
 	}
-	
+
 	public void clearTxts() {
 		txtDirection.setText("");
 		txtEmail.setText("");
@@ -819,6 +827,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		cboState.setSelectedIndex(1);
 		dateBithday.setDate(null);
 	}
+
 	protected void mouseClickedDateBithday(MouseEvent e) {
 	}
 }

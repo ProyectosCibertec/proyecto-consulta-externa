@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import commons.CMessage;
 import maintenance.SupplierManagement;
 import models.Supplier;
 
@@ -138,6 +139,7 @@ public class SupplierRegisterView extends JFrame {
 	}
 
 	Supplier s = new Supplier();
+	CMessage message = new CMessage();
 
 	void getNewCode() {
 		s = new SupplierManagement().supplierCodeGenerate();
@@ -164,9 +166,9 @@ public class SupplierRegisterView extends JFrame {
 		int ok = new SupplierManagement().register(s);
 
 		if (ok == 0) {
-			JOptionPane.showMessageDialog(null, "Error registrar");
+			message.message(this, "No se puedo registrar");
 		} else {
-			JOptionPane.showMessageDialog(null, "registro ok");
+			message.message(this, "Se registró correctamente", "Success");
 			dispose();
 		}
 	}

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import commons.CMessage;
 import maintenance.SupplierManagement;
 import models.Supplier;
 import javax.swing.JLabel;
@@ -165,10 +166,12 @@ public class SupplierView extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	CMessage message = new CMessage();
+
 	void showList() {
 		ArrayList<Supplier> lstSupplier = new SupplierManagement().listSupplier();
 		if (lstSupplier.size() == 0) {
-			JOptionPane.showMessageDialog(null, "Lista vacia");
+			message.message(this, "Lista vacia", "Not Found");
 		} else {
 			tableModel.setRowCount(0);
 			for (Supplier s : lstSupplier) {
@@ -188,7 +191,7 @@ public class SupplierView extends JFrame {
 			s = new SupplierManagement().search(code);
 
 			if (s == null) {
-				JOptionPane.showMessageDialog(null, "no hay", "Aviso", 2);
+				message.message(this, "Lista vacia", "Not Found");
 				tableModel.setRowCount(0);
 			} else {
 				tableModel.setRowCount(0);
@@ -203,12 +206,6 @@ public class SupplierView extends JFrame {
 		}
 	}
 
-	private void alert(String msg) {
-		JOptionPane.showMessageDialog(null, msg, "Aviso", 2);
-
-	}
-
-/////////////////////////////////////////////////////////////////// BUSCAR codigo////////////////////////////////////////////////////////////////////
 	void listByName() {
 		String idSupplier = readSupplierName();
 		if (idSupplier != null) {

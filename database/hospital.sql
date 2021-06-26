@@ -13,7 +13,7 @@ CREATE TABLE genero (
 );
 
 CREATE TABLE usuario (
-    id_usuario                      VARCHAR(5)          NOT NULL PRIMARY KEY,
+    id_usuario                      CHAR(5)          NOT NULL PRIMARY KEY,
     contrasena_usuario              VARCHAR(100)        NULL,
     id_tipo_usuario                 INT                 NULL,
     fecha_hora_creacion             DATETIME            NULL,
@@ -73,8 +73,8 @@ CREATE TABLE personal (
     direccion_personal              VARCHAR(80)         NULL,
     email_personal                  VARCHAR(80)         NULL,
     telefono_emergencia             VARCHAR(20)         NULL,
-    fecha_nacimiento                VARCHAR(20)			NULL,
-    id_usuario                  	VARCHAR(5)          NULL,
+    fecha_nacimiento                DATE    			NULL,
+    id_usuario                  	CHAR(5)             NULL,
     id_especialidad                 INT           		NULL,
     id_estado_personal              INT		            NULL,
     FOREIGN KEY (id_especialidad)       REFERENCES especialidad (id_especialidad),
@@ -465,7 +465,7 @@ DELIMITER ;
 -- <BEGIN> USER STORE PROCEDURES
 DROP PROCEDURE IF EXISTS sp_register_usuario;
 DELIMITER $$
-CREATE PROCEDURE sp_register_usuario(personalCode VARCHAR(5),userId VARCHAR(5),userPassword VARCHAR(100), userType INT, userCreationDate DATETIME)
+CREATE PROCEDURE sp_register_usuario(personalCode VARCHAR(5),userId CHAR(5),userPassword VARCHAR(100), userType INT, userCreationDate DATETIME)
 BEGIN
 INSERT INTO usuario VALUES(userId,userPassword,userType,userCreationDate, NULL);
 UPDATE personal
@@ -477,7 +477,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS sp_validate_usuario;
 DELIMITER $$
-CREATE PROCEDURE sp_validate_usuario(userCode VARCHAR(5), userPas VARCHAR(100)) BEGIN
+CREATE PROCEDURE sp_validate_usuario(userCode CHAR(5), userPas VARCHAR(100)) BEGIN
     SELECT * FROM usuario WHERE id_usuario = userCode AND contrasena_usuario = userPas;
 END $$
 DELIMITER ;

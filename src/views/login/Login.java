@@ -13,6 +13,7 @@ import maintenance.PersonalManagement;
 import maintenance.UserManagement;
 import models.Personal;
 import models.User;
+import views.Main;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -196,8 +197,12 @@ public class Login extends JFrame {
 				}
 			} else {
 				p = new PersonalManagement().getPersonalWithUser(user);
-				message.message(this, "Bienvenido " + p.getPersonalName());
-				NameOfUser = p.getPersonalName();
+				message.message(this, "Bienvenido " + p.getPersonalName(), "Saludo");
+				Main.USER_ID = user;
+				Main.PERSONAL_ID = p.getIdPersonal();
+				Main.PERSONAL_NAME = p.getPersonalName();
+				Main m = new Main();
+				m.setVisible(true);
 			}
 		}
 

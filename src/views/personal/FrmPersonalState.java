@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import commons.CMessage;
 import maintenance.PersonalStateManagement;
 import models.PersonalState;
 
@@ -144,7 +145,11 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 		btnDelete = new JButton("Eliminar");
 		btnDelete.addActionListener(this);
 		panel_2.add(btnDelete);
+		
+		setLocationRelativeTo(null);
 	}
+
+	CMessage message = new CMessage();
 
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == btnDelete) {
@@ -169,7 +174,7 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe introducir un estado de personal");
+			message.message(this, "Debe introducir un estado de personal");
 		}
 	}
 
@@ -189,7 +194,7 @@ public class FrmPersonalState extends JFrame implements ActionListener, WindowLi
 			personalState.setIdPersonalState(dtm.getValueAt(row, 0).toString());
 			txtPersonalState.setText(personalState.getIdPersonalState());
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Hubo un error: " + ex.getMessage());
+			message.message(this,"Hubo un error: " + ex.getMessage());
 		}
 	}
 
