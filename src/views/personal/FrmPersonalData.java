@@ -1,4 +1,4 @@
-package views;
+package views.personal;
 
 import java.awt.Cursor;
 import java.awt.EventQueue;
