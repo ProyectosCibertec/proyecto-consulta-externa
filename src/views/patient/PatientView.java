@@ -75,7 +75,7 @@ public class PatientView extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblCdigo = new JLabel("Código");
-		lblCdigo.setBounds(30, 20, 70, 20);
+		lblCdigo.setBounds(20, 20, 70, 20);
 		contentPane.add(lblCdigo);
 
 		JLabel lblNombreYApellido = new JLabel("Nombre y apellido");
@@ -108,7 +108,7 @@ public class PatientView extends JFrame {
 		contentPane.add(btnNuevoPaciente);
 
 		txtCode = new JTextField();
-		txtCode.setBounds(30, 50, 70, 20);
+		txtCode.setBounds(20, 50, 70, 20);
 		contentPane.add(txtCode);
 		txtCode.setColumns(10);
 
@@ -274,5 +274,4 @@ public class PatientView extends JFrame {
 	String readEndDate() {
 		return txtEndDate.getDate() == null ? null : sdf.format(txtEndDate.getDate());
 	}
-
 }

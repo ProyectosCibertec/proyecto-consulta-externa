@@ -104,6 +104,7 @@ public class MedicamentoProveedor {
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(171, 133, 154, 20);
 		frmMedicamentoProveedor.getContentPane().add(comboBox_1);
+		
 	}
 
 }

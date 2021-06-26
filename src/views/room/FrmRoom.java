@@ -291,6 +291,8 @@ public class FrmRoom extends JFrame implements ActionListener, WindowListener, M
 		gbc_btnDelete.gridx = 0;
 		gbc_btnDelete.gridy = 0;
 		panel_8.add(btnDelete, gbc_btnDelete);
+		
+		setLocationRelativeTo(null);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {

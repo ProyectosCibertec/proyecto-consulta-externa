@@ -158,7 +158,7 @@ public class PatientManagement implements PatientInterface {
 		ResultSet rs = null;
 		try {
 			con = MySQLConection.getConexion();
-			String sql = "{usp_patient_list_by_id(?)}";
+			String sql = "{CALL usp_patient_list_by_id(?)}";
 			pst = con.prepareStatement(sql);
 			pst.setString(1, code);
 

@@ -130,6 +130,7 @@ public class SupplierView extends JFrame {
 		tableModel.addColumn("Telefono");
 		tableModel.addColumn("Email");
 		tableModel.addColumn("Editar");
+		tableModel.addColumn("Eliminar");
 		tblResult.getTableHeader().setBackground(new Color(32, 136, 203));
 		tblResult.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -144,6 +145,19 @@ public class SupplierView extends JFrame {
 
 					sup.setVisible(true);
 					sup.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				}
+				if (column == 7) {
+					String code = (String) tableModel.getValueAt(row, 0);
+					Supplier s = new Supplier();
+
+					int ok = new SupplierManagement().delete(code);
+					if (ok == 0) {
+						message.message(this, "No se pudo eliminar el registro");
+					} else {
+						message.message(this, "Se Eliminó correctamente", "Success");
+						dispose();
+					}
+										
 				}
 			}
 		});
@@ -175,8 +189,8 @@ public class SupplierView extends JFrame {
 		} else {
 			tableModel.setRowCount(0);
 			for (Supplier s : lstSupplier) {
-				Object aDatos[] = { s.getId_supplier(), s.getName_supplier(), s.getContact_supplier(),
-						s.getDirection_supplier(), s.getPhone_supplier(), s.getEmail_supplier(), "CLICK" };
+				Object aDatos[] =  { s.getId_supplier(), s.getName_supplier(), s.getContact_supplier(),
+						s.getDirection_supplier(), s.getPhone_supplier(), s.getEmail_supplier(), "CLICK", "CLICK" };
 				tableModel.addRow(aDatos);
 			}
 		}
@@ -196,8 +210,8 @@ public class SupplierView extends JFrame {
 			} else {
 				tableModel.setRowCount(0);
 
-				Object aDatos[] = { s.getId_supplier(), s.getName_supplier(), s.getContact_supplier(),
-						s.getDirection_supplier(), s.getPhone_supplier(), s.getEmail_supplier(), "CLICK" };
+				Object aDatos[] =  { s.getId_supplier(), s.getName_supplier(), s.getContact_supplier(),
+						s.getDirection_supplier(), s.getPhone_supplier(), s.getEmail_supplier(), "CLICK", "CLICK" };
 				tableModel.addRow(aDatos);
 
 			}
@@ -216,7 +230,7 @@ public class SupplierView extends JFrame {
 				tableModel.setRowCount(0);
 				for (Supplier s : supplierList) {
 					Object aDatos[] = { s.getId_supplier(), s.getName_supplier(), s.getContact_supplier(),
-							s.getDirection_supplier(), s.getPhone_supplier(), s.getEmail_supplier(), "CLICK" };
+							s.getDirection_supplier(), s.getPhone_supplier(), s.getEmail_supplier(), "CLICK", "CLICK" };
 					tableModel.addRow(aDatos);
 				}
 			}

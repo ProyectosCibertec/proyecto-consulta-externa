@@ -206,7 +206,6 @@ public class SupplierUpdateView extends JFrame {
 				message.message(this, "Debe agregar correctamente el nombre del personal");
 			}
 		}
-
 	}
 
 	String readFullName() {
