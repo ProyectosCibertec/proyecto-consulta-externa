@@ -56,7 +56,6 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 	private JTextField txtCode;
 	private JScrollPane scrollPane;
 	private JTable dataTable;
-	private JPanel panel_7;
 	DefaultTableModel dmt;
 	private JTextField txtName;
 	private JLabel lblNombre;
@@ -97,6 +96,7 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 		lblMantenimientoPersonal = new JLabel("Mantenimiento Personal");
 		lblMantenimientoPersonal.setFont(new Font("C059", Font.BOLD, 25));
 		GridBagConstraints gbc_lblMantenimientoPersonal = new GridBagConstraints();
+		gbc_lblMantenimientoPersonal.anchor = GridBagConstraints.NORTH;
 		gbc_lblMantenimientoPersonal.insets = new Insets(0, 0, 5, 0);
 		gbc_lblMantenimientoPersonal.gridx = 0;
 		gbc_lblMantenimientoPersonal.gridy = 0;
@@ -104,7 +104,8 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.anchor = GridBagConstraints.NORTH;
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 1;
 		contentPane.add(panel, gbc_panel);
@@ -112,7 +113,7 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 		gbl_panel.columnWidths = new int[] { 220, 397, 0 };
 		gbl_panel.rowHeights = new int[] { 217, 0 };
 		gbl_panel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		panel_1 = new JPanel();
@@ -197,13 +198,6 @@ public class FrmPersonal extends JFrame implements ActionListener, WindowListene
 		gbc_btnBuscar.gridx = 0;
 		gbc_btnBuscar.gridy = 1;
 		panel_4.add(btnBuscar, gbc_btnBuscar);
-
-		panel_7 = new JPanel();
-		GridBagConstraints gbc_panel_7 = new GridBagConstraints();
-		gbc_panel_7.fill = GridBagConstraints.BOTH;
-		gbc_panel_7.gridx = 0;
-		gbc_panel_7.gridy = 2;
-		panel_4.add(panel_7, gbc_panel_7);
 
 		panel_5 = new JPanel();
 		panel_3.add(panel_5);

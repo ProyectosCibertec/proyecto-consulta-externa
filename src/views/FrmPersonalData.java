@@ -288,6 +288,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		panel_3.add(lblFDeNacimiento, gbc_lblFDeNacimiento);
 
 		dateBithday = new JDateChooser();
+		dateBithday.addMouseListener(this);
 		GridBagConstraints gbc_dateBithday = new GridBagConstraints();
 		gbc_dateBithday.anchor = GridBagConstraints.NORTH;
 		gbc_dateBithday.fill = GridBagConstraints.HORIZONTAL;
@@ -652,6 +653,9 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 	/*----- Events -----*/
 
 	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == dateBithday) {
+			mouseClickedDateBithday(e);
+		}
 		if (e.getSource() == cboSpeciality) {
 			mouseClickedCboSpeciality(e);
 		}
@@ -814,5 +818,7 @@ public class FrmPersonalData extends JFrame implements MouseListener, WindowList
 		cboSpeciality.setSelectedIndex(1);
 		cboState.setSelectedIndex(1);
 		dateBithday.setDate(null);
+	}
+	protected void mouseClickedDateBithday(MouseEvent e) {
 	}
 }
