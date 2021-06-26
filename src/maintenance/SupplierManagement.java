@@ -109,7 +109,7 @@ public class SupplierManagement implements SupplierInterface {
 		PreparedStatement pst = null;
 		try {
 			con = MySQLConection.getConexion();
-			String sql = "{call usp_update(?,?,?,?,?,?)}";
+			String sql = "{call usp_suppliert_update(?,?,?,?,?,?)}";
 			pst = con.prepareStatement(sql);
 			pst.setString(1, S.getId_supplier());
 			pst.setString(2, S.getName_supplier());

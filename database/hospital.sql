@@ -7,6 +7,11 @@ CREATE TABLE tipo_usuario (
     descripcion                     VARCHAR(15)         NULL
 );
 
+CREATE TABLE genero (
+    id_genero                       INT                 NOT NULL PRIMARY KEY,
+    descripcion                     VARCHAR(15)         NULL
+);
+
 CREATE TABLE usuario (
     id_usuario                      VARCHAR(5)          NOT NULL PRIMARY KEY,
     contrasena_usuario              VARCHAR(100)        NULL,
@@ -25,7 +30,7 @@ CREATE TABLE diagnostico(
 CREATE TABLE distrito(
     id_distrito                     INT                 NOT NULL    PRIMARY KEY,
     iso_distrito                    VARCHAR(3)          NULL,
-    descripcion_distrito            VARCHAR(80)         NULL
+    descripcion                     VARCHAR(80)         NULL
 );
 
 CREATE TABLE estado_cita (
@@ -77,25 +82,27 @@ CREATE TABLE personal (
 );
 
 CREATE TABLE paciente (
-    id_paciente                     CHAR(5)             NOT NULL    PRIMARY KEY,
+    id_paciente                     CHAR(10)            NOT NULL    PRIMARY KEY,
     nombre_paciente                 VARCHAR(80)         NULL,
     apellidos_paciente              VARCHAR(80)         NULL,
     direccion_paciente              VARCHAR(80)         NULL,
     fecha_cumpleanos                DATE                NULL,
     fecha_muerte                    DATE                NULL        DEFAULT NULL,
     telefono_paciente               VARCHAR(20)         NULL,
-    sexo_paciente                   VARCHAR(20)         NULL,
-    talla_paciente                  FLOAT               NULL,
-    peso_paciente                   FLOAT               NULL,
-    clave_paciente                  VARCHAR(100)        NULL,
+    id_genero                       INT                 NULL,
+    talla_paciente                  FLOAT(5,2)          NULL,
+    peso_paciente                   FLOAT(5,2)          NULL,
     id_distrito                     INT                 NULL,
-    FOREIGN KEY (id_distrito)           REFERENCES distrito (id_distrito)
+    fecha_creacion                  DATETIME            NULL,
+    fecha_uptate                    DATETIME            NULL,
+    FOREIGN KEY (id_distrito)           REFERENCES distrito (id_distrito),
+    FOREIGN KEY (id_genero)           REFERENCES genero (id_genero)
 );
 
 CREATE TABLE cita (
     id_cita                         CHAR(5)             NOT NULL    PRIMARY KEY,
     fecha_creacion                  DATETIME            NULL,
-    id_paciente                     CHAR(5)             NULL,
+    id_paciente                     CHAR(10)            NULL,
     id_tipo_cita                    INT             	NULL,
     id_estado_cita                  INT             	NULL,
     id_consultorio                  CHAR(5)             NULL,
@@ -124,7 +131,7 @@ CREATE TABLE excusa (
     id_excusa                       CHAR(5)             NOT NULL    PRIMARY KEY,
     descripcion_excusa              VARCHAR(80)         NULL,
     fecha_creacion                  DATETIME            NULL,
-    id_paciente                     CHAR(5)             NULL,
+    id_paciente                     CHAR(10)            NULL,
     id_personal                     CHAR(5)             NULL,
     FOREIGN KEY(id_paciente)            REFERENCES paciente(id_paciente),
     FOREIGN KEY(id_personal)            REFERENCES personal(id_personal)
@@ -139,7 +146,7 @@ CREATE TABLE excusa_diagnostico (
 
 CREATE TABLE formula (
     id_formula                      CHAR(5)             NOT NULL    PRIMARY KEY,
-    id_paciente                     CHAR(5)             NULL,
+    id_paciente                     CHAR(10)             NULL,
     id_personal                     CHAR(5)             NULL,
     FOREIGN KEY (id_paciente)           REFERENCES paciente (id_paciente),
     FOREIGN KEY (id_personal)           REFERENCES personal (id_personal)
@@ -227,6 +234,16 @@ CREATE TABLE salida_personal (
 
 /* --------------------- INSERT DATA --------------------- */
 
+-- INSERT DATA - tipo_usuario
+INSERT INTO tipo_usuario VALUES(1,'Administrador');
+INSERT INTO tipo_usuario VALUES(2,'Doctor/a');
+INSERT INTO tipo_usuario VALUES(3,'Enfermera/o');
+
+-- INSERT DATA - genero 
+
+INSERT INTO genero VALUES(1, 'Masculino');
+INSERT INTO genero VALUES(2, 'Femenino');
+
 -- INSERT DATA - distrito
 INSERT INTO distrito VALUES(1,'LIM', 'Cercado de Lima');
 INSERT INTO distrito VALUES(2,'ATE', 'Ate');
@@ -283,10 +300,7 @@ INSERT INTO proveedor VALUES ('PRO10','Ubaldo','PepeCox Tomorw','Avenida Guardia
 
 
 -- CREATING USER STORE PROCEDURES
--- INSERT DATA - tipo_usuario
-INSERT INTO tipo_usuario VALUES(1,'Administrador');
-INSERT INTO tipo_usuario VALUES(2,'Doctor/a');
-INSERT INTO tipo_usuario VALUES(3,'Enfermera/o');
+
 
 -- INSERT DATA - especialidad
 INSERT INTO especialidad(descripcion_especialidad) VALUES('CARDIÓLOGO');
@@ -306,9 +320,10 @@ INSERT INTO personal VALUES('P0003', 'Dennis Villagaray','999999999', 'Av. simpr
 /* --------------------- PROCEDURES --------------------- */
 
 -- <BEGIN> PERSONAL STORE PROCEDURES
-DROP PROCEDURE IF EXISTS usp_listByPersonalState;
+-- DROP PROCEDURE IF EXISTS usp_listByPersonalState;
 DELIMITER $$
-CREATE PROCEDURE usp_listByPersonalState(id CHAR(5)) BEGIN
+CREATE PROCEDURE usp_listByPersonalState(id CHAR(5))
+BEGIN
 SELECT 	p.id_personal,
 		p.nombre_personal,
         p.telefono_personal,
@@ -608,8 +623,151 @@ delete from proveedor where id_proveedor= 'PRO11';
 -- SEARCH DATA- proveedor
 select  * from proveedor where id_proveedor = 'PRO01';
 -- UPDATE DATA -proveedor
-CREATE PROCEDURE usp_update(idp CHAR(5),namep VARCHAR(80),contactp VARCHAR(80),directp VARCHAR(80),phonep VARCHAR(20),emailp VARCHAR(80))
+CREATE PROCEDURE usp_suppliert_update(idp CHAR(5),namep VARCHAR(80),contactp VARCHAR(80),directp VARCHAR(80),phonep VARCHAR(20),emailp VARCHAR(80))
 update proveedor set   nombre_proveedor= namep,contacto_proveedor=contactp,direccion_proveedor=directp,telefono_proveedor=phonep,email_proveedor=emailp
 where id_proveedor= idp ;
 
+DELIMITER $$
+CREATE PROCEDURE usp_listSupplier_by_name(sname VARCHAR(50)) BEGIN
+SELECT
+	p.id_proveedor,
+	p.nombre_proveedor,
+	p.contacto_proveedor,
+	p.direccion_proveedor,
+	p.telefono_proveedor,
+	p.email_proveedor
+FROM proveedor p
+WHERE p.nombre_proveedor LIKE concat('%',sname,'%');
+END $$
+DELIMITER ;
 
+-- Paciente procedure
+DELIMITER $$
+CREATE PROCEDURE usp_patient_update(pId CHAR(10),pName VARCHAR(80),pLastName VARCHAR(80),pAddres VARCHAR(80),pBirthDate DATE,pDeadDate DATE,pTelephone VARCHAR(20), pSex INT, pHeight FLOAT(5,2), pWeight FLOAT(5,2), idDistrit INT)
+BEGIN
+UPDATE paciente 
+    SET
+    nombre_paciente = pName,
+    apellidos_paciente = pLastName,
+    direccion_paciente = pAddres,
+    fecha_cumpleanos = pBirthDate,
+    fecha_muerte = pDeadDate,
+    telefono_paciente = pTelephone,
+    id_genero = pSex,
+    talla_paciente = pHeight,
+    peso_paciente = pWeight,
+    id_distrito = idDistrit
+where id_paciente= pId;
+END $$
+DELIMITER ;
+
+
+-- INSERT INTO paciente VALUES('PAC0000001','ASDASD AS','ASDSA demo', 'ADSA demo', '1990-09-17', NULL,'999 999 999', 1,1.77,70.2,1);
+DELIMITER $$
+CREATE PROCEDURE usp_patient_list_all() BEGIN
+SELECT
+    p.id_paciente,
+    p.nombre_paciente,
+    p.apellidos_paciente,
+    p.direccion_paciente,
+    p.fecha_cumpleanos,
+    p.fecha_muerte,
+    p.telefono_paciente,
+    g.descripcion,
+    p.talla_paciente,
+    p.peso_paciente,
+    d.iso_distrito,
+    p.fecha_creacion
+FROM paciente p
+LEFT JOIN genero g
+ON p.id_genero = g.id_genero
+LEFT JOIN distrito d
+ON p.id_distrito = d.id_distrito;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE usp_patient_list_by_name(pName Varchar(80))
+BEGIN
+SELECT
+    p.id_paciente,
+    p.nombre_paciente,
+    p.apellidos_paciente,
+    p.direccion_paciente,
+    p.fecha_cumpleanos,
+    p.fecha_muerte,
+    p.telefono_paciente,
+    g.descripcion,
+    p.talla_paciente,
+    p.peso_paciente,
+    d.iso_distrito,
+    p.fecha_creacion
+FROM paciente p
+LEFT JOIN genero g
+ON p.id_genero = g.id_genero
+LEFT JOIN distrito d
+ON p.id_distrito = d.id_distrito
+WHERE p.nombre_paciente LIKE concat('%',pName,'%') OR p.apellidos_paciente LIKE concat('%',pName,'%') ;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE usp_patient_list_by_date(pStartDate DATE, pEndDate DATE)
+BEGIN
+SELECT
+    p.id_paciente,
+    p.nombre_paciente,
+    p.apellidos_paciente,
+    p.direccion_paciente,
+    p.fecha_cumpleanos,
+    p.fecha_muerte,
+    p.telefono_paciente,
+    g.descripcion,
+    p.talla_paciente,
+    p.peso_paciente,
+    d.iso_distrito,
+    p.fecha_creacion
+FROM paciente p
+LEFT JOIN genero g
+ON p.id_genero = g.id_genero
+LEFT JOIN distrito d
+ON p.id_distrito = d.id_distrito
+WHERE p.fecha_creacion BETWEEN pStartDate AND pEndDate;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE usp_patient_list_by_id(pId CHAR(10))
+BEGIN
+SELECT
+    p.id_paciente,
+    p.nombre_paciente,
+    p.apellidos_paciente,
+    p.direccion_paciente,
+    p.fecha_cumpleanos,
+    p.fecha_muerte,
+    p.telefono_paciente,
+    g.descripcion,
+    p.talla_paciente,
+    p.peso_paciente,
+    d.iso_distrito,
+    p.fecha_creacion
+FROM paciente p
+LEFT JOIN genero g
+ON p.id_genero = g.id_genero
+LEFT JOIN distrito d
+ON p.id_distrito = d.id_distrito
+WHERE p.id_paciente = pId;
+END $$
+DELIMITER ;
+
+
+
+
+INSERT INTO paciente VALUES('PAC0000001','ASDASD AS','ASDSA demo', 'ADSA demo', '1990-09-17', NULL,'999 999 999', 1,1.77,70.2,1, '1990-09-17', NULL);
+INSERT INTO paciente VALUES('PAC0000002','jhghjk AasdS','ghjg demo', 'ghjgh demo', '1990-09-27', NULL,'999 999 999', 1,1.77,70.2,1, '1990-09-27', NULL);
+INSERT INTO paciente VALUES('PAC0000003','jhghjk AasdS','ghjg demo', 'ghjgh demo', '1990-09-17', NULL,'999 999 999', 1,1.77,70.2,1, '1990-09-17', NULL);
+INSERT INTO paciente VALUES('PAC0000004','jhghjk AasdS','ghjg demo', 'ghjgh demo', '1990-10-17', NULL,'999 999 999', 1,1.77,70.2,1, '1990-10-17', NULL);
+
+call usp_patient_update('PAC0000001','nombre demo','apellido demo', 'direccion demo', '1990-09-17', NULL,'999 999 999', 1,1.77,70.2,1);
