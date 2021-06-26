@@ -47,7 +47,8 @@ CREATE TABLE consultorio (
     id_consultorio                  CHAR(5)             NOT NULL    PRIMARY KEY,
     descripcion_consultorio         VARCHAR(80)         NULL,
     id_estado_consultorio           INT             	NULL,
-    FOREIGN KEY(id_estado_consultorio)  REFERENCES estado_consultorio(id_estado_consultorio)
+    FOREIGN KEY(id_estado_consultorio)  REFERENCES estado_consultorio(id_estado_consultorio),
+    CHECK (id_consultorio LIKE 'R____')
 );
 
 CREATE TABLE especialidad (
@@ -221,7 +222,7 @@ CREATE TABLE salida_personal (
     hora_salida                     VARCHAR(45)         NULL,
     fecha_salida                    DATETIME            NULL,
     id_personal                     CHAR(5)             NULL,
-    FOREIGN KEY(id_personal)            REFERENCES personal (id_personal)
+    FOREIGN KEY(id_personal)        REFERENCES personal (id_personal)
 );
 
 
@@ -581,6 +582,32 @@ CREATE PROCEDURE usp_addMedicationState(descriptionM VARCHAR(80)) BEGIN
 END $$
 DELIMITER ;
 -- <END> MEDICATION STATE STORE PROCEDURES
+
+-- <BEGIN> ROOM STORE PROCEDURES
+DROP PROCEDURE IF EXISTS usp_listRoom;
+DELIMITER $$
+CREATE PROCEDURE usp_listRoom() BEGIN
+	SELECT id_consultorio, descripcion_consultorio, id_estado_consultorio
+	FROM consultorio;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_addRoom;
+DELIMITER $$
+CREATE PROCEDURE usp_addRoom(idRoom CHAR(5), descriptionRoom VARCHAR(80), idRoomState INT) BEGIN
+	INSERT INTO consultorio(id_consultorio, descripcion_consultorio, id_estado_consultorio)
+	VALUES (idRoom, descriptionRoom, idRoomState);
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS usp_updateRoom;
+DELIMITER $$
+CREATE PROCEDURE usp_updateRoom(idRoom CHAR(5), descriptionRoom VARCHAR(80), idRoomState INT) BEGIN
+	UPDATE estado_medicamento
+	SET id_consultorio = idRoom, descripcion_consultorio = descriptionRoom, id_estado_consultorio = idRoomState;
+END $$
+DELIMITER ;
+-- <END> ROOM STORE PROCEDURES
 
 -- QUERIES
 
