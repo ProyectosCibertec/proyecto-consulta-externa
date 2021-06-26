@@ -37,6 +37,7 @@ public class Login extends JFrame {
 	private JPasswordField txtPassword;
 	private JButton btnSingIn;
 	private JLabel lblForgotPassword;
+	public static String NameOfUser = "null";
 
 	/**
 	 * Launch the application.
@@ -196,6 +197,7 @@ public class Login extends JFrame {
 			} else {
 				p = new PersonalManagement().getPersonalWithUser(user);
 				message.message(this, "Bienvenido " + p.getPersonalName());
+				NameOfUser = p.getPersonalName();
 			}
 		}
 

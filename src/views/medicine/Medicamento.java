@@ -44,7 +44,7 @@ public class Medicamento {
 		frmMedicamento = new JFrame();
 		frmMedicamento.setTitle("Medication");
 		frmMedicamento.setBounds(100, 100, 450, 154);
-		frmMedicamento.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMedicamento.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmMedicamento.getContentPane().setLayout(null);
 
 		JLabel lblIdMedicamento = new JLabel("ID Medication");
